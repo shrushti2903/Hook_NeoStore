@@ -1,0 +1,16 @@
+export const endOfApi ={ Accept: "application/json", "Content-Type": "application/json"};
+export const allCategory = 'getAllCategories';
+export const categoryById = 'getProductByCateg/';
+export const allColor = 'getAllColors';
+export const colorById = 'getProductBycolor/'
+export const topRatingProduct = 'topRatingProduct';
+export const allProduct = 'getAllProducts';
+export const allProductDescending = 'getAllProductsInDescending';
+export const allProductAscending = 'getAllProductsInAscending';
+export const allProductInHighestRating = 'getAllProductsInHighestRating';
+export const commonProducts = 'commonProducts';
+export const productDetail = 'getProductByProdId/';
+export const colorAndCategory = 'getProductByColor/';
+export const searchedText = 'getProductBySearchText/';
+export const allCartData = 'getAllCartData';
+export const updateProductById = 'updateProductByProdId/'

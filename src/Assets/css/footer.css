@@ -1,0 +1,55 @@
+
+#subscribeBtn {
+    width: 100px;
+    height: 30px;
+    margin: 15px 15px 15px 15px;
+    line-height: 0;
+}
+
+.main-footer{
+    color: white;
+    background-color: black;
+    position: relative;
+  
+    bottom: 0;
+    
+}
+ .about-company{
+     margin-top: 20px;
+     margin-left: 10px;
+     text-align: center;
+ }
+ .information{
+     margin-top: 20px;
+     margin-left: 10px;
+     margin-right: 10px;
+     text-align: center;
+ }
+ .news-letter{
+margin-top: 20px;
+margin-left: -70px ;
+margin-right: 10px;
+padding: 0px;
+text-align: center;
+ }
+ .footer-row{
+     margin-bottom: 20px;
+ }
+ .row{
+     margin-left: 0px;
+     margin-right: 0px;
+ }
+.a {
+    color:white;
+    text-decoration: none;
+    background-color: transparent;
+}
+.a:hover {
+    color: white;
+    text-decoration: none;
+}
+.copy-right{
+    text-align: center;
+    
+}
+

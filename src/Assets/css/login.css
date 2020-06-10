@@ -1,0 +1,103 @@
+.log-btn{
+    border-right: 2px solid black;   
+}
+ .icon-btn{
+     margin-left: 20px !important;
+     margin-bottom: 20px;
+ }
+#fb-btn  {
+    width: 80% ;
+    height: 70px;
+    margin-top: 20px;
+    background-color: #3b5998;
+    color: #fff;
+    border: none;
+    font-family: "Helvetica Neue",sans-serif;
+    font-size: 12px;
+}
+#gog-btn{
+    width: 80%;
+    margin-top: 20px;
+    color: #fff;
+    height: 70px;
+    background-color: #db4437;
+    border: none;
+    font-family: "Helvetica Neue",sans-serif;
+    font-size: 12px;
+}
+#twi-btn{
+    width: 80%;
+    height: 70px;
+    margin-top: 20px;
+    background-color: #00acee;
+    border: none;
+    color: white;
+    font-family: "Helvetica Neue",sans-serif;
+    font-size: 12px;
+}
+.h3 {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px !important;
+    margin-left: 30px;
+}
+
+.form-grp{
+    width:  100px;
+    height: 50px !important;
+    margin-top: 10px;
+}
+.reg-link{
+box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+   padding: 10px 10px 10px 10px ;
+   margin: 5px 5px 5px 5px ;
+    border-radius: 4px;
+    overflow: visible;
+    color: inherit;
+    background: 0 0;
+    font-family: "Helvetica Neue",sans-serif;
+    font-size: 14px;
+    font-weight: 600px
+}
+.reg-li{
+    padding: 10px 10px 10px 10px;
+}
+#register-btn {
+    margin: 40px 0px 0px 0px;
+   color: white;
+    background-color: blue;
+    height: 50px;
+    width: 20%;
+}
+.login-btn{
+    width: 80px;
+    margin-top: 30px;
+    outline: 0 !important;
+    border: none;
+}
+.error-tittle{
+  color: red;
+  margin-left: 50px;
+  vertical-align: middle;
+  font-size: 12px;
+}
+.col-btn{
+    text-align: center;
+}

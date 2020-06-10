@@ -1,0 +1,21 @@
+#login-btn{
+    background-color: blue;
+    color: white;
+    height: 50px;
+    width: 100px;
+    
+}
+.main-forgotten{
+    margin-top: 50px;
+    margin-bottom: 50px;
+   
+}
+.forgot-form{
+    background-color: gray;
+    border-width: 20px;
+    box-shadow: gray;
+    
+}
+.text-center{
+    color: black;
+}

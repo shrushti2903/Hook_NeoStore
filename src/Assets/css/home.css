@@ -1,0 +1,28 @@
+.main-slider{
+    margin-top: 0px;
+    text-align: center;
+}
+.slider{
+height: 500px;
+}
+.pop-product{
+   margin-top: 45px;
+   text-align: center;
+}
+.view-all-btn{
+    
+ background-color: white;
+ text-decoration-style: none;
+ border: none;
+ margin-top: 10px;
+ 
+}
+.view-all{
+    text-decoration: inherit;
+    color: black;
+    font-size: 20px;
+   }
+.view-all:hover{
+    color: black;
+    text-decoration: inherit;
+}

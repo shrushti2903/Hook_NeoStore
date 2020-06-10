@@ -1,0 +1,54 @@
+.table-col{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.total-col{
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.delet-icon{
+    color: brown;
+    font-size:  25px;
+}
+.table-img{
+    width: 100px;
+    height: 80px;
+}
+.img-td{
+    padding: 15px 15px 15px 15px !important;
+    margin-left: 10px;
+}
+.quantity-input__screen{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    text-align: center;
+    margin-right: 10px;
+}
+.quantity-input__modifier{
+    border-radius: 50%;
+    background-color: red;
+    border: none;
+    outline: 0px !important;
+}
+.left{
+    float: left;
+    text-align: left;
+    font-weight: bold;
+}
+.right{
+    float: right;
+    text-align: right;
+    font-weight: bold;
+}
+.procced-btn{
+    width: 100%;
+    margin-top: 20px;
+    margin-right: 20px;
+    outline: 0px !important;
+}
+.instock{
+    color: green    ;
+}

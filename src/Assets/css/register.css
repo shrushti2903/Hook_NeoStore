@@ -1,0 +1,80 @@
+
+#fb{
+   margin: 40px 20px;
+    height: 60px;
+    background-color: #3b5998;
+    color: #fff;
+    border: none;
+    width: 300px;
+    
+}
+.fb-gog-col{
+    text-align: center;
+}
+#gog{
+    margin: 0px 5px;
+    height: 60px;
+    background-color: #db4437;
+    color: #fff;
+    width: 300px ;
+    border: none;
+}
+.card-register{
+    margin: 30px 80px;
+    padding: 1px;
+}
+.card-register-body{
+    padding: 1px;
+}
+.register-heading{
+    margin: 20px 20px;
+}
+#formGroupFirstName{
+    height: 60px;
+}
+#formGroupLastName{
+    height: 60px;
+}
+#formGroup-Email{
+    height: 60px;
+}
+#formGroup-Password{
+    height: 60px;
+}
+#formGroupConPassword{
+    height: 60px;
+}
+#formGroupNumber{
+    height: 60px;
+}
+.error-tittle{
+    color: red;
+    margin-left: 50px;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+ .radio{
+     margin-left: 10px;
+     margin-top: 20px;
+     font-size: 18px;
+ }
+ #head{ 
+     color: black;
+ }
+ .checkbox{
+     margin-top: 30px;
+     /* padding-left: 10px; */
+     margin-left: 20px;
+ }
+ #register-btn{
+     color: white;
+     background-color: blue;
+     width: 10%;
+     height: 50px;
+ }
+ .radio{
+     color: black;
+ }
+#span-reg{
+    color: white;
+}
