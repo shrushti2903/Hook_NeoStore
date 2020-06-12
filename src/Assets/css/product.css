@@ -1,0 +1,73 @@
+.sort{
+    text-align: right;
+    
+}
+.star-btn{
+    border: none;
+    height: 45px;
+    width: 60px;
+    background-color: white;
+    color: #36b ;
+    outline: 0px !important;
+}
+.star-icon{
+    color: #36b;
+    font-size: 20px;
+}
+.col-sidebar{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.col-products{
+    margin-left: 0px;
+    padding: 5px;
+    margin-right: 0px;
+}
+.tittle{
+    margin-left: 0px ;
+    margin-bottom: 30px;
+    padding: 0px 0px 0px 0px;
+}
+.color-block{
+        width: 30px;
+        height: 30px;
+        margin-left: 20px;
+        border: none;
+}
+
+.row-product{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.pagination {
+    margin: 15px auto;
+    display: flex;
+    list-style: none;
+    outline: none;
+  }
+  .pagination > .active > a{
+    background-color: #47ccde ;
+    border-color: #47ccde ;
+   
+    color: #fff;
+  }
+  .pagination > li > a{
+    padding: 5px 10px;
+    outline: none;
+    cursor: pointer;
+  }
+  .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #2199e8 ;
+    outline: none ;
+    color: white;
+  }
+  .pagination > li > a, .pagination > li > span{
+    color: black;
+  }
+  .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
+    border-radius: unset
+  }
+  .pagination{
+      text-align: center;
+    margin-left: 550px;
+  }
