@@ -17,22 +17,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {fetchRegisterData} from '../redux/action/customerDataAction'
 import produce from "immer";
 import { set, has } from "lodash";
+import {useInput} from '../Components/useInput'
 
 const initialState = {
-    form : {
-        firsName : "",
-        lastName : "",
-        email : "",
-        password : "",
-        confirmPassword : "",
-        Phone : "",
-        },
-        gender : 
-
-        {
-            male : "",
-            female : "",
-        },
     error : {
         firstNameError : "",
         lastNameError :  "",
@@ -46,64 +33,38 @@ const initialState = {
 
 
 const Resgister = () =>{
-    
-    const [form , setForm] = useState({initialState});
-    const [gender , setGender] = useState( initialState);
-    const [error , setError] = useState(initialState);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const loginDataList = useSelector((state)=> state.customerData.register)
     const dispatch = useDispatch()
-   
-    const handllerChange = (event)=>{
-       const name = event.target.name;
-       const value = event.target.value
-       console.log('value',value)
-       console.log('name',name)
-      setForm(
-          { 
-              ...form,
-              [name] : value
-
-          },
-          console.log('form', form)
-        );
-     setGender({
-         ...gender,
-        [name] : value
-        
-     },
-     console.log('form', gender)
-     )
-    
-     
-    }
-    
+    const [error , setError] = useState(initialState);
+    const [firstName, setFirtName]= useInput('');
+    const [lastName, setLastName] = useInput('');
+    const [email, setEmail] = useInput('');
+    const [password, setPassword] = useInput('');
+    const [confirmPassword , setConfitmPassword ] = useInput('');
+    const [data] = useState({male:"male",female:"female",other:"other"})
+  const [gender, setGender 
+] = useInput(""); 
+    const [phone , setPhone] = useInput('');
     const handlerSubmit = event => {
         event.preventDefault();
-        setError(validate(form));
-        setIsSubmitting(true);
+        setError(validate(firstName , lastName , email , phone, password, confirmPassword , data));
         const user = {
-            first_name : form.firstName,
-            last_name : form.lastName,
-            email : form.email,
-            pass : form.password,
-            confirmPass : form.confirmPassword,
-            phone_no : form.Phone,
-            gender : gender.gender,
+            first_name : firstName,
+            last_name : lastName,
+            email : email,
+            pass : password,
+            confirmPass : confirmPassword,
+            phone_no : phone,
+            gender : gender,
         }
         const isValid = validate 
         if (isValid){
             dispatch(fetchRegisterData(user))
-            console.log('forrm',form)
         }
-      };
-    
-      useEffect(() => {
-        if (Object.keys(error).length === 0 && isSubmitting) {
-            console.log("Submitted Succesfully");        }
-      }, [error]);
-    
-     
+        console.log(user);
+      }; 
+
+      
         return (
             <div>
                    
@@ -135,64 +96,60 @@ const Resgister = () =>{
                                 <Form.Control id="formGroupFirstName" 
                                 type="text" 
                                 placeholder="First Name" 
-                                value = {form.firstName} 
-                                name ="firstName" 
-                                onChange={handllerChange} />
+                               value={firstName} 
+                               onChange={setFirtName}/>
                             </Form.Group>
                             <div className ="error-tittle" >{error.firstNameError}</div>
                             <Form.Group controlId="formGroupLastName">
                                 <Form.Control id="formGroupLastName" 
                                 type="text" 
                                 placeholder="Last Name"
-                                value ={form.lastName} 
-                                name ="lastName"
-                                onChange={handllerChange} />
+                                value={lastName} 
+                               onChange={setLastName} />
                             </Form.Group>
                             <div className ="error-tittle" >{error.lastNameError}</div>
                             <Form.Group controlId="formGroupEmail">
                                 <Form.Control id="formGroup-Email" 
                                 type="email" 
                                 placeholder="Enter email" 
-                                value ={form.email}
-                                name = "email"
-                                onChange={handllerChange} />
+                                value={email} 
+                               onChange={setEmail} />
                             </Form.Group>
                             <div className ="error-tittle" >{error.emailError}</div>
                             <Form.Group controlId="formGroupPassword">
                                 <Form.Control id="formGroup-Password" 
                                 type="password" 
                                 placeholder="Password"
-                                value ={form.password} 
-                                name = "password"
-                                onChange={handllerChange} />
+                                value={password} 
+                                onChange={setPassword} />
                             </Form.Group>
                             <div className ="error-tittle" >{error.passwordError}</div>
                             <Form.Group controlId="formGroupConPassword">
                                 <Form.Control id="formGroupConPassword" 
                                 type="password" 
                                 placeholder="Confirm Password"
-                                value ={form.confirmPassword}
-                                name ="confirmPassword"
-                                onChange={handllerChange} />
+                                value={confirmPassword} 
+                                onChange={setConfitmPassword} />
                             </Form.Group>
                             <div className ="error-tittle" >{error.confirmPasswordError}</div>
                             <Form.Group controlId="formGroupNumber">
                                 <Form.Control id="formGroupNumber" 
                                 type="text" 
                                 placeholder="Enter Phone Number"
-                                value ={form.Phone}
-                                name ="Phone"
-                                onChange={handllerChange} />
+                                value={phone} 
+                                onChange={setPhone}  />
                             </Form.Group>
                             <div className ="error-tittle" >{error.phoneError}</div>
                             <div>
                             <span id="head">Gender : </span>
                         <div class="custom-control custom-radio custom-control-inline radio">
-                            <input type="radio" class="custom-control-input" id="defaultInline1" value ={gender.male} name="gender"  onChange={handllerChange} />
-                            <label class="custom-control-label radio" for="defaultInline1">Male</label>
+                        <input type="radio" id={data.male} value={data.male}
+        checked={data.male === gender} onChange={setGender}/>
+        <label htmlFor={data.male}>Male</label>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input " id="defaultInline2" value={gender.female} name="gender"  onChange={handllerChange} />
-                                <label class="custom-control-label radio" for="defaultInline2">Female</label>
+                            <input type="radio" id={data.female} value={data.female}
+        checked={data.female === gender} onChange={setGender}/>
+        <label htmlFor={data.female}>Female</label>
                             </div>
                         </div>   
                         </div>

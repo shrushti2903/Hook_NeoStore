@@ -13,6 +13,7 @@ import Resgister from './Components/Register';
 import Forgotten from './Components/Forgotten';
 import ContactForm from './Components/ContatForm';
 import Cart from './Components/Cart'
+import  productDetail  from './Components/ProductDetail';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
        <Route path ="/login" component = {Login}/>
        <Route path = "/forgotten" component = {Forgotten}/>
        <Route path = "/contactform" component={ContactForm}/>
+       <Route path = "/productDetails" component={productDetail}/>
        <Route path = "/cart" component={Cart}/>
 
     

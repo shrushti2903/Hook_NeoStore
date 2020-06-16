@@ -26,22 +26,22 @@ const Product = (props)=> {
   const [ProductDataList , setProduct] = useState([]);
   const dispatch = useDispatch()
   useEffect(()=>{
-    console.log('effect ')
+    // console.log('effect ')
     dispatch(fetchCategory())
    dispatch(fetchColor())
    dispatch(fetchAllProduct())
   
   },[])
 // console.log('product data list', ProductDataList)
-  const getCategoryId = (id) => {
-    console.log(id)
-    dispatch(fetchCategoryId(id));
-         setProduct({
-          CategoryIdList
-         },
-         )   
-  }
-  console.log('render')
+  // const getCategoryId = (id) => {
+  //   console.log(id)
+  //   dispatch(fetchCategoryId(id));
+  //        setProduct({
+  //         CategoryIdList
+  //        },
+  //        )   
+  // }
+  // console.log('render')
   return (
   
     <div>
@@ -54,7 +54,7 @@ const Product = (props)=> {
             <SideBar
               colorList={colorList}
               categoryList={categoryList}
-              getCategoryId={getCategoryId}
+             
               >
             </SideBar>
           </Col>
@@ -62,8 +62,8 @@ const Product = (props)=> {
   <Row>
       <Col lg={12} md={12} className="col-products">
 
-            {/* <ProductCard ProductData={ProductDataList}
-            /> */}
+            <ProductCard ProductData={allProductList}
+            />
           </Col>
           </Row>
           </Col>

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../Assets/css/productrating.css' ;
-import {Link} from 'react-router-dom'
+import {Router ,Link} from 'react-router-dom'
 import {IoIosStarOutline , IoIosStar , IoIosStarHalf} from "react-icons/io";
 import axios from 'axios';
 import {ratingTotalCount } from '../Constants/enum';
@@ -35,7 +35,18 @@ const ProductCard = (props)=> {
                         <Card.Img className="product-card-img" variant="top" src={"http://180.149.241.208:3022/" + data.product_image} />
                         <Card.Body>
                           <Card.Title className="product-card-link">
-                            {data.product_name}
+                          
+                         
+                          <Link to={
+                            {
+                              pathname: '/productDetails',
+                              state : {
+                               id : data.product_id
+                              }
+                            }
+                          }
+                            >{data.product_name}</Link>
+                            
                           </Card.Title>
                           <Card.Text className="prize">
                             <p>Rs {data.product_cost}</p>

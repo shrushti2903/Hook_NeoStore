@@ -16,10 +16,10 @@ import { render } from '@testing-library/react';
 const SlideBar = (props) => {
       
  const {categoryList , colorList} = props
-const handleCategory = (event) =>{
-    props.getCategoryId(event.target.id)
-    console.log('id ',event.target.id)
-}
+// const handleCategory = (event) =>{
+//     props.getCategoryId(event.target.id)
+//     console.log('id ',event.target.id)
+// }
             return (
                 <div className="side-nav">
                     <div  >
@@ -38,7 +38,7 @@ const handleCategory = (event) =>{
                                                 <span
                                                     className="cat-btn-dropdown" 
                                                     id={categories.category_id}
-                                                onClick={handleCategory}
+                                             
                                                 >
                                                         {categories.category_name}
 
