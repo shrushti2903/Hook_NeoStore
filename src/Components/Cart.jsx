@@ -15,11 +15,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 
 const  Cart = () =>{
-const [incrementProductCount , setIncrementProductCount] = useState( );
-const [decrementProductCount , setDecrementProductCount] = useState();
     const  cartDataList = useSelector( (state) => state.cartData.allCartData);
+    const [incrementProductCount , setIncrementProductCount] = useState( );
+    const [decrementProductCount , setDecrementProductCount] = useState();
     const dispatch = useDispatch();
     useEffect(()=>{
+        const incrementProductCount = ()=> {
+            
+        }
         dispatch(fetchAllCartData())
     })
     
@@ -61,7 +64,7 @@ const [decrementProductCount , setDecrementProductCount] = useState();
                                                 &mdash;
                                             </button>
                                             <input className="quantity-input__screen" type="text" value={cart.quantity} readonly />
-                                            <button className="quantity-input__modifier quantity-input__modifier--right" onClick={()=> setIncrementProductCount(cart.quantity + 1)}>
+                                            <button className="quantity-input__modifier quantity-input__modifier--right" onClick={incrementProductCount}>
                                                 &#xff0b;
                                             </button>
                                         </td>

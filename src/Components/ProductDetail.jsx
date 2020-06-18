@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Tabs from 'react-bootstrap/Tabs';
@@ -17,37 +17,41 @@ import { useLocation } from 'react-router-dom';
 import { useState , useRef} from 'react';
 
 
+
 const ProductDetails = (props) =>{
     const productDetails = useSelector((state)=>  state.productCardData.productDetail);
     const productDetailsList = productDetails[0];
     const productImage = productDetailsList && productDetailsList.product_image ;
     console.log('product detail',productImage)
-    // const productImage = productDetailsList &&  "http://180.149.241.208:3022/" + productDetailsList.product_image  ;
-    // const [productImageData] = useState( )
-    const [image , setImage] = useState("http://180.149.241.208:3022/" + productImage);
+    const [image , setImage] =  useState({ url : '' });
     const dispatch = useDispatch();
     const location = useLocation();
     console.log('location =' , location)
-    useEffect(()=>{
-        const id = location.state.id
-        dispatch(fetchProductDetails(id))
+    useLayoutEffect(()=>{
+            const id = location.state.id
+             dispatch(fetchProductDetails(id));
+                     setImage( 
+                         "http://180.149.241.208:3022/" + productImage 
+                   
+                        )
     },[])
    const changeImage = (event) =>{
-       console.log('src imag', event.target.src)
        let img = event.target.src
-setImage(
-     img)
+       console.log('src imag', img)
+       
+           setImage({
+               url : img
+           })
+    
     }
     return (
             <div>
+
                 <Row>
                     <Col lg={6} className="img-col">
-                     
-                  
-                                <img
-                                    className="img-main"
-                                    src={image} />
-                      
+                          <img
+                              className="img-main"
+                              src={image ? "http://180.149.241.208:3022/" + productImage : image } />
                         <Row>
 
                             {
