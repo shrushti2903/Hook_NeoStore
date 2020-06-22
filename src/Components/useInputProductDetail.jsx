@@ -3,9 +3,9 @@ import { useState } from "react";
 export const useInputProductDetail =() =>{
     const [value,setValue] = useState();
  
-     function changeImage(e){
-         setValue(img);
+     function handlerChange(e){
+         setValue(e.target.value);
      }
  
-    return [value,changeImage];
+    return [value,handlerChange];
  }

@@ -1,4 +1,4 @@
-import React  from 'react';
+import React ,{useState} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -9,13 +9,25 @@ import {IoIosStarOutline , IoIosStar , IoIosStarHalf} from "react-icons/io";
 import axios from 'axios';
 import {ratingTotalCount } from '../Constants/enum';
 import {apiUrl } from '../Constants/api';
+import EditAddModalPop from '../Components/EditAddModalPop';
+import {MdModeEdit} from 'react-icons/md';
 
 
 import { Container } from 'react-bootstrap';
+import { useRef } from 'react';
+
 
 
 const ProductCard = (props)=> {
+const productIdRef = useRef(null)
+const [addModalShow , setModalShow] = useState(false)
+const handleClose = () => setModalShow(false);
+const handleShow = (event) => {
+  const productId = event.target.id
+  console.log(productId)
   
+  setModalShow(true);
+}
       const {ProductData} = props;
       return (
         <div>
@@ -32,6 +44,31 @@ const ProductCard = (props)=> {
                   return (
                     <Col lg={4}>
                       <Card className="product-card-list">
+                      <Button className="edit" variant="danger" id={data.product_id} onClick={handleShow}>
+                   <MdModeEdit/>
+                </Button>
+                {
+                  addModalShow ? 
+                  <EditAddModalPop className="edit"
+                 productId ={data.product_id}
+                    colorId={data.color_id}
+                    id={"5cfe3f0fb4db0f338946eabd"}
+                    categoryId={data.category_id} 
+                    describtion ={data.product_desc}
+                    rating={data.product_rating}
+                    producer={data.product_producer}
+                    cost={data.product_cost}
+                    stock={data.product_stock}
+                    dimension={data.product_dimension}
+                    material={data.product_material}
+                    name={data.product_name}
+                    show={addModalShow}
+                    handleClose={handleClose}
+                  />
+                 :
+                 ''
+                }
+               
                         <Card.Img className="product-card-img" variant="top" src={"http://180.149.241.208:3022/" + data.product_image} />
                         <Card.Body>
                           <Card.Title className="product-card-link">
