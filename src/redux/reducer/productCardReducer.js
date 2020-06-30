@@ -42,7 +42,12 @@ import {FETCH_UPDATEPODUCTBYPRODUCTID_REQUEST,
     FETCH_UPDATEPODUCTBYPRODUCTID_SUCCESS,
     FETCH_UPDATEPODUCTBYPRODUCTID_FAILURE}
 from '../../Constants/typeActionRedux/typeAction';
-
+import {
+    FETCH_PRODUCTCARTDETAILS_REQUEST,
+    FETCH_PRODUCTCARTDETAILS_SUCCESS,
+    FETCH_PRODUCTCARTDETAILS_FAILURE
+}
+from '../../Constants/typeActionRedux/typeAction';
 const productCardData = {
     loading : true,
     productCard : [],
@@ -56,7 +61,8 @@ const productCardData = {
     error : '',
     searchedText : [],
     productSubImage : [],
-    updateProductByProductId : []
+    updateProductByProductId : [],
+    cartData : [],
     
 }
 
@@ -281,7 +287,8 @@ const productCardData = {
                                 productSubImage: [],
                                 error: action.payload,
                             }
-                            break;case FETCH_UPDATEPODUCTBYPRODUCTID_REQUEST:
+                            break;
+                            case FETCH_UPDATEPODUCTBYPRODUCTID_REQUEST:
                             return {
                                 ...state,
                                 loading: true,
@@ -301,6 +308,14 @@ const productCardData = {
                                 loading: false,
                                 updateProductByProductId: [],
                                 error: action.payload,
+                            }
+                            break;
+                        case FETCH_PRODUCTCARTDETAILS_SUCCESS:
+                            return {
+                                ...state,
+                                loading: false,
+                                cartData : action.payload,
+                                error: '',
                             }
                             break;
          default: return state

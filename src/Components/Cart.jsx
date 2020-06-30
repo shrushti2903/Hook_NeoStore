@@ -20,10 +20,6 @@ const  Cart = () =>{
     const [decrementProductCount , setDecrementProductCount] = useState();
     const dispatch = useDispatch();
     useEffect(()=>{
-        const incrementProductCount = ()=> {
-            
-        }
-        dispatch(fetchAllCartData())
     })
     
    

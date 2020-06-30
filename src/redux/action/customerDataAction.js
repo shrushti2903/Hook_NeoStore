@@ -40,12 +40,12 @@ export const fetchLoginFailure = (error)=>({
     payload : error
 });
 
-export const fetchLoginData = (user) => {
+export const fetchLoginData =  (user) => {
     return dispatch => {
         dispatch(fetchLoginRequest());
-        return axios({
+        return  axios({
             method: 'POST',
-            url:  `${apiUrl}login`,
+            url:  'http://180.149.241.208:3022/login',
             headers : endOfApi,
             data : user,
         }).then(response => {

@@ -1,5 +1,5 @@
 import React, { useState , useEffect , useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container'
 import { FaFacebookF } from "react-icons/fa";
@@ -15,23 +15,29 @@ import '../Assets/css/login.css'
 import {apiUrl } from '../Constants/api';
 import axios from 'axios';
 import useForm from './useForm'
-import validate from './ValidateLogin'
+import validate from './ValidateLogin';
  
 
 
 
 
 const Login = ()=> {
-  const { handleChangeAll , handleSubmit, form, error } = useForm(
+  const { handleChangeAll , handleSubmit, form, error , loggedIn} = useForm(
     submit,
     validate
   );
 
+  
+ 
+
   function submit() {
     console.log("Submitted Succesfully");
   }
+  console.log('login',loggedIn)
+  if(loggedIn){
+    return <Redirect to="/home"/>
   
-
+  }
     return (
       <div>
         <Container fluid>

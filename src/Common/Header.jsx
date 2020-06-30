@@ -17,15 +17,19 @@ import { ButtonGroup } from 'react-bootstrap'
 import {fetchAllCartData} from '../redux/action/cartDataAction';
 import { BrowserRouter, Route, Link , Switch } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
 
-const Header =()=> {
-  const cartDataList = useSelector((state) => state.cartData.allCartData);
+
+
+const Header =(props)=> {
+  const productCartDetails = useSelector((state) => state.productCardData.cartData)
+  console.log('header product cart' , productCartDetails.length)
   const dispatch = useDispatch();
   useEffect(()=>{
-    dispatch(fetchAllCartData())
-  },[])
-
+    console.log('header in useEffect')
+  },[productCartDetails])
         return (   
+
             <div>
                 <Navbar className="navbar" expand="lg" variant = "dark"  >
                     <Navbar.Brand className="brand"><Link to="/home" className="link">Neo<b>STORE</b></Link></Navbar.Brand>
@@ -33,8 +37,8 @@ const Header =()=> {
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav>
       <Nav.Link ><Link to="/home" className ="link-option" >Home</Link></Nav.Link>
-      <Nav.Link ><Link to="Product" className ="link-option" >Product</Link></Nav.Link>
-     <Nav.Link ><Link to="Order" className ="link-option" >Order</Link></Nav.Link>
+      <Nav.Link ><Link to="/Product" className ="link-option" >Product</Link></Nav.Link>
+     <Nav.Link ><Link to="/Order" className ="link-option" >Order</Link></Nav.Link>
     </Nav>
     <Form inline>
     <InputGroup>
@@ -57,7 +61,7 @@ const Header =()=> {
     <MdShoppingCart color="black" size = "1.5rem">
     </MdShoppingCart>
     
-      <Badge className="count" variant="danger">{cartDataList.length}</Badge>
+      <Badge className="count" variant="danger">{productCartDetails.length}</Badge>
     
       Cart  
     </Button>
@@ -67,8 +71,10 @@ const Header =()=> {
     <MdPermContactCalendar color = "black" size = "2rem"/>
   </Dropdown.Toggle>
   <Dropdown.Menu>
-  <Dropdown.Item ><Link to="login" className="link-drop" >Login</Link></Dropdown.Item>
-   <Dropdown.Item ><Link to="register" className="link-drop" >Register</Link></Dropdown.Item>
+  <Dropdown.Item >
+    <Link to="/login" className="link-drop" >Login</Link>
+    </Dropdown.Item>
+   <Dropdown.Item ><Link to="/register" className="link-drop" >Register</Link></Dropdown.Item>
   </Dropdown.Menu>
 </Dropdown>
   </Form>

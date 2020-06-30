@@ -42,6 +42,12 @@ import {FETCH_UPDATEPODUCTBYPRODUCTID_REQUEST,
         FETCH_UPDATEPODUCTBYPRODUCTID_SUCCESS,
         FETCH_UPDATEPODUCTBYPRODUCTID_FAILURE}
 from '../../Constants/typeActionRedux/typeAction';
+import {
+    FETCH_PRODUCTCARTDETAILS_REQUEST,
+    FETCH_PRODUCTCARTDETAILS_SUCCESS,
+    FETCH_PRODUCTCARTDETAILS_FAILURE
+}
+from '../../Constants/typeActionRedux/typeAction';
 import axios from 'axios';
 import {apiUrl} from '../../Constants/api';
 import {endOfApi, 
@@ -386,3 +392,27 @@ export const fetchUpdateProductByProductId = (id,user) => {
 }
 
 
+
+export const fetchCartProductDetailSUCCESS = (cartData) =>({
+    type : FETCH_PRODUCTCARTDETAILS_SUCCESS,
+    payload : cartData
+});
+
+
+let productDetails = [];
+export const fetchCartProductDetail = (productToCartId , name , producer , cost , stock , img , id  )=>{
+    return dispatch => {
+        const found = productDetails.filter(
+            (element) => element.id == productToCartId
+            );
+            if (found && found.length){
+              alert('already added')
+              return
+            }
+            productDetails.push({name , producer , cost , stock , img , id})
+            alert('added to cart');
+            dispatch(fetchCartProductDetailSUCCESS(productDetails))
+            console.log('details' , productDetails)
+
+    }
+}

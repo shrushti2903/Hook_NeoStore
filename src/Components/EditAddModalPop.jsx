@@ -13,40 +13,56 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import {useInputProductDetail} from '../Components/useInputProductDetail'
 import { useInput } from './useInput';
 
  
 const EditAddModlPop = (props)=> {
+    
 const {productId} = props
 console.log(productId)
+const categoryList = useSelector((state) => state.categoriesData.categories)
+const colorList = useSelector((state)=> state.colorData.color)
+const updateProduct = useSelector((state)=> state.productCardData.updateProductByProductId)
+const allProductList = useSelector((state) => state.productCardData.allProduct);
+const productById = allProductList.filter(
+    (product) => product._id == productId
+    );
+const name = productById[0].product_name
+const category = productById[0].category_id.category_name
+const color = productById[0].color_id.color_name
+const describtion = productById[0].product_desc
+const rating = productById[0].product_rating
+const producer = productById[0].product_producer
+const cost = productById[0].product_cost
+const stock = productById[0].product_stock
+const dimensions = productById[0].product_dimension
+const material = productById[0].product_material
+console.log(name)
+console.log(category)
+console.log(color)
+console.log(describtion)
+console.log(rating)
+console.log(producer)
+console.log(cost)
+console.log(stock)
+console.log(dimensions)
+console.log(material)
+
 const {handleClose} = props
 const {show} = props
-const {name} = props
-const {describtion} = props
-const {rating}= props
-const {producer}= props
-const {cost}= props
-const {stock}= props
-const {dimension}= props
-const {material}= props
-const {colorId}= props
-const {categoryId}= props
 const [productName , setProductName] = useInput(name)
 const [productDescribtion , setDescibtion] = useInput(describtion)
 const [productRating , setRating] = useInput(rating)
 const [productProducer , setProducer] = useInput(producer)
 const [productCost , setCost] = useInput(cost)
 const [productStock , setStock] = useInput(stock)
-const [productDimension , setDimension] = useInput(dimension)
+const [productDimension , setDimension] = useInput(dimensions)
 const [productMaterial , setMaterial] = useInput(material)
-const [productCategoryId , setCategoryId] = useInput(categoryId)
-const [productColorId ,setColorId] = useInput(colorId)
-const categoryList = useSelector((state) => state.categoriesData.categories)
-const colorList = useSelector((state)=> state.colorData.color)
-const updateProduct = useSelector((state)=> state.productCardData.updateProductByProductId)
+const [productCategoryId , setCategoryId] = useInput(category)
+const [productColorId ,setColorId] = useInput(color)
+
+
 const dispatch = useDispatch()
- 
 
  useEffect (()=>{
     //  dispatch(fetchCategory())
@@ -107,8 +123,7 @@ const dispatch = useDispatch()
                                             return (
                                                 <option 
                                                 value={productCategoryId}
-                                               
-                                                selected={productCategoryId.category_name === value.category_name}
+                                                selected={productCategoryId === value.category_name}
                                                 onChange={setCategoryId}
                                                 >
                                                      {value.category_name}
@@ -128,8 +143,7 @@ const dispatch = useDispatch()
                                             return (
                                                 <option 
                                                 value={productColorId}
-                                                name="productColorId"
-                                                selected={productColorId.color_name === value.color_name}
+                                                selected={productColorId === value.color_name}
                                                 onChange={setColorId}
                                               >
                                                      {value.color_name}
@@ -187,6 +201,7 @@ const dispatch = useDispatch()
                                 <Form.Label>Enter Product Stock</Form.Label>
                                 <Form.Control 
                                 type="text" 
+                                value={productStock}
                                 placeholder="Enter Product Stock"
                                onChange={setStock}
                                />

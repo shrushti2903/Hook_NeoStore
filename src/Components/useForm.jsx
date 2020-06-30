@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {fetchLoginData} from '../redux/action/customerDataAction'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { Redirect } from 'react-router-dom'
+
 
 const intialState = {
     form : {
@@ -18,9 +20,10 @@ const useForm = (callback , validate) =>{
     const [form , setForm] = useState({intialState});
     const [error , setError] = useState({intialState});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [loggedIn , setLoggedIn] = useState()
     const loginDataList = useSelector((state)=> state.customerData.loginData)
     const dispatch = useDispatch()
-   
+
     const handleChangeAll = (event) => {
         const { name, value } = event.target;
       setForm(
@@ -32,7 +35,7 @@ const useForm = (callback , validate) =>{
         );
       console.log('form', form)
     } 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault();
         setError(validate(form));
         setIsSubmitting(true);
@@ -42,7 +45,12 @@ const useForm = (callback , validate) =>{
           }
         const isValid = validate 
         if (isValid){
-            dispatch(fetchLoginData(user))
+             await dispatch(fetchLoginData(user))
+        }
+        if(loginDataList.status_code == 200){
+         localStorage.setItem('token', loginDataList.token)
+          setLoggedIn(true)
+          console.log('login',loggedIn)
         }
       };
     
@@ -51,12 +59,13 @@ const useForm = (callback , validate) =>{
           callback();
         }
       }, [error]);
-    
+      
       return {
         handleChangeAll,
         handleSubmit,
         form,
-        error
+        error,
+        loggedIn
       };
     }; 
 
@@ -64,3 +73,4 @@ const useForm = (callback , validate) =>{
 
 
 export default useForm;
+

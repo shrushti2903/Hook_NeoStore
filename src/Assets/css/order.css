@@ -1,0 +1,80 @@
+.my-account{
+    margin: 20px  20px 20px 50px;
+}
+.profile-pic{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#imgTitle {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    line-height: 50px;
+    color: brown;
+    font-size: 20px;
+    font-weight: bold;
+}
+.profileOptions {
+   display: block;
+   margin: 20px 20px ;
+}
+.order-btn{
+    vertical-align: middle;
+    outline: #000;
+    width: 400px;
+    color: #36b;
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+}
+.mat-icon{
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    width: 24px;
+}
+
+.order-result{
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+.noAddress{
+    font-size: 50px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+button.mat-primary {
+    background-color: #3f51b5;
+    color: white;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height: 40px;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useReducer} from 'react';
 import './App.css';
 import Header from './Common/Header'
 import Footer from './Common/Footer'
@@ -14,6 +14,7 @@ import Forgotten from './Components/Forgotten';
 import ContactForm from './Components/ContatForm';
 import Cart from './Components/Cart'
 import  productDetail  from './Components/ProductDetail';
+import Logout from './Components/Logout';
 
 function App() {
   return (
@@ -32,11 +33,13 @@ function App() {
        <Route path = "/contactform" component={ContactForm}/>
        <Route path = "/productDetails" component={productDetail}/>
        <Route path = "/cart" component={Cart}/>
+       <Route path = "/logout" component={Logout}/>
 
     
       <Footer/>
       </div>  
     </BrowserRouter>
+
     </Provider>
   );
 }
