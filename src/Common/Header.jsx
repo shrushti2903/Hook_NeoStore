@@ -18,16 +18,20 @@ import {fetchAllCartData} from '../redux/action/cartDataAction';
 import { BrowserRouter, Route, Link , Switch } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
+import { useMemo } from 'react'
+import { fetchCartProductDetail } from '../redux/action/productCardAction'
+import { useCallback } from 'react'
 
 
 
 const Header =(props)=> {
-  const productCartDetails = useSelector((state) => state.productCardData.cartData)
-  console.log('header product cart' , productCartDetails.length)
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    console.log('header in useEffect')
-  },[productCartDetails])
+  const productDetails = useSelector((state) => state.productCardData.cartData)
+  const dispatch = useDispatch()
+  // const [product , setProduct] = useState(productCartDetails)
+  // useEffect(()=>{
+  //   setProduct(product)
+  //   console.log('header product cart' , product.length)
+  // },[product])
         return (   
 
             <div>
@@ -56,16 +60,16 @@ const Header =(props)=> {
       className="mr-sm-2 search-bar "
       />
     </InputGroup>
-    <Link to="/cart">
+    {/* <Link to="/cart">
     <Button variant="light" className = "cart-button" >
     <MdShoppingCart color="black" size = "1.5rem">
     </MdShoppingCart>
     
-      <Badge className="count" variant="danger">{productCartDetails.length}</Badge>
+      <Badge className="count" variant="danger">{productDetails.length}</Badge>
     
       Cart  
     </Button>
-    </Link>
+    </Link> */}
    <Dropdown  alignRight className="drop-down-btn">
   <Dropdown.Toggle variant="light" id="dropdown-basic" className="dropdown-btn">
     <MdPermContactCalendar color = "black" size = "2rem"/>

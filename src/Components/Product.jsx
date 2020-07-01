@@ -12,6 +12,7 @@ import Col from 'react-bootstrap/Col';
 import {IoMdArrowDown , IoIosStar , IoMdArrowUp} from "react-icons/io";
 import ProductCard from '../Components/ProductCard';
 import { useCallback } from 'react';
+import CartCount from './CartCount';
 
 
 
@@ -49,6 +50,8 @@ const Product = (props)=> {
         <button className="star-btn" >₹<IoMdArrowUp className="star-icon" /></button>
         <button className="star-btn">₹<IoMdArrowDown className="star-icon" /></button>
       </h5>
+      <CartCount
+     />
         <Row className='row-product'>
             <Col lg={3} className="col-sidebar">
             <SideBar

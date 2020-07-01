@@ -313,9 +313,8 @@ const productCardData = {
                         case FETCH_PRODUCTCARTDETAILS_SUCCESS:
                             return {
                                 ...state,
-                                loading: false,
+                                loadig : false, 
                                 cartData : action.payload,
-                                error: '',
                             }
                             break;
          default: return state

@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useState, useMemo} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -17,6 +17,7 @@ import { Container } from 'react-bootstrap';
 import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProductDetails, fetchCartProductDetail } from '../redux/action/productCardAction';
+import { useEffect , useCallback} from 'react';
 
 
 
@@ -26,12 +27,12 @@ console.log('details' , productCartDetails)
 const dispatch = useDispatch()
 const [addModalShow , setModalShow] = useState(false)
 const handleClose = () => setModalShow(false);
-let productDetails = [];
 // try {
 //   productCartDetails = JSON.parse(localStorage.getItem('cart')) || []
 // } catch (error) {
   
 // }
+
 const [id , setId] = useState('')
 const handleShow = (event) => {
   const productId = event.target.id

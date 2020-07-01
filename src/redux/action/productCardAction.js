@@ -400,7 +400,7 @@ export const fetchCartProductDetailSUCCESS = (cartData) =>({
 
 
 let productDetails = [];
-export const fetchCartProductDetail = (productToCartId , name , producer , cost , stock , img , id  )=>{
+export const fetchCartProductDetail = (productToCartId ,  name , stock, img , cost , id , producer  )=>{
     return dispatch => {
         const found = productDetails.filter(
             (element) => element.id == productToCartId

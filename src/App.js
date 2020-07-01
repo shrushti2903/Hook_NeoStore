@@ -21,8 +21,8 @@ function App() {
     <Provider store = {store}>
     <BrowserRouter>
     <div >
+     
       <Header/>
-      
       <Route path ="/" exact component = {Home} />
        <Route path ="/home" component = {Home} />
        <Route path ="/product" component = {Product} />
