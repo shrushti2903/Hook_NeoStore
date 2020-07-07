@@ -14,4 +14,5 @@ export const colorAndCategory = 'getProductByColor/';
 export const searchedText = 'getProductBySearchText/';
 export const allCartData = 'getAllCartData';
 export const updateProductById = 'updateProductByProdId/'
-export const Customerorder = 'getCustomerOrder/'
+export const Customerorder = 'getCustomerOrder/';
+export const deleteCartDataById = 'deleteCustomerCart/';

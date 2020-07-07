@@ -10,22 +10,88 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import {AiOutlineDelete} from 'react-icons/ai'
 import {connect} from 'react-redux';
 import Dialog from 'react-bootstrap-dialog'
-import {fetchAllCartData} from '../redux/action/cartDataAction';
+import {fetchAllCartData, fetchDeletProductByProductId} from '../redux/action/cartDataAction';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { Link, Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import {fetchCartProductDetailDelete} from '../redux/action/productCardAction'
 
 const  Cart = () =>{
-    const  cartDataList = useSelector( (state) => state.cartData.allCartData);
-    const [incrementProductCount , setIncrementProductCount] = useState( );
-    const [decrementProductCount , setDecrementProductCount] = useState();
+    // const  cartDataList = useSelector( (state) => state.cartData.allCartData);
+    const productCartDetails = useSelector((state) => state.productCardData)
+    const deletCartDataById = useSelector((state) => state.cartData.deletProductData)
+    const allProductList = useSelector((state) => state.productCardData.allProduct);
+    const cartData = productCartDetails.cartData
+    const cartDataList = JSON.parse(localStorage.getItem('cart')) || []
+    const [quantity ,setQuantity] = useState();
+    const [totalCost , setTotalcost] = useState();
     const dispatch = useDispatch();
-    useEffect(()=>{
-    })
-    
-   
+    const id = localStorage.getItem('token')
+    if(!id){
+        Swal.fire('Please login first')
+      }
+
+
+    const handlerDecrement = (index)=>{
+        console.log(index)
+        const cartDataList = productCartDetails.cartData
+        const elem = cartDataList[index]
+         console.log('element', elem)
+        setQuantity( elem.quantity = elem.quantity > 0 ? elem.quantity - 1 : 0)
+        setTotalcost( elem.totalCost = elem.quantity * elem.cost)
+    }
+
+    const hanlerIncrement = (index)=>{
+        console.log(index)
+        const cartDataList = productCartDetails.cartData
+        const elem = cartDataList[index]
+         console.log('element', elem)
+        setQuantity( elem.quantity = elem.quantity + 1)
+        setTotalcost( elem.totalCost = elem.quantity * elem.cost)
+    }  
+    const handlerDelete = (index) => {
+        console.log(index)
+        dispatch(fetchCartProductDetailDelete(index))
+                
+            
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, delete it!'
+        //   }).then((result) => {
+        //       if (result.value) {
+        //         Swal.fire(
+        //           'Deleted!',
+        //           'Your file has been deleted.',
+        //           'success'
+        //         )
+        //     }
+        //   })
+      };
+
+    const subTotal = cartDataList.reduce((prev, cur) => {
+        return prev + parseInt(cur.totalCost || 0);
+      }, 0);
+      const gst = (subTotal * 5) / 100;
+      const total = subTotal + gst;
         return ( 
             <Container fluid>
-                <Row>
+                {
+                    cartDataList.length == 0?
+                    <div>
+                    <img 
+                     src='../../Assets/images/emptycart.png'></img>
+                    <h5>YOUR CART IS CURRENTLY EMPTY</h5>
+                    <p>EMPTY <br/>
+Before proceed to checkout you must add some products to you shopping cart. <br/>
+You will find lots of intresting products on our products page</p>
+                    </div>
+                    :
+                    <Row>
                     <Col lg={8}>
                         <Card className="table-col">
                             <Table responsive>
@@ -47,26 +113,26 @@ const  Cart = () =>{
                                         <td className="img-td">
                                             <img
                                             className="table-img"
-                                            src={"http://180.149.241.208:3022/" + cart.product_id.product_image}/>
+                                            src={"http://180.149.241.208:3022/" + cart.img}/>
                                         </td>
                                         <td>
-                                        <p>{cart.product_id.product_name} <br/>
-                                        by {cart.product_id.product_producer}.<br/> 
+                                        <p>{cart.name} <br/>
+                                        by {cart.producer}.<br/> 
                                         Status: <span className="instock">In Stock</span>
                                         </p>
                                         </td>
                                         <td className="quantity-input">
-                                            <button className="quantity-input__modifier quantity-input__modifier--left">
+                                            <button className="quantity-input__modifier quantity-input__modifier--left" onClick={()=>handlerDecrement(index)}>
                                                 &mdash;
                                             </button>
                                             <input className="quantity-input__screen" type="text" value={cart.quantity} readonly />
-                                            <button className="quantity-input__modifier quantity-input__modifier--right" onClick={incrementProductCount}>
+                                            <button className="quantity-input__modifier quantity-input__modifier--right" onClick={()=>hanlerIncrement(index)}>
                                                 &#xff0b;
                                             </button>
                                         </td>
-                                        <td>{cart.product_cost.toLocaleString(undefined, {maximumFractionDigits:2})}</td>
-                                        <td>{parseFloat(cart.total_cost).toLocaleString(undefined, {maximumFractionDigits:2})}</td>
-                                        <td ><AiOutlineDelete className="delet-icon"></AiOutlineDelete></td>
+                                        <td>{cart.cost.toLocaleString(undefined, {maximumFractionDigits:2})}</td>
+                                        <td>{parseFloat(cart.totalCost).toLocaleString(undefined, {maximumFractionDigits:2})}</td>
+                                        <td ><AiOutlineDelete className="delet-icon" onClick={()=>handlerDelete(index)}></AiOutlineDelete></td>
                                         
                                     </tr>
                                     
@@ -86,26 +152,45 @@ const  Cart = () =>{
                                 <ListGroup variant="flush">
                                 <ListGroup.Item>
                                     <span className="left"> Subtotal</span>
-                                    <span className="right"></span>
+                                    <span className="right">
+                                    {subTotal.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                                    </span>
                            </ListGroup.Item>
                                     
                                     <ListGroup.Item>
                                     <span className="left"> GST(5%)</span>
-                                    <span className="right"></span>
+                                    <span className="right">
+                                    {subTotal.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                                    </span>
                                     </ListGroup.Item>
                                     
                                     <ListGroup.Item>
                                     <span className="left">Order Total</span>
-                            <span className="right"></span>
+                            <span className="right">
+                            {total.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                            </span>
                                     </ListGroup.Item>
                                     </ListGroup>
-                              
-                                <Button className="procced-btn" variant="primary">Procced To Buy</Button>
+                                    {
+                                        id ?
+                                        <Link to="/address">
+                                    <Button className="procced-btn" variant="primary">Procced To Buy</Button>
+                                    </Link>
+                                    : 
+                                    <Redirect to="/login"/>
+                                    }
+                                    
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
-               
+                }
             </Container>
          );
     }

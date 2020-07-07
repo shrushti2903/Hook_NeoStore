@@ -63,6 +63,7 @@ const productCardData = {
     productSubImage : [],
     updateProductByProductId : [],
     cartData : [],
+    cartDataCount : 0
     
 }
 
@@ -315,6 +316,7 @@ const productCardData = {
                                 ...state,
                                 loadig : false, 
                                 cartData : action.payload,
+                                cartDataCount : action.payload.length
                             }
                             break;
          default: return state

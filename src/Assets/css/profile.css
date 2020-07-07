@@ -1,0 +1,30 @@
+.main-profile{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+.profile-tittle{
+    margin-left: 20px;
+    padding-top: 10px;
+}
+.details-fields{
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+    margin-left: 2rem;
+}
+.edit-profile{
+    background-color: white !important;
+    border: none !important;
+    color: black !important;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    width: 20%;
+    font-size: 20px !important;
+}
+.edit-icon{
+    margin-right: 8px;
+}

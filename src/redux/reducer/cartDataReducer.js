@@ -2,9 +2,16 @@ import {FETCH_ALLCARTDATA_REQUEST,
     FETCH_ALLCARTDATA_SUCCESS,
     FETCH_ALLCARTDATA_FAILURE}
     from '../../Constants/typeActionRedux/typeAction';
+    import {
+        FETCH_DELETPRODUCTBYPRODUCTID_REQUEST,
+        FETCH_DELETPRODUCTBYPRODUCTID_SUCCESS,
+        FETCH_DELETPRODUCTBYPRODUCTID_FAILURE
+    }
+    from '../../Constants/typeActionRedux/typeAction';
 
 const cartData = {
     allCartData : [] ,
+    deletProductData : [],
     loading : true,
     error : ''
 }
@@ -33,6 +40,28 @@ const CartDataReducer =(state = cartData , action)=>{
                         error : action.payload
                     }
                     break;
+                    case FETCH_DELETPRODUCTBYPRODUCTID_REQUEST:
+                        return {
+                            ...state,
+                            loading : true
+                        }
+                        break;
+                        case FETCH_DELETPRODUCTBYPRODUCTID_SUCCESS:
+                            return {
+                                ...state,
+                                loading : false,
+                                deletProductData : action.payload,
+                                error : ''
+                            }
+                            break;
+                            case FETCH_DELETPRODUCTBYPRODUCTID_FAILURE:
+                                return {
+                                    ...state,
+                                    loading : false,
+                                    deletProductData : [],
+                                    error : action.payload
+                                }
+                                break;
         default: return state
             break;
     }

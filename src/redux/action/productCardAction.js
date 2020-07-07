@@ -50,6 +50,7 @@ import {
 from '../../Constants/typeActionRedux/typeAction';
 import axios from 'axios';
 import {apiUrl} from '../../Constants/api';
+import { ToastContainer, toast } from 'react-toastify';
 import {endOfApi, 
         topRatingProduct, 
         allProduct, 
@@ -373,12 +374,12 @@ export const fetchUpdateProductByProductIdFailure = (error)=>({
     payload : error
 });
 
-export const fetchUpdateProductByProductId = (id,user) => {
+export const fetchUpdateProductByProductId = (Id,user) => {
     return dispatch => {
         dispatch(fetchUpdateProductByProductIdRequet());
         return axios({
             method: 'PUT',
-            url:  `${apiUrl}${updateProductById}${id}`,
+            url:  `${apiUrl}${updateProductById}${Id}`,
             headers : endOfApi,
             data : user,
         }).then(response => {
@@ -400,19 +401,25 @@ export const fetchCartProductDetailSUCCESS = (cartData) =>({
 
 
 let productDetails = [];
-export const fetchCartProductDetail = (productToCartId ,  name , stock, img , cost , id , producer  )=>{
+
+export const fetchCartProductDetail = (name , stock, img , cost , productId, producer ,totalCost ,quantity)=>{
+    
     return dispatch => {
-        const found = productDetails.filter(
-            (element) => element.id == productToCartId
-            );
-            if (found && found.length){
-              alert('already added')
-              return
-            }
-            productDetails.push({name , producer , cost , stock , img , id})
-            alert('added to cart');
-            dispatch(fetchCartProductDetailSUCCESS(productDetails))
-            console.log('details' , productDetails)
+        productDetails.push({name , stock, img , cost , productId, producer ,totalCost ,quantity})
+        dispatch(fetchCartProductDetailSUCCESS(productDetails))
+        localStorage.setItem('cart',JSON.stringify(productDetails));
+            console.log('action details' , productDetails)
+
+    }
+}
+
+export const fetchCartProductDetailDelete = (index)=>{
+    
+    return dispatch => {
+        productDetails.splice(index , 1)
+        dispatch(fetchCartProductDetailSUCCESS(productDetails))
+        localStorage.setItem('cart',JSON.stringify(productDetails));
+            console.log('action details' , productDetails)
 
     }
 }

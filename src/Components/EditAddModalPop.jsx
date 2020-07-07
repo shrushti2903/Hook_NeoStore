@@ -17,14 +17,14 @@ import { useInput } from './useInput';
 
  
 const EditAddModlPop = (props)=> {
-    
 const {productId} = props
-console.log(productId)
+console.log('id',productId)
 const categoryList = useSelector((state) => state.categoriesData.categories)
 const colorList = useSelector((state)=> state.colorData.color)
 const updateProduct = useSelector((state)=> state.productCardData.updateProductByProductId)
 const allProductList = useSelector((state) => state.productCardData.allProduct);
-const productById = allProductList.filter(
+console.log('allProductList', allProductList)
+const productById = allProductList && allProductList.filter(
     (product) => product._id == productId
     );
 const name = productById[0].product_name
@@ -85,9 +85,9 @@ const dispatch = useDispatch()
                 product_dimension : productDimension,
                 product_material : productMaterial,
         }
-        const {id} = props
+        const {Id} = props
     
-        dispatch(fetchUpdateProductByProductId(id ,user));
+        dispatch(fetchUpdateProductByProductId(Id ,user));
         if(updateProduct.status_code  == 200){
             handleClose();
             alert('product updated successfully')

@@ -1,0 +1,36 @@
+.main-address{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding-bottom: 30px;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+.address-tittle{
+    margin-left: 20px;
+    padding-top: 10px;
+}
+.address-details{
+    margin-left: 2rem;
+}
+.edit-Button{
+    background-color: rgb(18, 18, 95) !important;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.address{
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.cancel-icon{
+    background-repeat: no-repeat;
+    height: 24px;
+    width: 24px;
+    float: right;
+    background-color: rgb(216, 51, 51);
+    margin-right: 30px;
+    color: white;
+}

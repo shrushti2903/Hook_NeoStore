@@ -2,11 +2,19 @@ import {FETCH_ALLCARTDATA_REQUEST,
     FETCH_ALLCARTDATA_SUCCESS,
     FETCH_ALLCARTDATA_FAILURE}
     from '../../Constants/typeActionRedux/typeAction';
+import {
+    FETCH_DELETPRODUCTBYPRODUCTID_REQUEST,
+    FETCH_DELETPRODUCTBYPRODUCTID_SUCCESS,
+    FETCH_DELETPRODUCTBYPRODUCTID_FAILURE
+}
+from '../../Constants/typeActionRedux/typeAction';
 import axios from 'axios'
 import {apiUrl} from '../../Constants/api';
 import {endOfApi, 
-        allCartData} 
+        allCartData,
+        deleteCartDataById} 
         from '../../Constants/endFile';
+import { RiErrorWarningLine } from 'react-icons/ri';
 
 
 export const fetchAllCartDataRequest = ()=>({
@@ -41,3 +49,36 @@ export const fetchAllCartData =()=>{
     }
 }
 
+export const fetchDeletProductByProductIdRequest = ()=>({
+    type: FETCH_DELETPRODUCTBYPRODUCTID_REQUEST
+});
+export const fetchDeletProductByProductIdSuccess = (deletProductData) =>({
+    type : FETCH_DELETPRODUCTBYPRODUCTID_SUCCESS,
+    payload : deletProductData
+});
+export const fetchDeletProductByProductIdFailure = (error)=>({
+    type : FETCH_DELETPRODUCTBYPRODUCTID_FAILURE,
+    payload : error
+})
+
+export const fetchDeletProductByProductId =(productId , id)=>{
+    return dispatch => {
+        dispatch(fetchDeletProductByProductIdRequest());
+        const id = localStorage.getItem('token')
+        return axios({
+            method: 'DELETE',
+            url:  `http://180.149.241.208:3022/${deleteCartDataById}${productId}`,
+            headers : { Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: `bearer ${id}` ,
+            },
+
+        }).then(response => {
+            const deleteProductData = response && response.data ;
+            dispatch(fetchDeletProductByProductIdSuccess(deleteProductData))
+        })
+            .catch(error => {
+                dispatch(fetchDeletProductByProductIdFailure(error))
+            });
+    }
+}

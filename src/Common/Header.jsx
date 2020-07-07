@@ -25,7 +25,13 @@ import { useCallback } from 'react'
 
 
 const Header =(props)=> {
-  const productDetails = useSelector((state) => state.productCardData.cartData)
+  const productCartDetails = useSelector((state) => state.productCardData)
+  let productDetails = productCartDetails.cartData
+  const cartValue = JSON.parse(localStorage.getItem('cart')) || []
+  console.log('cart details', cartValue)
+  useEffect(()=>{
+  
+  })
   const dispatch = useDispatch()
   // const [product , setProduct] = useState(productCartDetails)
   // useEffect(()=>{
@@ -60,16 +66,16 @@ const Header =(props)=> {
       className="mr-sm-2 search-bar "
       />
     </InputGroup>
-    {/* <Link to="/cart">
+    <Link to="/cart">
     <Button variant="light" className = "cart-button" >
     <MdShoppingCart color="black" size = "1.5rem">
     </MdShoppingCart>
     
-      <Badge className="count" variant="danger">{productDetails.length}</Badge>
+      <Badge className="count" variant="danger">{cartValue.length}</Badge>
     
       Cart  
     </Button>
-    </Link> */}
+    </Link>
    <Dropdown  alignRight className="drop-down-btn">
   <Dropdown.Toggle variant="light" id="dropdown-basic" className="dropdown-btn">
     <MdPermContactCalendar color = "black" size = "2rem"/>

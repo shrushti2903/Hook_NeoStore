@@ -7,23 +7,9 @@ import { useSelector } from 'react-redux';
 
 
 const CartCount = (props) => {
-    const productCartDetails = useSelector((state) => state.productCardData.cartData)
-    useEffect(()=>{
-        console.log('props',productCartDetails)
-
-    })
     return ( 
         <div>
-            <Link to="/cart">
-    <Button variant="light" className = "cart-button" >
-    <MdShoppingCart color="black" size = "1.5rem">
-    </MdShoppingCart>
-    
-      <Badge className="count" variant="danger">{productCartDetails.length}</Badge>
-    
-      Cart  
-    </Button>
-    </Link>
+            <h1>Address</h1>
         </div>
      );
 }

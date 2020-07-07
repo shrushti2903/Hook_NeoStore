@@ -11,8 +11,6 @@ import {ratingTotalCount } from '../Constants/enum';
 import {apiUrl } from '../Constants/api';
 import EditAddModalPop from '../Components/EditAddModalPop';
 import {MdModeEdit} from 'react-icons/md';
-
-
 import { Container } from 'react-bootstrap';
 import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,9 +20,6 @@ import { useEffect , useCallback} from 'react';
 
 
 const ProductCard = (props)=> {
-const productCartDetails = useSelector((state) => state.productCardData.cartData)
-console.log('details' , productCartDetails)
-const dispatch = useDispatch()
 const [addModalShow , setModalShow] = useState(false)
 const handleClose = () => setModalShow(false);
 // try {
@@ -32,43 +27,42 @@ const handleClose = () => setModalShow(false);
 // } catch (error) {
   
 // }
-
-const [id , setId] = useState('')
-const handleShow = (event) => {
-  const productId = event.target.id
-  console.log(productId)
-  setId(productId);
+const [productId , setId] = useState('')
+const handleShow = (id) => {
+  console.log(id)
+  setId(id);
   setModalShow(true);
 }
-const AddProductToCart = async (event)=>{
-  const productToCartId = event.target.id
-  console.log('id', productToCartId)
-  // const found = productDetails.filter(
-  //   (element) => element.id == productToCartId
-  //   );
-  //   if (found && found.length){
-  //     alert('already added')
-  //     return
-  //   }
-  const {ProductData} = props;
+// const AddProductToCart = async (event)=>{
+//   const productToCartId = event.target.id
+//   console.log('id', productToCartId)
+//   // const found = productDetails.filter(
+//   //   (element) => element.id == productToCartId
+//   //   );
+//   //   if (found && found.length){
+//   //     alert('already added')
+//   //     return
+//   //   }
+//   const {ProductData} = props;
 
-  const productById = ProductData.filter(
-    (product) => product._id == productToCartId
-    );
-  const name = productById[0].product_name
-  const producer = productById[0].product_producer
-  const cost = productById[0].product_cost
-  const stock = productById[0].product_stock
-  const img = productById[0].product_image
-  const id = productById[0].product_id
+//   const productById = ProductData.filter(
+//     (product) => product._id == productToCartId
+//     );
+//   const name = productById[0].product_name
+//   const producer = productById[0].product_producer
+//   const cost = productById[0].product_cost
+//   const stock = productById[0].product_stock
+//   const img = productById[0].product_image
+//   const id = productById[0].product_id
     
-  // productDetails.push({name , producer , cost , stock , img , id})
-  // alert('added to cart');
-  // localStorage.setItem('cart',JSON.stringify(productDetails));
-  await dispatch(fetchCartProductDetail(productToCartId  , name , stock, img , cost , id , producer ))  
-  // console.log('details' , productCartDetails)
-}
+//   // productDetails.push({name , producer , cost , stock , img , id})
+//   // alert('added to cart');
+//   // localStorage.setItem('cart',JSON.stringify(productDetails));
+//   await dispatch(fetchCartProductDetail(productToCartId  , name , stock, img , cost , id , producer ))  
+//   // console.log('details' , productCartDetails)
+// }
       const {ProductData} = props;
+      const { handleClick } = props;
       return (
         <div>
           {
@@ -84,7 +78,7 @@ const AddProductToCart = async (event)=>{
                   return (
                     <Col lg={4}>
                       <Card className="product-card-list">
-                      <Button className="edit" variant="danger" id={data.product_id} onClick={handleShow}>
+                      <Button className="edit" variant="white"  onClick={()=>handleShow(data.product_id)}>
                    <MdModeEdit/>
                 </Button>
                 
@@ -106,7 +100,7 @@ const AddProductToCart = async (event)=>{
                           </Card.Title>
                           <Card.Text className="prize">
                             <p>Rs {data.product_cost}</p>
-                          <button className="add-cart-btn" id={data.product_id} onClick={AddProductToCart}>Add To Cart</button >
+                          <button className="add-cart-btn" onClick={() => handleClick(data.product_id)}>Add To Cart</button >
                           {
                             ratingTotalCount.map((star_value, index) => {
                               let product_rating = data.product_rating;
@@ -133,8 +127,8 @@ const AddProductToCart = async (event)=>{
 {
                   addModalShow ? 
                   <EditAddModalPop className="edit"
-                 productId ={id}
-                    id={"5cfe3f0fb4db0f338946eabd"}   
+                  productId = {productId}
+                    Id={"5cfe3f0fb4db0f338946eabd"}   
                     show={addModalShow}
                     handleClose={handleClose}
                   />

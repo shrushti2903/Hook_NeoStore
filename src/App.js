@@ -15,6 +15,8 @@ import ContactForm from './Components/ContatForm';
 import Cart from './Components/Cart'
 import  productDetail  from './Components/ProductDetail';
 import Logout from './Components/Logout';
+import CartCount from './Components/CartCount';
+import AddressEdit from './Components/AddressEdit';
 
 function App() {
   return (
@@ -34,8 +36,9 @@ function App() {
        <Route path = "/productDetails" component={productDetail}/>
        <Route path = "/cart" component={Cart}/>
        <Route path = "/logout" component={Logout}/>
+      <Route path = "/address" component={CartCount}/>
+      <Route path = "/editAddress" component={AddressEdit} />
 
-    
       <Footer/>
       </div>  
     </BrowserRouter>
