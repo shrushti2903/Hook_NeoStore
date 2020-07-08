@@ -1,0 +1,30 @@
+.main-editAddress{
+        box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+        width: 70%;
+        height: 95%;
+        margin-bottom: 30px;
+        margin-left: 30px;
+}
+.edit-address-form{
+    margin-left: 50px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-right: 50px;
+    width: 300px;
+}
+.edit-save{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: white !important;
+    border: none !important;
+    color: black !important;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+
+}
+.address-field{
+    height: 80px !important;
+}
+.form-field{
+    height: 50px !important;
+}

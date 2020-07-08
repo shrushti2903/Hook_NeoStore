@@ -96,37 +96,25 @@ const ChangePassword = () => {
                                 <h3 className= "text-center">NOTE : Password must be : 8-12 Alphanumeric characters</h3>
                                 <Form.Group controlId="formGroupEmail">
                                     <Form.Control id="formGroup-Email" 
-                                    type="email" 
-                                    placeholder="Enter email" 
-                                    value ={oldPassword.oldPassword}
-                                    name = "email"
-                                    onChange={handllerChange} 
+                                    type="password" 
+                                    placeholder="Enter Old Password"  
                                     />
                                 </Form.Group>
-                                <div className ="error-tittle" >{error.error}</div>
                                 <Form.Group controlId="formGroupEmail">
                                     <Form.Control id="formGroup-Email" 
-                                    type="email" 
-                                    placeholder="Enter email" 
-                                    value ={newPassword.newPassword}
-                                    name = "email"
-                                    onChange={handllerChange} 
+                                    type="password" 
+                                    placeholder="Enter New Password" 
                                     />
                                 </Form.Group>
-                                <div className ="error-tittle" >{error.error}</div>
                                 <Form.Group controlId="formGroupEmail">
                                     <Form.Control id="formGroup-Email" 
-                                    type="email" 
-                                    placeholder="Enter email" 
-                                    value ={confirmPassword.confirmPassword}
-                                    name = "email"
-                                    onChange={handllerChange} 
+                                    type="password" 
+                                    placeholder="Enter confirm passwprd"  
                                     />
                                 </Form.Group>
-                                <div className ="error-tittle" >{error.error}</div>
 
                                 <Button id="login-btn" 
-                                className ="mx-auto" 
+                                className ="mx-auto submit" 
                                 size="sm" 
                                 type = "submit"
                                 value="send" >

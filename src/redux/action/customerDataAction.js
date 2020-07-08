@@ -27,6 +27,14 @@ import {
     FETCH_REGISTER_FAILURE,
 }
 from '../../Constants/typeActionRedux/typeAction';
+import {
+    FETCH_CUSTOMERADDRESS_REQUEST,
+    FETCH_CUSTOMERADDRESS_SUCCESS,
+    FETCH_CUSTOMERADDRESS_FAILURE
+}
+from '../../Constants/typeActionRedux/typeAction';
+
+
 
 export const fetchLoginRequest = ()=>({
     type : FETCH_LOGIN_REQUEST
@@ -144,6 +152,38 @@ export const fetchRegisterData = (user) => {
         })
             .catch(error => {
                 dispatch(fetchRegisterFailure(error))
+            });
+    }
+}
+
+export const fetchCustomerAddressRequest = ()=>({
+    type : FETCH_CUSTOMERADDRESS_REQUEST
+});
+export const fetchCustomerAddressSuccess = (customerAddress) =>({
+    type : FETCH_CUSTOMERADDRESS_SUCCESS,
+    payload : customerAddress
+});
+export const fetchCustomerAddressFailure = (error)=>({
+    type : FETCH_CUSTOMERADDRESS_FAILURE,
+    payload : error
+});
+
+export const fetchCustomerAddress = (id) => {
+    return dispatch => {
+        dispatch(fetchCustomerAddressRequest());
+        return axios({
+            method: 'GET',
+            url:  `${apiUrl}getCustAddress`,
+            headers : { Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: `bearer ${id}` ,
+            },
+        }).then(response => {
+            const customerAddress = response.data
+            dispatch(fetchCustomerAddressSuccess(customerAddress))
+        })
+            .catch(error => {
+                dispatch(fetchCustomerAddressFailure(error))
             });
     }
 }

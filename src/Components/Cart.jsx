@@ -179,7 +179,7 @@ You will find lots of intresting products on our products page</p>
                                     </ListGroup>
                                     {
                                         id ?
-                                        <Link to="/address">
+                                        <Link to="/updateaddress">
                                     <Button className="procced-btn" variant="primary">Procced To Buy</Button>
                                     </Link>
                                     : 

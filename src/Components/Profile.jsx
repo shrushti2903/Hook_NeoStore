@@ -4,9 +4,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import {MdModeEdit} from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Profile = () => {
+    const loginDataList = JSON.parse(localStorage.getItem('customer'))
+    console.log(loginDataList)
     return (  
         <div className="main-profile">
             <h3 className="profile-tittle">Profile</h3>
@@ -28,25 +32,28 @@ const Profile = () => {
                     </div>
                 </Col>
                 <Col lg={6}>
-                <span className="details-fields">Aparna </span>
+                <span className="details-fields">{loginDataList.first_name} </span>
                 <br/>
-                    <span className="details-fields">Deshmukh </span>
+                    <span className="details-fields">{loginDataList.last_name} </span>
                     <br/>
-                    <span className="details-fields">Female </span>
+                    <span className="details-fields">{loginDataList.gender} </span>
                     <br/>    
-                    <span className="details-fields">Invalid</span>
+                    <span className="details-fields">{loginDataList.dob}</span>
                     <br/>
-                    <span className="details-fields">9665835719</span>
+                    <span className="details-fields">{loginDataList.phone_no}</span>
                     <br/>
-                    <span className="details-fields">aparna@gmail.com</span>
+                    <span className="details-fields">{loginDataList.email}</span>
                 </Col> 
             </Row>
             <Row>
                     <Col lg={9}>
                     <hr className ="profile-tittle" />
+                <Link to="/editProfile">
                 <Button className="edit-profile">
                 <MdModeEdit className="edit-icon"/>
-                Edit</Button>
+                Edit
+               </Button>
+                </Link>
                     </Col>
                 </Row>
         </div>

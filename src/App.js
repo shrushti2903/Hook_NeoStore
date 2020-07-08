@@ -17,6 +17,11 @@ import  productDetail  from './Components/ProductDetail';
 import Logout from './Components/Logout';
 import CartCount from './Components/CartCount';
 import AddressEdit from './Components/AddressEdit';
+import ChangePassword from './Components/ChangePassword'
+import Profile from './Components/Profile';
+import Address from './Components/Address';
+import OrderSidebar from './Components/OrderSideBar';
+import ProfileEdit from './Components/ProfileEdit';
 
 function App() {
   return (
@@ -36,9 +41,13 @@ function App() {
        <Route path = "/productDetails" component={productDetail}/>
        <Route path = "/cart" component={Cart}/>
        <Route path = "/logout" component={Logout}/>
-      <Route path = "/address" component={CartCount}/>
-      <Route path = "/editAddress" component={AddressEdit} />
-
+      <Route path = "/updateaddress" component={CartCount}/>
+      <Route path="/profile" exact component={OrderSidebar}/>
+                        <Route path="/profile" exact component={Profile}/>
+                        <Route path="/address" exact component={Address}/>
+                        <Route path="/changePassword" exact component={ChangePassword}/>
+                        <Route path="/editAddress" exact component={AddressEdit}/>
+                        <Route path="/editProfile" exact component={ProfileEdit}/> 
       <Footer/>
       </div>  
     </BrowserRouter>

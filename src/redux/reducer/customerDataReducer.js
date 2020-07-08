@@ -22,6 +22,13 @@ import {
     FETCH_REGISTER_FAILURE,
 }
 from '../../Constants/typeActionRedux/typeAction';
+import {
+    FETCH_CUSTOMERADDRESS_REQUEST,
+    FETCH_CUSTOMERADDRESS_SUCCESS,
+    FETCH_CUSTOMERADDRESS_FAILURE
+}
+from '../../Constants/typeActionRedux/typeAction';
+
 
 
 const customerData = {
@@ -29,6 +36,7 @@ const customerData = {
     forgotPassword  : [],
     contactUs : [],
     register : [],
+    customerAddress : [],
     loading : true,
     error : ''
 }
@@ -123,6 +131,28 @@ const CustomerDataReducer =(state = customerData , action)=>{
                                                 error : action.payload
                                             }
                                             break;
+                                            case FETCH_CUSTOMERADDRESS_REQUEST:
+                                                return {
+                                                    ...state,
+                                                    loading : true
+                                                }
+                                                break;
+                                                case FETCH_CUSTOMERADDRESS_SUCCESS:
+                                                    return {
+                                                        ...state,
+                                                        loading : false,
+                                                        customerAddress : action.payload,
+                                                        error : ''
+                                                    }
+                                                    break;
+                                                    case FETCH_CUSTOMERADDRESS_FAILURE:
+                                                        return {
+                                                            ...state,
+                                                            loading : false,
+                                                            customerAddress : [],
+                                                            error : action.payload
+                                                        }
+                                                        break;
         default: return state
             break;
     }

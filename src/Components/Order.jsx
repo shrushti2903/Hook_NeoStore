@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { BrowserRouter , Redirect, Link, Route } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Row from 'react-bootstrap/Row';
@@ -12,6 +12,9 @@ import ChangePassword from '../Components/ChangePassword'
 import Profile from './Profile';
 import Address from './Address';
 import OrderSidebar from './OrderSideBar';
+import AddressEdit from './AddressEdit';
+import ProfileEdit from './ProfileEdit';
+import Home from './Home';
 
 const Order = (props) => {
      const [loggedIn , setLoggedIn] = useState(Boolean)
@@ -30,13 +33,16 @@ const Order = (props) => {
     const loginDataList = useSelector((state)=> state.customerData.loginData)
     const customerOrder = useSelector((state)=> state.orderData.customerOrder)
     const dispatch = useDispatch()
+    console.log(loginDataList)
     
           const id = localStorage.getItem('token',)
           if(!id){
             Swal.fire('Please login first')
+            return <Redirect to="/login" />
           }
 
             return ( 
+          <BrowserRouter>
         <div>
             {
                 id?
@@ -56,18 +62,22 @@ const Order = (props) => {
                          <div class="mat-button-ripple mat-ripple" matripple=""></div>
                          <div class="mat-button-focus-overlay"></div>
                          </button> */}
-                         {/* <ChangePassword /> */}
-                         {/* <Profile/> */}
-                         <Address/>
-                        
+                         
+                         {/* <Route path="/profile" exact component={OrderSidebar}/>
+                        <Route path="/profile" exact component={Profile}/>
+                        <Route path="/address" exact component={Address}/>
+                        <Route path="/changePassword" exact component={ChangePassword}/>
+                        <Route path="/editAddress" exact component={AddressEdit}/>
+                        <Route path="/editProfile" exact component={ProfileEdit}/>  */}
                  </Col>
                 </Row>
             
              :
              
-              <Redirect to="/login" />
+             ''
             }
              </div>
+             </BrowserRouter>
      );
 }
  

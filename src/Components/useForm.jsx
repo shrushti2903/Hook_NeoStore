@@ -48,7 +48,8 @@ const useForm = (callback , validate) =>{
              await dispatch(fetchLoginData(user))
         }
         if(loginDataList.status_code == 200){
-         localStorage.setItem('token', loginDataList.token)
+         localStorage.setItem('token', loginDataList.token , loginDataList.provider)
+         localStorage.setItem('customer' , JSON.stringify(loginDataList.customer_details))
           setLoggedIn(true)
           console.log('login',loggedIn)
         }
