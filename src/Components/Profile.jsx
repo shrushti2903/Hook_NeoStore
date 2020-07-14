@@ -4,15 +4,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import {MdModeEdit} from 'react-icons/md';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import {Link , useRouteMatch} from 'react-router-dom'
+import { useEffect } from 'react';
 
 const Profile = () => {
-    const loginDataList = JSON.parse(localStorage.getItem('customer'))
+    console.log('in profile')
+    // let match = useRouteMatch();
+    useEffect(()=>{
+        
+    },[])
+    const loginDataList = JSON.parse(localStorage.getItem('customer')) 
+    // const  = loginData.customer_details
     console.log(loginDataList)
-    return (  
-        <div className="main-profile">
+    return ( 
+        <div>
             <h3 className="profile-tittle">Profile</h3>
             <hr className ="profile-tittle" />
             <Row>
@@ -48,16 +54,23 @@ const Profile = () => {
             <Row>
                     <Col lg={9}>
                     <hr className ="profile-tittle" />
-                <Link to="/editProfile">
-                <Button className="edit-profile">
+                <Link
+                 to={{
+                    pathname : '/Order/editProfile',
+                    state : {
+                        data : loginDataList
+                    },
+                }}
+                    > 
+                 <Button className="edit-profile">
                 <MdModeEdit className="edit-icon"/>
                 Edit
                </Button>
-                </Link>
-                    </Col>
+                 </Link>
+                     </Col>
                 </Row>
         </div>
-    );
+     );
 }
  
 export default Profile;

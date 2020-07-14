@@ -15,6 +15,18 @@ import {endOfApi,
         deleteCartDataById} 
         from '../../Constants/endFile';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import {
+    FETCH_ADDTOCARTDATA_REQUEST,
+    FETCH_ADDTOCARTDATA_SUCCESS,
+    FETCH_ADDTOCARTDATA_FAILURE
+  }
+from '../../Constants/typeActionRedux/typeAction';
+import {
+    FETCH_GETCARTDATA_REQUEST,
+    FETCH_GETCARTDATA_SUCCESS,
+    FETCH_GETCARTDATA_FAILURE
+}
+from '../../Constants/typeActionRedux/typeAction';
 
 
 export const fetchAllCartDataRequest = ()=>({
@@ -67,7 +79,7 @@ export const fetchDeletProductByProductId =(productId , id)=>{
         const id = localStorage.getItem('token')
         return axios({
             method: 'DELETE',
-            url:  `http://180.149.241.208:3022/${deleteCartDataById}${productId}`,
+            url:  `${apiUrl}${deleteCartDataById}${productId}`,
             headers : { Accept: "application/json",
              "Content-Type": "application/json",
              Authorization: `bearer ${id}` ,
@@ -79,6 +91,71 @@ export const fetchDeletProductByProductId =(productId , id)=>{
         })
             .catch(error => {
                 dispatch(fetchDeletProductByProductIdFailure(error))
+            });
+    }
+}
+
+export const fetchAddToCartRequest = ()=>({
+    type : FETCH_ADDTOCARTDATA_REQUEST
+});
+export const fetchAddToCartSuccess = (addToCart) =>({
+    type : FETCH_ADDTOCARTDATA_SUCCESS,
+    payload : addToCart
+});
+export const fetchAddToCartFailure = (error)=>({
+    type : FETCH_ADDTOCARTDATA_FAILURE,
+    payload : error
+});
+
+export const fetchAddToCart = (user , token) => {
+    return dispatch => {
+        dispatch(fetchAddToCartRequest());
+        return axios({
+            method: 'POST',
+            url:  `${apiUrl}addDataToCart`,
+            headers : { Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: `bearer ${token}` ,
+            },
+            data : user ,
+        }).then(response => {
+            const addToCart = response.data
+            dispatch(fetchAddToCartSuccess(addToCart))
+        })
+            .catch(error => {
+                dispatch(fetchAddToCartFailure(error))
+            });
+    }
+}
+
+export const fetchGetCartDataRequest = ()=>({
+    type : FETCH_GETCARTDATA_REQUEST
+});
+export const fetchGetCartDataSuccess = (getCartData) =>({
+    type : FETCH_GETCARTDATA_SUCCESS,
+    payload : getCartData
+});
+export const fetchGetCartDataFailure = (error)=>({
+    type : FETCH_GETCARTDATA_FAILURE,
+    payload : error
+});
+
+export const fetchGetCartData = (id ) => {
+    return dispatch => {
+        dispatch(fetchGetCartDataRequest());
+        return axios({
+            method: 'GET',
+            url:  `${apiUrl}getCartData `,
+            headers : { Accept: "application/json",
+             "Content-Type": "application/json",
+             Authorization: `bearer ${id}` ,
+            },
+        }).then(response => {
+            const getCartData = response.data
+            dispatch(fetchGetCartDataSuccess(getCartData))
+        })
+            .catch(error => {
+                dispatch(fetchGetCartDataFailure(error))
             });
     }
 }

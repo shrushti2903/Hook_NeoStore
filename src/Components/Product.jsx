@@ -11,9 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {IoMdArrowDown , IoIosStar , IoMdArrowUp} from "react-icons/io";
 import ProductCard from '../Components/ProductCard';
-import { useCallback } from 'react';
-import CartCount from './CartCount';
-import Header from '../Common/Header';
+
 import { fetchProductDetails, fetchCartProductDetail } from '../redux/action/productCardAction';
 import Swal from 'sweetalert2'
 
@@ -57,16 +55,17 @@ const Product = (props)=> {
               return
             } 
       
-      const name = productDetailId[0].product_name
-      const producer = productDetailId[0].product_producer
-      const cost = productDetailId[0].product_cost
-      const stock = productDetailId[0].product_stock
-      const img = productDetailId[0].product_image
-      const productId = productDetailId[0].product_id
-      const totalCost = productDetailId[0].product_cost
+      const product_name = productDetailId[0].product_name
+      const product_producer = productDetailId[0].product_producer
+      const product_cost = productDetailId[0].product_cost
+      const product_stock = productDetailId[0].product_stock
+      const product_image = productDetailId[0].product_image
+      const product_id = productDetailId[0].product_id
+      const total = productDetailId[0].product_cost
       const quantity = 1
+      const _id = productDetailId[0].product_id
       Swal.fire('Added to cart')
-       dispatch(fetchCartProductDetail( name , stock, img , cost , productId, producer ,totalCost ,quantity))
+       dispatch(fetchCartProductDetail( product_name , product_stock, product_image , product_cost , product_id, product_producer ,total ,quantity , _id))
       
      }
   return (

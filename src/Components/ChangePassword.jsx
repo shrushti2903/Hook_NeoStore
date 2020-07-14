@@ -9,83 +9,56 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { regPassword } from '../Constants/inputRegxs'
 import {fetchForgotPassworData} from '../redux/action/customerDataAction' 
+import { useInput } from './useInput';
 
 
 
 const ChangePassword = () => {
- const [oldPassword , setOldPassword] = useState({oldPassword : "" });
- const [newPassword , setNewPassword] = useState({newPassword : "" });
- const [confirmPassword , setconfirmPassword] = useState({confirmPassword : "" });
- const [error , setError] = useState({error : "" });
- const [isSubmitting, setIsSubmitting] = useState(false);
- const loginDataList = useSelector((state)=> state.customerData.forgotPassword)
- const dispatch = useDispatch()
+ const [oldPassword , setOldPassword] = useInput();
+ const [newPassword , setNewPassword] = useInput();
+ const [confirmPassword , setconfirmPassword] = useInput();
+ const [error , setError] = useInput();
 
- const handllerChange = (event) => {
-    const { name, value } = event.target;
-  setOldPassword(
-      { 
-          ...oldPassword,
-          [name] : value
-
-      }
-    );
-    setNewPassword(
-        { 
-            ...newPassword,
-            [name] : value
-  
-        }
-      );
-      setconfirmPassword(
-        { 
-            ...confirmPassword,
-            [name] : value
-  
-        }
-      );
-  console.log('form', oldPassword , newPassword , confirmPassword)
-} 
+ 
   const handlerSubmit = event => {
     event.preventDefault();
-    setError(validate(oldPassword , newPassword , confirmPassword));
-    setIsSubmitting(true);
-    // const user = {
-    //     email : email.email,
-    //   }
-    //   const isValid = validate 
-    // if (isValid){
-    //     dispatch(fetchForgotPassworData(user))
-    // }
+    event.target.reset();
+    const user = {
+      oldPass  : oldPassword ,
+      newPass  : newPassword,
+      confirmPass  : confirmPassword,
+    }
+    console.log('user', user)
+    
   };
 
- const validate = ()=>{
-    let error = {};
-    if (!oldPassword.oldPassword) {
-        error.error = "oldPassword is required"
-    } 
-    //Validation for password
-    if(!newPassword.newPassword){
-        error.passwordError = "Password required"
-    }
-    else if (!regPassword.test(newPassword.newPassword)){
-        error.error = "Password should be valid"
-    }
-    //Validation for confirm password
-    if(!confirmPassword.confirmPassword){
-        error.error = "Confirm Password required"
-    }
-    else if(newPassword !== confirmPassword.confirmPassword){ 
-        error.error = "Confirm Password not match"
-    }
-    return error
- }
+//  const validate = ()=>{
+//     let error = {};
+//     if (!oldPassword.oldPassword) {
+//         error.error = "oldPassword is required"
+//     } 
+//     //Validation for password
+//     if(!newPassword.newPassword){
+//         error.passwordError = "Password required"
+//     }
+//     else if (!regPassword.test(newPassword.newPassword)){
+//         error.error = "Password should be valid"
+//     }
+//     //Validation for confirm password
+//     if(!confirmPassword.confirmPassword){
+//         error.error = "Confirm Password required"
+//     }
+//     else if(newPassword !== confirmPassword.confirmPassword){ 
+//         error.error = "Confirm Password not match"
+//     }
+//     return error
+//  }
  
-  useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmitting) {
-      console.log('successfully Submitted')
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (Object.keys(error).length === 0 && isSubmitting) {
+  //     console.log('successfully Submitted')
+  //   }
+  // }, [error]);
  
    
       return (
@@ -97,19 +70,25 @@ const ChangePassword = () => {
                                 <Form.Group controlId="formGroupEmail">
                                     <Form.Control id="formGroup-Email" 
                                     type="password" 
-                                    placeholder="Enter Old Password"  
+                                    placeholder="Enter Old Password" 
+                                    value={oldPassword}
+                                    onChange={setOldPassword} 
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formGroupEmail">
                                     <Form.Control id="formGroup-Email" 
                                     type="password" 
                                     placeholder="Enter New Password" 
+                                    value={newPassword}
+                                    onChange={setNewPassword}
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formGroupEmail">
                                     <Form.Control id="formGroup-Email" 
                                     type="password" 
-                                    placeholder="Enter confirm passwprd"  
+                                    placeholder="Enter confirm passwprd" 
+                                    value={confirmPassword} 
+                                    onChange={setconfirmPassword}
                                     />
                                 </Form.Group>
 

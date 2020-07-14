@@ -52,3 +52,9 @@
 .instock{
     color: green    ;
 }
+.empty-cart{
+  margin-top: 100px;
+    text-align: center;
+    height: 300px;
+    font-size: large;
+}

@@ -10,7 +10,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import {AiOutlineDelete} from 'react-icons/ai'
 import {connect} from 'react-redux';
 import Dialog from 'react-bootstrap-dialog'
-import {fetchAllCartData, fetchDeletProductByProductId} from '../redux/action/cartDataAction';
+import {fetchAllCartData, fetchDeletProductByProductId, fetchGetCartData} from '../redux/action/cartDataAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -22,6 +22,7 @@ const  Cart = () =>{
     const deletCartDataById = useSelector((state) => state.cartData.deletProductData)
     const allProductList = useSelector((state) => state.productCardData.allProduct);
     const cartData = productCartDetails.cartData
+    const CustomerCartData = useSelector((state) => state.cartData.getCartData)
     const cartDataList = JSON.parse(localStorage.getItem('cart')) || []
     const [quantity ,setQuantity] = useState();
     const [totalCost , setTotalcost] = useState();
@@ -30,11 +31,16 @@ const  Cart = () =>{
     if(!id){
         Swal.fire('Please login first')
       }
-
+      useEffect(()=>{
+        const id = localStorage.getItem('token')
+        console.log(id)
+          dispatch(fetchGetCartData(id))
+          console.log(CustomerCartData)
+      },[])
 
     const handlerDecrement = (index)=>{
         console.log(index)
-        const cartDataList = productCartDetails.cartData
+        const cartDataList = JSON.parse(localStorage.getItem('cart')) || []
         const elem = cartDataList[index]
          console.log('element', elem)
         setQuantity( elem.quantity = elem.quantity > 0 ? elem.quantity - 1 : 0)
@@ -43,17 +49,17 @@ const  Cart = () =>{
 
     const hanlerIncrement = (index)=>{
         console.log(index)
-        const cartDataList = productCartDetails.cartData
+        const cartDataList = JSON.parse(localStorage.getItem('cart')) || [] 
         const elem = cartDataList[index]
          console.log('element', elem)
         setQuantity( elem.quantity = elem.quantity + 1)
         setTotalcost( elem.totalCost = elem.quantity * elem.cost)
     }  
-    const handlerDelete = (index) => {
-        console.log(index)
-        dispatch(fetchCartProductDetailDelete(index))
-                
-            
+    const handlerDelete = (productId) => {
+        // console.log(index)
+        // dispatch(fetchCartProductDetailDelete(index))
+        const id = localStorage.getItem('token')
+        dispatch(fetchDeletProductByProductId(productId , id))
         // Swal.fire({
         //     title: 'Are you sure?',
         //     text: "You won't be able to revert this!",
@@ -72,7 +78,6 @@ const  Cart = () =>{
         //     }
         //   })
       };
-
     const subTotal = cartDataList.reduce((prev, cur) => {
         return prev + parseInt(cur.totalCost || 0);
       }, 0);
@@ -82,13 +87,16 @@ const  Cart = () =>{
             <Container fluid>
                 {
                     cartDataList.length == 0?
-                    <div>
+                    <div className="empty-cart">
                     <img 
                      src='../../Assets/images/emptycart.png'></img>
                     <h5>YOUR CART IS CURRENTLY EMPTY</h5>
                     <p>EMPTY <br/>
 Before proceed to checkout you must add some products to you shopping cart. <br/>
 You will find lots of intresting products on our products page</p>
+<Link to='/Product'>
+<Button>Return to Product Page</Button>
+</Link>
                     </div>
                     :
                     <Row>
@@ -113,11 +121,11 @@ You will find lots of intresting products on our products page</p>
                                         <td className="img-td">
                                             <img
                                             className="table-img"
-                                            src={"http://180.149.241.208:3022/" + cart.img}/>
+                                            src={"http://180.149.241.208:3022/" + cart.product_image}/>
                                         </td>
                                         <td>
-                                        <p>{cart.name} <br/>
-                                        by {cart.producer}.<br/> 
+                                        <p>{cart.product_name} <br/>
+                                        by {cart.product_producer}.<br/> 
                                         Status: <span className="instock">In Stock</span>
                                         </p>
                                         </td>
@@ -130,9 +138,9 @@ You will find lots of intresting products on our products page</p>
                                                 &#xff0b;
                                             </button>
                                         </td>
-                                        <td>{cart.cost.toLocaleString(undefined, {maximumFractionDigits:2})}</td>
-                                        <td>{parseFloat(cart.totalCost).toLocaleString(undefined, {maximumFractionDigits:2})}</td>
-                                        <td ><AiOutlineDelete className="delet-icon" onClick={()=>handlerDelete(index)}></AiOutlineDelete></td>
+                                        <td>{cart.product_cost.toLocaleString(undefined, {maximumFractionDigits:2})}</td>
+                                        <td>{parseFloat(cart.total).toLocaleString(undefined, {maximumFractionDigits:2})}</td>
+                                        <td ><AiOutlineDelete className="delet-icon" onClick={()=>handlerDelete(cart.product_id)}></AiOutlineDelete></td>
                                         
                                     </tr>
                                     
@@ -179,7 +187,7 @@ You will find lots of intresting products on our products page</p>
                                     </ListGroup>
                                     {
                                         id ?
-                                        <Link to="/updateaddress">
+                                        <Link to="/deliveryAddress">
                                     <Button className="procced-btn" variant="primary">Procced To Buy</Button>
                                     </Link>
                                     : 

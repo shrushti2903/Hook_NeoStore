@@ -40,7 +40,7 @@ export const fetchGetFooterData =()=>{
 
         return axios({
             method: 'GET',
-            url:  'http://180.149.241.208:3022/getData',
+            url:  `${apiUrl}getData`,
             headers : endOfApi,
         }).then(response => {
             const getFooterData = response && response.data && response.data.company_details;
@@ -71,7 +71,7 @@ export const fetchGetTermsAndConditions =()=>{
 
         return axios({
             method: 'GET',
-            url:  'http://180.149.241.208:3022/getTermsAndConditions',
+            url:  `${apiUrl}getTermsAndConditions`,
             headers : endOfApi,
         }).then(response => {
             const getTermsAndConditionsData = response && response.data && response.data.termsAndConditions_details;
@@ -101,7 +101,7 @@ export const fetchGetGaurentee =()=>{
 
         return axios({
             method: 'GET',
-            url:  'http://180.149.241.208:3022/getGuarantee',
+            url:  `${apiUrl}getGuarantee`,
             headers : endOfApi,
         }).then(response => {
             const getGuarantee = response && response.data && response.data.guarantee_details;

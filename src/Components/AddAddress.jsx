@@ -8,28 +8,23 @@ import {TiCancel} from 'react-icons/ti'
 import { useLocation, useHistory } from 'react-router-dom';
 import { useInput } from './useInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCustomerUpdateAddress } from '../redux/action/customerDataAction';
+import { fetchAddAddress } from '../redux/action/customerDataAction';
 
-const AddressEdit = () => {
-  const location = useLocation();
-  console.log('location =' , location)
-  const data = location.state.data
-  console.log('data' , data)
+const AddAddress = () => {
   const history = useHistory()
 
-  const [address , setAddress] = useInput(data.address)
-  const [pincode , setPincode] = useInput(data.pincode)
-  const [state , setState] = useInput(data.state)
-  const [city , setCity] = useInput(data.city)
-  const [country , setCountry] = useInput(data.country)
-  const customerUpdatedAddress = useSelector((state)=> state.customerData.updateAddress)
+  const [address , setAddress] = useInput()
+  const [pincode , setPincode] = useInput()
+  const [state , setState] = useInput()
+  const [city , setCity] = useInput()
+  const [country , setCountry] = useInput()
+  const AddAddressData = useSelector((state)=> state.customerData.addAddress)
   const dispatch = useDispatch()
 
   const handlerSubmit = (event)=>{
     event.preventDefault();
     event.target.reset()
     const user = {
-      address_id : data.address_id ,
       address : address,
       city : city,
       pincode : pincode,
@@ -38,8 +33,8 @@ const AddressEdit = () => {
     }
     console.log('user', user)
     const id = localStorage.getItem('token')
-    dispatch(fetchCustomerUpdateAddress(user , id))
-    if(customerUpdatedAddress.status_code == 200){
+    dispatch(fetchAddAddress(user , id))
+    if(AddAddressData.status_code == 200){
       history.push('/Order/address');
     }
   }
@@ -116,4 +111,4 @@ const AddressEdit = () => {
      );
 }
  
-export default AddressEdit;
+export default AddAddress;

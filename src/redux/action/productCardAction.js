@@ -402,10 +402,11 @@ export const fetchCartProductDetailSUCCESS = (cartData) =>({
 
 let productDetails = [];
 
-export const fetchCartProductDetail = (name , stock, img , cost , productId, producer ,totalCost ,quantity)=>{
+export const fetchCartProductDetail = (product_name , product_stock, product_image , product_cost , product_id, product_producer ,total ,quantity , _id )=>{
     
     return dispatch => {
-        productDetails.push({name , stock, img , cost , productId, producer ,totalCost ,quantity})
+        productDetails.push({product_name , product_stock, product_image , product_cost , product_id, product_producer ,total ,quantity , _id} )
+        
         dispatch(fetchCartProductDetailSUCCESS(productDetails))
         localStorage.setItem('cart',JSON.stringify(productDetails));
             console.log('action details' , productDetails)

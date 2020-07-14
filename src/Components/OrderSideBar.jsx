@@ -3,9 +3,16 @@ import '../Assets/css/order.css';
 import { RiOrderPlayLine } from "react-icons/ri";
 import {MdPermContactCalendar } from "react-icons/md"
  import {FaAddressCard , FaExchangeAlt} from "react-icons/fa"
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
 import { fetchCustomerAddress } from '../redux/action/customerDataAction';
 import { useSelector, useDispatch } from 'react-redux';
+import { Row , Col } from 'react-bootstrap';
+import ChangePassword from '../Components/ChangePassword'
+import Address from './Address';
+import AddressEdit from './AddressEdit';
+import Profile from './Profile';
+import ProfileEdit from './ProfileEdit';
+import AddAddress from './AddAddress';
 
 
 const OrderSidebar = () => {
@@ -15,8 +22,15 @@ const OrderSidebar = () => {
         const id = localStorage.getItem('token',)
         dispatch(fetchCustomerAddress(id))
     }
+    let match = useRouteMatch();
     return ( 
         <div>
+            <Row>
+            <Col  lg={12}>
+                     <h2>My Account</h2>
+                     <hr/>
+                 </Col>
+                    <Col  lg={4}>
                  <img 
                  className="profile-pic" 
                  src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
@@ -31,7 +45,7 @@ const OrderSidebar = () => {
                          </Link>
                 </div>
                 <div className="profileOptions">
-                         <Link to="/profile">
+                         <Link to={`${match.url}/profile`}>
                      <button className="order-btn">
                          <MdPermContactCalendar className='mat-icon'/>
                          &nbsp; Profile 
@@ -39,7 +53,7 @@ const OrderSidebar = () => {
                          </Link>
                 </div>
                 <div className="profileOptions">
-                         <Link to="/address">
+                         <Link to={`${match.url}/address`}>
                      <button className="order-btn" onClick={handlerChangeOrder}>
                          <FaAddressCard className='mat-icon'/>
                          &nbsp; Address 
@@ -47,13 +61,31 @@ const OrderSidebar = () => {
                          </Link>
                 </div>
                 <div className="profileOptions">
-                         <Link to="/changePassword">
+                         <Link to={`${match.url}/changePassword`}>
                      <button className="order-btn" >
                          <FaExchangeAlt className='mat-icon'/>
                          &nbsp; Change Password  
                      </button>
                          </Link>
                      </div>
+                    </Col>
+                    <Col lg={8}>
+                        <Switch>
+                        <Route path={`${match.path}/profile`} component={Profile}>
+                            </Route>
+                            <Route path={`${match.path}/address`} component={Address}>
+                            </Route>
+                            <Route path={`${match.path}/changePassword`} component={ChangePassword}>
+                            </Route>
+                            <Route path={`${match.path}/editProfile`} component={ProfileEdit}>
+                            </Route>
+                            <Route path={`${match.path}/editAddress`} component={AddressEdit}>
+                            </Route>
+                            <Route path={`${match.path}/addaddress`} component={AddAddress}>
+                            </Route>
+                        </Switch>
+                    </Col>
+            </Row>
                      
         </div>
      );

@@ -15,13 +15,13 @@ import ContactForm from './Components/ContatForm';
 import Cart from './Components/Cart'
 import  productDetail  from './Components/ProductDetail';
 import Logout from './Components/Logout';
-import CartCount from './Components/CartCount';
+import DeliveryAddress from './Components/DeliveryAddress';
 import AddressEdit from './Components/AddressEdit';
 import ChangePassword from './Components/ChangePassword'
-import Profile from './Components/Profile';
 import Address from './Components/Address';
 import OrderSidebar from './Components/OrderSideBar';
 import ProfileEdit from './Components/ProfileEdit';
+import OrderPlaced from './Components/OrderPlaced';
 
 function App() {
   return (
@@ -33,24 +33,27 @@ function App() {
       <Route path ="/" exact component = {Home} />
        <Route path ="/home" component = {Home} />
        <Route path ="/product" component = {Product} />
-       <Route path ="/order" component = {Order} />
        <Route path = "/register" component = {Resgister}/>
        <Route path ="/login" component = {Login}/>
        <Route path = "/forgotten" component = {Forgotten}/>
        <Route path = "/contactform" component={ContactForm}/>
        <Route path = "/productDetails" component={productDetail}/>
        <Route path = "/cart" component={Cart}/>
+       <Route path="/orderPlaced" component={OrderPlaced}/>
        <Route path = "/logout" component={Logout}/>
-      <Route path = "/updateaddress" component={CartCount}/>
-      <Route path="/profile" exact component={OrderSidebar}/>
-                        <Route path="/profile" exact component={Profile}/>
+      <Route path = "/deliveryAddress" component={DeliveryAddress}/>
+      <Route path={["/order"]} component={OrderSidebar}/>
+     
+                        {/* <Route path="/profile" exact component={Profile}/>
                         <Route path="/address" exact component={Address}/>
                         <Route path="/changePassword" exact component={ChangePassword}/>
                         <Route path="/editAddress" exact component={AddressEdit}/>
-                        <Route path="/editProfile" exact component={ProfileEdit}/> 
+                        <Route path="/editProfile" exact component={ProfileEdit}/>  */}
+                       
       <Footer/>
       </div>  
     </BrowserRouter>
+
 
     </Provider>
   );

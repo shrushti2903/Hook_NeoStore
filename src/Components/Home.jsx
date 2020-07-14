@@ -1,16 +1,20 @@
-import React ,{ Component } from 'react';
+import React ,{ Component, useEffect } from 'react';
 import '../Assets/css/home.css';
 import { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Link} from 'react-router-dom';
-
-
-
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProductCard } from '../redux/action/productCardAction';
+import ProductRating from './ProductRating'
 
 const Home =() => {
-  
+  const topratingProduct = useSelector((state) => state.productCardData.productCard);
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(fetchProductCard())
+  },[])
       return (
         <div className = "main-slider">
              <Carousel>
@@ -52,6 +56,9 @@ const Home =() => {
 </Carousel>
   <h3 className="pop-product">Popular Product</h3>
   <button className="view-all-btn"><Link to="/product" className="view-all" >View All</Link></button>
+  <Col lg={12}>
+              <ProductRating ProductData={topratingProduct} />
+            </Col>
         </div>
       )
     
