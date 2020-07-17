@@ -34,25 +34,35 @@ import {
   FETCH_CUSTOMERUPDATEADDRESS_FAILURE,
 } from "../../Constants/typeActionRedux/typeAction";
 import {
-    FETCH_ADDADDRESS_REQUEST,
-    FETCH_ADDADDRESS_SUCCESS,
-    FETCH_ADDADDRESS_FAILURE
-}
-from '../../Constants/typeActionRedux/typeAction';
+  FETCH_ADDADDRESS_REQUEST,
+  FETCH_ADDADDRESS_SUCCESS,
+  FETCH_ADDADDRESS_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
 import {
-    FETCH_DELADDRESSBYADDRESSID_REQUEST,
-    FETCH_DELADDRESSBYADDRESSID_SUCCESS,
-    FETCH_DELADDRESSBYADDRESSID_FAILURE
-}
-from '../../Constants/typeActionRedux/typeAction';
+  FETCH_DELADDRESSBYADDRESSID_REQUEST,
+  FETCH_DELADDRESSBYADDRESSID_SUCCESS,
+  FETCH_DELADDRESSBYADDRESSID_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
 import {
   FETCH_ADDPRODUCTTOCARTCHECKOUT_REQUEST,
   FETCH_ADDPRODUCTTOCARTCHECKOUT_SUCCESS,
-  FETCH_ADDPRODUCTTOCARTCHECKOUT_FAILURE
-}
-from '../../Constants/typeActionRedux/typeAction';
-
-
+  FETCH_ADDPRODUCTTOCARTCHECKOUT_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
+import {
+  FETCH_CUSTOMERORDERDETAILS_REQUEST,
+  FETCH_CUSTOMERORDERDETAILS_SUCCESS,
+  FETCH_CUSTOMERORDERDETAILS_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
+import {
+  FETCH_CUSTOMERINVOICE_REQUEST,
+  FETCH_CUSTOMERINVOICE_SUCCESS,
+  FETCH_CUSTOMERINVOICE_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
+import {
+  FETCH_CUSTOMERCHANGEPASSWORD_REQUEST,
+  FETCH_CUSTOMERCHANGEPASSWORD_SUCCESS,
+  FETCH_CUSTOMERCHANGEPASSWORD_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
 const customerData = {
   loginData: [],
   forgotPassword: [],
@@ -61,9 +71,12 @@ const customerData = {
   customerAddress: [],
   customerProfile: [],
   updateAddress: [],
-  addAddress :[],
-  delAddressByAddressId : [],
-  addProductToCheckout : [],
+  addAddress: [],
+  delAddressByAddressId: [],
+  addProductToCheckout: [],
+  customerOrderDetails: [],
+  orderInvoice: [],
+  changePassword: [],
   loading: true,
   error: "",
 };
@@ -224,72 +237,138 @@ const CustomerDataReducer = (state = customerData, action) => {
         error: action.payload,
       };
       break;
-      case FETCH_ADDADDRESS_REQUEST:
-        return {
-          ...state,
-          loading: true,
-        };
-        break;
-      case FETCH_ADDADDRESS_SUCCESS:
-        return {
-          ...state,
-          loading: false,
-          addAddress: action.payload,
-          error: "",
-        };
-        break;
-      case FETCH_ADDADDRESS_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          addAddress: [],
-          error: action.payload,
-        };
-        break;
-        case FETCH_DELADDRESSBYADDRESSID_REQUEST:
-            return {
-              ...state,
-              loading: true,
-            };
-            break;
-          case FETCH_DELADDRESSBYADDRESSID_SUCCESS:
-            return {
-              ...state,
-              loading: false,
-              delAddressByAddressId: action.payload,
-              error: "",
-            };
-            break;
-          case FETCH_ADDPRODUCTTOCARTCHECKOUT_FAILURE:
-            return {
-              ...state,
-              loading: false,
-              delAddressByAddressId: [],
-              error: action.payload,
-            };
-            break;
-            case FETCH_ADDPRODUCTTOCARTCHECKOUT_REQUEST:
-              return {
-                ...state,
-                loading: true,
-              };
-              break;
-            case FETCH_ADDPRODUCTTOCARTCHECKOUT_SUCCESS:
-              return {
-                ...state,
-                loading: false,
-                addProductToCheckout: action.payload,
-                error: "",
-              };
-              break;
-            case FETCH_ADDPRODUCTTOCARTCHECKOUT_FAILURE:
-              return {
-                ...state,
-                loading: false,
-                addProductToCheckout: [],
-                error: action.payload,
-              };
-              break;
+    case FETCH_ADDADDRESS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      break;
+    case FETCH_ADDADDRESS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        addAddress: action.payload,
+        error: "",
+      };
+      break;
+    case FETCH_ADDADDRESS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        addAddress: [],
+        error: action.payload,
+      };
+      break;
+    case FETCH_DELADDRESSBYADDRESSID_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      break;
+    case FETCH_DELADDRESSBYADDRESSID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        delAddressByAddressId: action.payload,
+        error: "",
+      };
+      break;
+    case FETCH_DELADDRESSBYADDRESSID_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        delAddressByAddressId: [],
+        error: action.payload,
+      };
+      break;
+    case FETCH_ADDPRODUCTTOCARTCHECKOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      break;
+    case FETCH_ADDPRODUCTTOCARTCHECKOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        addProductToCheckout: action.payload,
+        error: "",
+      };
+      break;
+    case FETCH_ADDPRODUCTTOCARTCHECKOUT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        addProductToCheckout: [],
+        error: action.payload,
+      };
+      break;
+    case FETCH_CUSTOMERORDERDETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      break;
+    case FETCH_CUSTOMERORDERDETAILS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        customerOrderDetails: action.payload,
+        error: "",
+      };
+      break;
+    case FETCH_CUSTOMERORDERDETAILS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        customerOrderDetails: [],
+        error: action.payload,
+      };
+      break;
+    case FETCH_CUSTOMERINVOICE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      break;
+    case FETCH_CUSTOMERINVOICE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        orderInvoice: action.payload,
+        error: "",
+      };
+      break;
+    case FETCH_CUSTOMERINVOICE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        orderInvoice: [],
+        error: action.payload,
+      };
+      break;
+    case FETCH_CUSTOMERCHANGEPASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      break;
+    case FETCH_CUSTOMERCHANGEPASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        changePassword: action.payload,
+        error: "",
+      };
+      break;
+    case FETCH_CUSTOMERCHANGEPASSWORD_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        changePassword: [],
+        error: action.payload,
+      };
+      break;
     default:
       return state;
       break;

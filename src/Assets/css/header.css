@@ -11,7 +11,6 @@
 .link-drop{
   color: black;
   text-decoration: none;
-  background-color: transparent;
 }
 .link-drop:hover{
   color:black;
@@ -37,7 +36,7 @@
 .link-option{
 color:white;
   text-decoration: none;
-  margin-left: 80px;
+  margin-left: 60px;
   background-color: transparent;
   font-size: 20px;
 }
@@ -65,7 +64,7 @@ color:white;
  margin-left: 10px;
 }
 .dropdown-btn{
-  width: 100px;
+  width: 150px;
   height: 50px;
 }
 .search-icon{
@@ -84,4 +83,8 @@ color:white;
   margin-left: 40px;
   outline: 0 !important;
   box-shadow: none !important;
+}
+.drop-btn{
+  background-color: white !important;
+  color: black !important;
 }

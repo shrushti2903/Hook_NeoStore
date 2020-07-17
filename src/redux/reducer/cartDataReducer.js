@@ -96,28 +96,28 @@ const CartDataReducer = (state = cartData, action) => {
         error: action.payload,
       };
       break;
-      case FETCH_GETCARTDATA_REQUEST:
-        return {
-            ...state,
-            loading : true
-        }
-        break;
-        case FETCH_GETCARTDATA_SUCCESS:
-            return {
-                ...state,
-                loading : false,
-                getCartData : action.payload,
-                error : ''
-            }
-            break;
-            case FETCH_GETCARTDATA_FAILURE:
-                return {
-                    ...state,
-                    loading : false,
-                    getCartData : [],
-                    error : action.payload
-                }
-                break;
+    case FETCH_GETCARTDATA_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      break;
+    case FETCH_GETCARTDATA_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        getCartData: action.payload,
+        error: "",
+      };
+      break;
+    case FETCH_GETCARTDATA_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        getCartData: [],
+        error: action.payload,
+      };
+      break;
     default:
       return state;
       break;
