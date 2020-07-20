@@ -47,9 +47,9 @@ const Login = () => {
               Login Twitter
             </Button>
           </Col> */}
-          <Col xs={12}>
+          <Col xs={10}>
             <Card className='login-card'>
-              <Card.Body>
+              <Card.Body className='login-cardbody'>
                 <Form onSubmit={handleSubmit} className="form-login" noValidate>
                   <h3 className="h3"> Login to NeoSTORE</h3>
                   <Form.Group controlId="formGroupEmail">
@@ -69,7 +69,7 @@ const Login = () => {
                       id="formGroupPassword"
                       className="form-grp"
                       type="password"
-                      placeholder="Password"
+                      placeholder="Enter password"
                       value={form.password}
                       onChange={handleChangeAll}
                       name="password"
@@ -80,7 +80,7 @@ const Login = () => {
                   )}
                   <button
                     className="login-btn"
-                    id="register-btn"
+                   
                     type="submit"
                     value="send"
                   >
@@ -99,7 +99,7 @@ const Login = () => {
               </Link>
               &nbsp;&nbsp;|&nbsp;
               <Link to="/forgotten" className="reg-link">
-                Forgotten?
+                Forgot Password?
               </Link>
             </div>
           </Col>

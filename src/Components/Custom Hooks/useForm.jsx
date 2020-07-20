@@ -16,34 +16,45 @@ const intialState = {
   },
 };
 const useForm = (callback, validate) => {
-  const [form, setForm] = useState({ intialState });
-  const [error, setError] = useState({ intialState });
+  const [form, setForm] = useState({  form: {
+    email: "",
+    password: "",
+  }, });
+  const [error, setError] = useState({  error: {
+    email: "",
+    password: "",
+  }, });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loggedIn, setLoggedIn] = useState();
   const loginDataList = useSelector((state) => state.customerData.loginData);
   const dispatch = useDispatch();
 
-  const handleChangeAll = (event) => {
+
+  const handleChangeAll = async(event) => {
     const { name, value } = event.target;
+  
     setForm({
       ...form,
       [name]: value,
     });
   };
- 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(validate(form));
-    setIsSubmitting(true);
     const user = {
       email: form.email,
       pass: form.password,
     };
+    setError(validate(form));
+    setIsSubmitting(true);
+    console.log('submit',isSubmitting)
     const isValid = validate;
-    if (isValid) {
-      await dispatch(fetchLoginData(user));
-    }
     
+    if (Object.keys(error).length == 0 ) {
+       await dispatch(fetchLoginData(user));
+    }  else{
+      Swal.fire('Please Enter Correct Email and Password')
+    }
+   
     if (loginDataList.status_code == 200) {
       localStorage.setItem(
         "token",
@@ -54,19 +65,20 @@ const useForm = (callback, validate) => {
         "customer",
         JSON.stringify(loginDataList.customer_details)
       );
-      
       setLoggedIn(true);
-      await Swal.fire(loginDataList.message)
-    }else{
-      await Swal.fire('Password is not matched')
+       Swal.fire(loginDataList.message)
     }
-  };
   
+  };
+
   useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmitting) {
-      callback();
+    if(isSubmitting){
+
+      callback()
+      setError(validate(form))
     }
-  }, [error]);
+    
+  }, [form]);
   
   return {
     handleChangeAll,

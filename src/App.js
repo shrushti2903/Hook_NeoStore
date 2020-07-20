@@ -22,6 +22,7 @@ import Address from "./Components/Product Folder/Order Folder/Address";
 import OrderSidebar from "./Components/Product Folder/Order Folder/OrderSideBar";
 import ProfileEdit from "./Components/Product Folder/Order Folder/ProfileEdit";
 import OrderPlaced from "./Components/Product Folder/Order Folder/OrderPlaced";
+import LocateUs from "./Components/User Folder/LocateUs";
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
           <Route path="/logout" component={Logout} />
           <Route path="/deliveryAddress" component={DeliveryAddress} />
           <Route path={["/order"]} component={OrderSidebar} />
-
+          <Route path={"/locateUs"} component={LocateUs} />
           <Footer />
         </div>
       </BrowserRouter>

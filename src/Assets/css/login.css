@@ -36,15 +36,13 @@
     font-size: 12px;
 }
 .h3 {
-    color: black;
-    font-weight: bold;
-    margin-bottom: 20px !important;
-    margin-left: 30px;
+    font-size: 40px !important;
+    padding-bottom: 30px;
 }
 
 .form-grp{
     width:  100px;
-    height: 50px !important;
+    height: 70px !important;
     margin-top: 10px;
 }
 .reg-link{
@@ -84,13 +82,17 @@ box-sizing: border-box;
    color: white;
     background-color: blue;
     height: 50px;
-    width: 20%;
+    width: 60%;
 }
 .login-btn{
-    width: 80px;
+    height: 50px;
+    width: 100px;
     margin-top: 30px;
     outline: 0 !important;
     border: none;
+    background-color: blue;
+    color: white;
+
 }
 .error-tittle{
   color: red;
@@ -102,7 +104,12 @@ box-sizing: border-box;
     text-align: center;
 }
 .login-card{
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 40px;
+    margin-left: 300px;
+    margin-right: 80px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 1px;
+}
+.login-cardbody{
+    padding: 3.00rem !important;
 }

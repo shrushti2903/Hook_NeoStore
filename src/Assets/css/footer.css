@@ -10,8 +10,7 @@
     color: white;
     background-color: black;
     position: relative;
-  
-    bottom: 0;
+    margin-top: 200px !important;
     
 }
  .about-company{
@@ -32,9 +31,7 @@ margin-right: 10px;
 padding: 0px;
 text-align: center;
  }
- .footer-row{
-     margin-bottom: 20px;
- }
+ 
  .row{
      margin-left: 0px;
      margin-right: 0px;

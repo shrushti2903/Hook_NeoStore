@@ -13,54 +13,73 @@ import { useInput } from "../Custom Hooks/useInput";
 import Swal from "sweetalert2";
 
 const ChangePassword = () => {
-  const [oldPassword, setOldPassword] = useInput();
-  const [newPassword, setNewPassword] = useInput();
-  const [confirmPassword, setconfirmPassword] = useInput();
-  const [error, setError] = useInput();
+  const [form, setForm] = useState({   form: {
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  }, });
+  const [error, setError] = useState({   error: {
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  }, });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const chnagePasswordData = useSelector((state)=> state.customerData.changePassword)
   const dispatch = useDispatch()
+
+  const handleChangeAll = (event) => {
+    const { name, value } = event.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
   const handlerSubmit = async(event) => {
     event.preventDefault();
-    event.target.reset();
+    setError(validate(form))
+    setIsSubmitting(true)
     const user = {
-      oldPass: oldPassword,
-      newPass: newPassword,
-      confirmPass: confirmPassword,
+      oldPass: form.oldPassword,
+      newPass: form.newPassword,
+      confirmPass: form.confirmPassword,
     };
+    console.log('user',user)
+    if(Object.keys(error).length === 0){
     const token = localStorage.getItem("token");
-    await dispatch(fetchCustomerChangePassword(user , token))
+      await dispatch(fetchCustomerChangePassword(user , token))
+    }
   };
       if(chnagePasswordData.status_code == 200){
         Swal.fire(chnagePasswordData.message)
       }
 
-  //  const validate = ()=>{
-  //     let error = {};
-  //     if (!oldPassword.oldPassword) {
-  //         error.error = "oldPassword is required"
-  //     }
-  //     //Validation for password
-  //     if(!newPassword.newPassword){
-  //         error.passwordError = "Password required"
-  //     }
-  //     else if (!regPassword.test(newPassword.newPassword)){
-  //         error.error = "Password should be valid"
-  //     }
-  //     //Validation for confirm password
-  //     if(!confirmPassword.confirmPassword){
-  //         error.error = "Confirm Password required"
-  //     }
-  //     else if(newPassword !== confirmPassword.confirmPassword){
-  //         error.error = "Confirm Password not match"
-  //     }
-  //     return error
-  //  }
+   const validate = ()=>{
+      let error = {};
+      if (!form.oldPassword) {
+          error.oldPassword = "oldPassword is required"
+      }
+      //Validation for password
+      if(!form.newPassword){
+          error.newPassword = "Password required"
+      }
+      else if (!regPassword.test(form.newPassword)){
+          error.newPassword = "Password should be valid"
+      }
+      //Validation for confirm password
+      if(!form.confirmPassword){
+          error.confirmPassword = "Confirm Password required"
+      }
+      else if(form.newPassword !== form.confirmPassword){
+          error.confirmPassword = "Confirm Password not match"
+      }
+      return error
+   }
 
-  // useEffect(() => {
-  //   if (Object.keys(error).length === 0 && isSubmitting) {
-  //     console.log('successfully Submitted')
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    if (isSubmitting) {
+    setError(validate(form))
+    }
+  }, [form]);
 
   return (
     <div className="main-changePassword">
@@ -74,29 +93,35 @@ const ChangePassword = () => {
           <Form.Control
             id="formGroup-Email"
             type="password"
+            name="oldPassword"
             placeholder="Enter Old Password"
-            value={oldPassword}
-            onChange={setOldPassword}
+            value={form.oldPassword}
+            onChange={handleChangeAll}
           />
         </Form.Group>
+        <div className="modal- error-tittle">{error.oldPassword}</div>
         <Form.Group controlId="formGroupEmail">
           <Form.Control
             id="formGroup-Email"
             type="password"
+            name="newPassword"
             placeholder="Enter New Password"
-            value={newPassword}
-            onChange={setNewPassword}
+            value={form.newPassword}
+            onChange={handleChangeAll}
           />
         </Form.Group>
+        <div className="modal- error-tittle">{error.newPassword}</div>
         <Form.Group controlId="formGroupEmail">
           <Form.Control
             id="formGroup-Email"
             type="password"
+            name="confirmPassword"
             placeholder="Enter confirm passwprd"
-            value={confirmPassword}
-            onChange={setconfirmPassword}
+            value={form.confirmPassword}
+            onChange={handleChangeAll}
           />
         </Form.Group>
+        <div className="modal- error-tittle">{error.confirmPassword}</div>
 
         <Button
           id="login-btn"

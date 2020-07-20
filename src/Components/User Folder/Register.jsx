@@ -19,6 +19,7 @@ import produce from "immer";
 import { set, has } from "lodash";
 import { useInput } from "../Custom Hooks/useInput";
 import FullLoader from "../../Common/FullLoader";
+import Swal from "sweetalert2";
 
 const initialState = {
   error: {
@@ -45,6 +46,8 @@ const Resgister = () => {
   const [data] = useState({ male: "male", female: "female", other: "other" });
   const [gender, setGender] = useInput("");
   const [phone, setPhone] = useInput("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const history = useHistory();
   const handlerSubmit = (event) => {
     event.preventDefault();
@@ -59,6 +62,7 @@ const Resgister = () => {
         data
       )
     );
+    setIsSubmitting(true)
     const user = {
       first_name: firstName,
       last_name: lastName,
@@ -69,15 +73,30 @@ const Resgister = () => {
       gender: gender,
     };
     const isValid = validate;
-    if (isValid) {
+    if (Object.keys(error).length === 0 && isSubmitting){
       dispatch(fetchRegisterData(user));
-      if(registerData.status_code == 200){
-
-        history.push("/login");
-      }
     }
   };
-
+          if(registerData.status_code == 200){
+            Swal.fire(registerData.message)
+            history.push("/login");
+          }
+useEffect(()=>{
+  if ( isSubmitting){
+   
+    setError(
+  validate(
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    data
+  )
+);
+  }
+},[firstName, lastName ,email ,phone,password,confirmPassword , data])
   return (
     <div>
       {/* <Container>
@@ -97,7 +116,7 @@ const Resgister = () => {
       <hr /> */}
 
       <Row>
-        <Col>
+        <Col lg={10}>
           <Card className="card-register">
             <Card.Body className="card-register-body">
            
@@ -112,6 +131,7 @@ const Resgister = () => {
                   <Form.Control
                     id="formGroupFirstName"
                     type="text"
+                    name="firstName"
                     placeholder="First Name"
                     value={firstName}
                     onChange={setFirtName}
@@ -122,6 +142,7 @@ const Resgister = () => {
                   <Form.Control
                     id="formGroupLastName"
                     type="text"
+                    name="lastName"
                     placeholder="Last Name"
                     value={lastName}
                     onChange={setLastName}
@@ -132,7 +153,8 @@ const Resgister = () => {
                   <Form.Control
                     id="formGroup-Email"
                     type="email"
-                    placeholder="Enter email"
+                    name="email"
+                    placeholder="Email"
                     value={email}
                     onChange={setEmail}
                   />
@@ -143,6 +165,7 @@ const Resgister = () => {
                     id="formGroup-Password"
                     type="password"
                     placeholder="Password"
+                    name="password"
                     value={password}
                     onChange={setPassword}
                   />
@@ -152,6 +175,7 @@ const Resgister = () => {
                   <Form.Control
                     id="formGroupConPassword"
                     type="password"
+                    name="confirmPassword"
                     placeholder="Confirm Password"
                     value={confirmPassword}
                     onChange={setConfitmPassword}
@@ -162,8 +186,9 @@ const Resgister = () => {
                   <Form.Control
                     id="formGroupNumber"
                     type="text"
-                    placeholder="Enter Phone Number"
+                    placeholder="Phone Number"
                     value={phone}
+                    name="phone"
                     onChange={setPhone}
                   />
                 </Form.Group>
@@ -174,6 +199,7 @@ const Resgister = () => {
                     <input
                       type="radio"
                       id={data.male}
+                      name="male"
                       value={data.male}
                       checked={data.male === gender}
                       onChange={setGender}
@@ -184,6 +210,7 @@ const Resgister = () => {
                         type="radio"
                         id={data.female}
                         value={data.female}
+                        name="female"
                         checked={data.female === gender}
                         onChange={setGender}
                       />
@@ -195,6 +222,7 @@ const Resgister = () => {
                 <Button id="register-btn" size="sm" type="submit" value="send">
                   <b id="span-reg">Register</b>
                 </Button>
+
               </Form>
      
             </Card.Body>

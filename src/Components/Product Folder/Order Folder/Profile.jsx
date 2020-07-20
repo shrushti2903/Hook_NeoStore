@@ -37,7 +37,14 @@ const Profile = () => {
           <br />
           <span className="details-fields">{loginDataList.gender} </span>
           <br />
-          <span className="details-fields">{loginDataList.dob}</span>
+          {
+            loginDataList.dob?
+            <span className="details-fields">{loginDataList.dob}</span>
+            
+            :
+            <span className="details-fields">-</span>
+          
+          }
           <br />
           <span className="details-fields">{loginDataList.phone_no}</span>
           <br />

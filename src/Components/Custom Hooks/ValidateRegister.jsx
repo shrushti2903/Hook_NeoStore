@@ -10,8 +10,8 @@ export default function validateRegister(
   lastName,
   email,
   phone,
-  confirmPassword,
   password,
+  confirmPassword,
   data
 ) {
   let error = {};

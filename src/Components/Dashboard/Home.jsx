@@ -22,6 +22,8 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchProductCard());
   }, []);
+ 
+
   return (
     <div className="main-slider">
      
@@ -73,7 +75,9 @@ const Home = () => {
             <FullLoader />
           ) : (
       <Col lg={12}>
-        <ProductRating ProductDataList={topratingProduct} />
+        <ProductRating 
+        ProductDataList={topratingProduct} 
+       />
       </Col>
           )
       }

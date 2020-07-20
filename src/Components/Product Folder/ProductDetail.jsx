@@ -22,7 +22,13 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useState, useRef } from "react";
 import FullLoader from "../../Common/FullLoader";
+import { mergeCartData } from "../../Utils/helper";
 
+import {
+ 
+  fetchCartProductDetail,
+} from "../../redux/action/productCardAction";
+import Swal from "sweetalert2";
 const ProductDetails = (props) => {
   const productDetails = useSelector(
     (state) => state.productCardData.productDetail
@@ -30,6 +36,8 @@ const ProductDetails = (props) => {
   const loading = useSelector(
     (state) => state.productCardData.loading
   );
+  const getCartDataList = useSelector((state) => state.cartData.getCartData);
+  const cart = (getCartDataList && getCartDataList.product_details) || [];
   const productDetailsList = productDetails[0];
   const productImage = productDetailsList && productDetailsList.product_image;
   const [image, setImage] = useState({ url: "" });
@@ -47,6 +55,46 @@ const ProductDetails = (props) => {
       url: img,
     });
   };
+
+  const addToCart = ()=>{
+    console.log(productDetailsList)
+  
+    const localStorageCartData = JSON.parse(localStorage.getItem("cart")) || [];
+    const mergeCartDataList = mergeCartData(cart, localStorageCartData);
+    const isAvailableProductData = mergeCartDataList.filter(
+      (product) => product.product_id == productDetailsList.product_id
+    );
+    console.log('main',isAvailableProductData)
+    if (isAvailableProductData && isAvailableProductData.length) {
+      Swal.fire("Already added");
+      return;
+    }
+
+    const product_name = productDetailsList.product_name;
+    const product_producer = productDetailsList.product_producer;
+    const product_cost = productDetailsList.product_cost;
+    const product_stock = productDetailsList.product_stock;
+    const product_image = productDetailsList.product_image;
+    const product_id = productDetailsList.product_id;
+    const total = productDetailsList.product_cost;
+    const quantity = 1;
+    const _id = productDetailsList.product_id;
+
+    Swal.fire("Added to cart");
+    dispatch(
+      fetchCartProductDetail(
+        product_name,
+        product_stock,
+        product_image,
+        product_cost,
+        product_id,
+        product_producer,
+        total,
+        quantity,
+        _id
+      )
+    );
+  }
   return (
     <div>
        {loading ? (
@@ -140,7 +188,7 @@ const ProductDetails = (props) => {
           </Row>
           <Row>
             <Col>
-              <Button className="add-btn">ADD TO CART</Button>
+              <Button className="add-btn" onClick={addToCart}>ADD TO CART</Button>
               <Button className="rate-btn">RATE PRODUCT</Button>
             </Col>
           </Row>

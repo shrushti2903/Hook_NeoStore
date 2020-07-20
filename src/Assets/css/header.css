@@ -88,3 +88,8 @@ color:white;
   background-color: white !important;
   color: black !important;
 }
+.drop-down-btn-login{
+  width: 120px;
+  height: 50px;
+  margin-left: 5px;
+}

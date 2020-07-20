@@ -8,30 +8,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchContactUsData } from "../../redux/action/customerDataAction";
 import FullLoader from "../../Common/FullLoader";
 
-const intialState = {
-  form: {
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  },
-  error: {
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  },
-};
 const ContactForm = () => {
-  const [form, setForm] = useState({ intialState });
-  const [error, setError] = useState({ intialState });
+  const [form, setForm] = useState({   form: {
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  }, });
+  const [error, setError] = useState({  error: {
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  }, });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const loginDataList = useSelector((state) => state.customerData.contactUs);
-  const loading = useSelector(
-    (state) => state.customerData.loading
-  );
+ 
   const dispatch = useDispatch();
 
   const handleChangeAll = (event) => {
@@ -46,7 +40,7 @@ const ContactForm = () => {
     setError(validate(form));
     setIsSubmitting(true);
     const user = {
-      customer_id: 88,
+      customer_id: 103,
       email: form.email,
       name: form.name,
       subject: form.subject,
@@ -54,9 +48,10 @@ const ContactForm = () => {
       message: form.message,
     };
     const isValid = validate;
-    if (isValid) {
+    if (Object.keys(error).length === 0) {
       dispatch(fetchContactUsData(user));
     }
+    
   };
 
   const validate = () => {
@@ -89,25 +84,28 @@ const ContactForm = () => {
     return error;
   };
   useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmitting) {
+    if ( isSubmitting) {
+    setError(validate(form));
     }
-  }, [error]);
+  }, [form]);
 
   return (
-    <div>
-       {loading ? (
-            <FullLoader />
-          ) : (
-
+     <div className='contact-div'>
+   {/* {loading ? (
+    //         <FullLoader />
+    //       ) : ( */}
+     
       <Form onSubmit={handleSubmit} className="mx-auto col-md-6 " noValidate>
         <Card className="contact">
+        <h3 className="contact-form-heading">Contact Form</h3>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Name"
+              placeholder=" Name"
               value={form.name}
               name="name"
+              className="form-field"
               onChange={handleChangeAll}
             />
           </Form.Group>
@@ -116,9 +114,10 @@ const ContactForm = () => {
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="Email"
               value={form.email}
               name="email"
+              className="form-field"
               onChange={handleChangeAll}
             />
           </Form.Group>
@@ -127,9 +126,10 @@ const ContactForm = () => {
             <Form.Label>Mobile Number</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter Mobile Number "
+              placeholder="Mobile Number "
               value={form.phone}
               name="phone"
+              className="form-field"
               onChange={handleChangeAll}
             />
           </Form.Group>
@@ -141,6 +141,7 @@ const ContactForm = () => {
               placeholder="Subject"
               value={form.subject}
               name="subject"
+              className="form-field"
               onChange={handleChangeAll}
             />
           </Form.Group>
@@ -149,6 +150,7 @@ const ContactForm = () => {
             <Form.Label>Message</Form.Label>
             <Form.Control
               type="text"
+              className="form-field"
               placeholder="Message"
               value={form.message}
               name="message"
@@ -156,12 +158,12 @@ const ContactForm = () => {
             />
           </Form.Group>
           <div className="modal- error-tittle">{error.message}</div>
-          <Button variant="primary" type="submit" value="send">
+          <Button className='submit-btn' type="submit" value="send">
             Submit
           </Button>
         </Card>
       </Form>
-          )}
+          // )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-#login-btn{
+.submit-btn{
     background-color: blue;
     color: white;
     height: 50px;
@@ -11,11 +11,12 @@
    
 }
 .forgot-form{
-    background-color: gray;
-    border-width: 20px;
-    box-shadow: gray;
-    
+    border-width: 20px;    
 }
-.text-center{
-    color: black;
+.card-forgot{
+    padding: 2.00rem !important;
+}
+.heading-forgot{
+    text-align: center !important;
+    margin-bottom: 50px;
 }

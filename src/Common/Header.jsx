@@ -65,11 +65,24 @@ const Header = (props) => {
       });
     map.push({ flag: "logout" });
     const user = map;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to logout!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "yes Logout !",
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire("Logout!", "You are logged successfully");
+        const token = localStorage.getItem("token");
+        dispatch(fetchAddProductToCartCheckout(user, token));
+        localStorage.clear();
+        history.push("/login");
 
-    const token = localStorage.getItem("token");
-    dispatch(fetchAddProductToCartCheckout(user, token));
-    localStorage.clear();
-    history.push("/login");
+      }
+    });
   };
   const order = () =>{
     if (!id) {
@@ -160,7 +173,7 @@ const Header = (props) => {
                 <Dropdown.Toggle
                   variant="light"
                   id="dropdown-basic"
-                  className="dropdown-btn"
+                  className="drop-down-btn-login"
                 >
                   <MdPermContactCalendar color="black" size="2rem" />
                 </Dropdown.Toggle>

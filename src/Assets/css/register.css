@@ -20,14 +20,19 @@
     border: none;
 }
 .card-register{
-    margin: 50px 100px;
+   margin-left: 300px;
+   margin-right: 100px;
+   margin-top: 50px;
+   margin-bottom: 50px;
     padding: 1px;
 }
 .card-register-body{
-    padding: 1px;
+    padding: 4.00rem !important;
+
 }
 .register-heading{
-    margin: 20px 20px;
+    font-size: 40px !important;
+    padding-bottom: 30px;
 }
 #formGroupFirstName{
     height: 60px;
@@ -69,7 +74,7 @@
  #register-btn{
      color: white;
      background-color: blue;
-     width: 10%;
+     width: 100px;
      height: 50px;
  }
  .radio{

@@ -38,6 +38,7 @@
 .row-product{
     margin-right: 0px;
     margin-left: 0px;
+    
 }
 .pagination {
     margin: 15px auto;
@@ -71,3 +72,5 @@
       text-align: center;
     margin-left: 550px;
   }
+  .product{
+    height: 100%;  }

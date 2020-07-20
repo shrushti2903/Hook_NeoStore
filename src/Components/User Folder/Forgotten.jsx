@@ -10,17 +10,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { fetchForgotPassworData } from "../../redux/action/customerDataAction";
 import FullLoader from "../../Common/FullLoader";
+import Swal from "sweetalert2";
 
 const Forgotten = () => {
   const [email, setEmail] = useState({ email: "" });
   const [error, setError] = useState({ error: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const loginDataList = useSelector(
+  const forgotDataList = useSelector(
     (state) => state.customerData.forgotPassword
   );
-  const loading = useSelector(
-    (state) => state.customerData.loading
-  );
+ 
   const dispatch = useDispatch();
 
   const handllerChange = (event) => {
@@ -29,6 +28,8 @@ const Forgotten = () => {
       ...email,
       [name]: value,
     });
+   
+
   };
   const handlerSubmit = (event) => {
     event.preventDefault();
@@ -37,9 +38,11 @@ const Forgotten = () => {
     const user = {
       email: email.email,
     };
-    const isValid = validate;
-    if (isValid) {
+    if (Object.keys(error).length === 0 && isSubmitting) {
       dispatch(fetchForgotPassworData(user));
+    }
+    if(forgotDataList.success){
+      Swal.fire(forgotDataList.message)
     }
   };
 
@@ -52,24 +55,21 @@ const Forgotten = () => {
     }
     return error;
   };
+useEffect(()=>{
+  if(isSubmitting){
 
-  useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmitting) {
-    }
-  }, [error]);
-
+    setError(validate(email));
+  }
+},[email])
+  
   return (
     <div className="main-forgotten">
-       {loading ? (
-            <FullLoader/>
-          ) : (
-
+      
       <Form className="mx-auto col-md-6 " onSubmit={handlerSubmit} noValidate>
-        <Card border="grey" bg="light">
+        <Card className='card-forgot'>
           <div>
-            <h3 className="text-center">Forgot Password</h3>
+            <h3 className="heading-forgot">Forgot Password</h3>
           </div>
-          <hr />
           <Form.Group controlId="formGroupEmail">
             <Form.Control
               id="formGroup-Email"
@@ -84,7 +84,7 @@ const Forgotten = () => {
 
           <Button
             id="login-btn"
-            className="mx-auto"
+            className=""
             size="sm"
             type="submit"
             value="send"
@@ -93,7 +93,7 @@ const Forgotten = () => {
           </Button>
         </Card>
       </Form>
-          )}
+         
     </div>
   );
 };

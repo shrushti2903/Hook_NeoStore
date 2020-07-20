@@ -1,8 +1,25 @@
 .contact{
-        background: #eee !important;
         margin-top: 50px;
         margin-bottom: 50px;
         padding: 30px;
         border: none !important;
         box-shadow:  rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;;
+}
+.contact-div{
+        height: 600px;
+        margin-top: 50px;
+        margin-bottom: 200px;
+}
+.contact-form-heading{
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 20px;
+}
+.submit-btn{
+        background-color: blue;
+        color: white;
+        width: 100px;
+}
+.form-field{
+        height: 60px !important;
 }

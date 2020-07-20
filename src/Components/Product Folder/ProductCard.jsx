@@ -14,11 +14,14 @@ import { MdModeEdit } from "react-icons/md";
 import { Container } from "react-bootstrap";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { mergeCartData } from "../../Utils/helper";
 import {
   fetchProductDetails,
   fetchCartProductDetail,
 } from "../../redux/action/productCardAction";
+import Swal from "sweetalert2";
 import { useEffect, useCallback } from "react";
+import { fetchGetCartData } from "../../redux/action/cartDataAction";
 
 const ProductCard = (props) => {
   const [addModalShow, setModalShow] = useState(false);
@@ -29,10 +32,50 @@ const ProductCard = (props) => {
     setId(id);
     setModalShow(true);
   };
-
+  const getCartDataList = useSelector((state) => state.cartData.getCartData);
+  const cart = (getCartDataList && getCartDataList.product_details) || [];
   const { ProductDataList } = props;
   console.log('data props', ProductDataList)
-  const { handleClick } = props;
+
+  const dispatch = useDispatch()
+  const addToCart = (id) => {
+    const productDetailId = ProductDataList.filter(
+      (product) => product._id == id
+    );
+    const localStorageCartData = JSON.parse(localStorage.getItem("cart")) || [];
+    const mergeCartDataList = mergeCartData(cart, localStorageCartData);
+    const isAvailableProductData = mergeCartDataList.filter(
+      (product) => product.product_id == id
+    );
+    if (isAvailableProductData && isAvailableProductData.length) {
+      Swal.fire("Already added");
+      return;
+    }
+
+    const product_name = productDetailId[0].product_name;
+    const product_producer = productDetailId[0].product_producer;
+    const product_cost = productDetailId[0].product_cost;
+    const product_stock = productDetailId[0].product_stock;
+    const product_image = productDetailId[0].product_image;
+    const product_id = productDetailId[0].product_id;
+    const total = productDetailId[0].product_cost;
+    const quantity = 1;
+    const _id = productDetailId[0].product_id;
+    Swal.fire("Added to cart");
+    dispatch(
+      fetchCartProductDetail(
+        product_name,
+        product_stock,
+        product_image,
+        product_cost,
+        product_id,
+        product_producer,
+        total,
+        quantity,
+        _id
+      )
+    );
+  };
   return (
     <div>
       {typeof ProductDataList == "string" ? (
@@ -51,7 +94,7 @@ const ProductCard = (props) => {
                       variant="white"
                       onClick={() => handleShow(data.product_id)}
                     >
-                      <MdModeEdit />
+                      <MdModeEdit className='edit-icon'/>
                     </Button>
 
                     <Card.Img
@@ -76,7 +119,7 @@ const ProductCard = (props) => {
                         <p>Rs {data.product_cost}</p>
                         <button
                           className="add-cart-btn"
-                          onClick={() => handleClick(data.product_id)}
+                          onClick={() => addToCart(data.product_id)}
                         >
                           Add To Cart
                         </button>

@@ -1,6 +1,6 @@
 import { regEmail, regPassword } from "../../Constants/inputRegxs";
 
-export default function validateLogin(form) {
+export default function validateLogin(form ) {
   let error = {};
   if (!form.email) {
     error.email = "Email is required";

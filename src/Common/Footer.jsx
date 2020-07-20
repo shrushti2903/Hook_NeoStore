@@ -86,18 +86,18 @@ const Footer = () => {
                 </a>
               )}
             </li>
-            <Link className="a" to="contactform">
+            <Link className="a" to="/contactform">
               Contact Us
             </Link>
             <li>
-              <a className="a" href="#/">
-                Privacy Policy
-              </a>
+            <Link className="a" to="/home">
+              Privacy Policy
+            </Link>
             </li>
             <li>
-              <a className="a" href="#/location">
-                Locate Us
-              </a>
+            <Link className="a" to="/locateUs">
+            Locate Us
+            </Link>
             </li>
           </ul>
         </Col>
@@ -120,7 +120,7 @@ const Footer = () => {
           ></input>
           <br />
           <Button id="subscribeBtn" className="mx-auto" variant="light">
-            Subscribe
+            Submit
           </Button>
           <br />
         </Col>
