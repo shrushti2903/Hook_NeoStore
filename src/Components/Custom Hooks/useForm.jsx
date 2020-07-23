@@ -46,15 +46,13 @@ const useForm = (callback, validate) => {
     };
     setError(validate(form));
     setIsSubmitting(true);
-    console.log('submit',isSubmitting)
-    const isValid = validate;
-    
+    console.log('submit',user)    
+    console.log(localStorage)
     if (Object.keys(error).length == 0 ) {
        await dispatch(fetchLoginData(user));
     }  else{
       Swal.fire('Please Enter Correct Email and Password')
     }
-   
     if (loginDataList.status_code == 200) {
       localStorage.setItem(
         "token",
@@ -68,6 +66,7 @@ const useForm = (callback, validate) => {
       setLoggedIn(true);
        Swal.fire(loginDataList.message)
     }
+   
   
   };
 

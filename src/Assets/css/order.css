@@ -75,9 +75,21 @@ button.mat-primary {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px !important;
     display: block;
     height: 40px;
 }
 .myAccount{
    text-align: center;
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+.no-order{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.go-to-prouct{
+    margin-left: 40% !important;
+    margin-top: 30px;
 }

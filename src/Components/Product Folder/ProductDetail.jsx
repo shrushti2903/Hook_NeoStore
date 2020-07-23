@@ -12,6 +12,8 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { MdShare } from "react-icons/md";
+import { EmailShareButton, EmailIcon ,WhatsappShareButton ,WhatsappIcon, FacebookShareButton ,FacebookIcon , TwitterShareButton,TwitterIcon  } from 'react-share';
+ import {EmailButton} from 'react-social'
 import Button from "react-bootstrap/Button";
 import { ratingTotalCount } from "../../Constants/enum";
 import { fetchProductDetails } from "../../redux/action/productCardAction";
@@ -29,6 +31,7 @@ import {
   fetchCartProductDetail,
 } from "../../redux/action/productCardAction";
 import Swal from "sweetalert2";
+import ProductStartRating from "./ProductStarRating";
 const ProductDetails = (props) => {
   const productDetails = useSelector(
     (state) => state.productCardData.productDetail
@@ -36,9 +39,14 @@ const ProductDetails = (props) => {
   const loading = useSelector(
     (state) => state.productCardData.loading
   );
+  let url = "https://1d81591afa0d.ngrok.io/productDetails/5cfe41a5b4db0f338946eac3 ";
   const getCartDataList = useSelector((state) => state.cartData.getCartData);
   const cart = (getCartDataList && getCartDataList.product_details) || [];
   const productDetailsList = productDetails[0];
+  const data = `Product Name : ${productDetailsList && productDetailsList.product_name}    Product Cost : ${productDetailsList && productDetailsList.product_cost}    Product Color: ${ productDetailsList &&
+    productDetailsList.color_id &&
+    productDetailsList.color_id.color_name}        Product Raring : ${productDetailsList && productDetailsList.product_rating}`
+    console.log('data',data)
   const productImage = productDetailsList && productDetailsList.product_image;
   const [image, setImage] = useState({ url: "" });
   const dispatch = useDispatch();
@@ -169,7 +177,7 @@ const ProductDetails = (props) => {
           </h6>
           <Row>
             <Col>
-              <button className="social-btn fb">
+              {/* <button className="social-btn fb">
                 <FaFacebookSquare className="fb-icon" />
               </button>
               <button className="social-btn google">
@@ -177,19 +185,46 @@ const ProductDetails = (props) => {
               </button>
               <button className="social-btn whats-app">
                 <FaWhatsapp className="whtas-icon" />
-              </button>
-              <button className="social-btn pp">
-                <FaPinterest className="pinterest-icon" />
-              </button>
-              <button className="social-btn twitter">
-                <FaTwitter className="twitter-icon" />
-              </button>
+              </button> */}
+
+          <WhatsappShareButton
+            url={url}
+            title={data}
+            separator=":: "
+            className="Demo__some-network__share-button social-btn whats-app"
+          >
+            <WhatsappIcon size={70} round className="whtas-icon" />
+          </WhatsappShareButton >
+          <FacebookShareButton
+            url={url}
+            quote={<button
+              className="color-code"
+              style={{
+                backgroundColor:
+                  productDetailsList &&
+                  productDetailsList.color_id &&
+                  productDetailsList.color_id.color_code,
+              }}
+            ></button>}
+            className="Demo__some-network__share-button social-btn fb"
+          >
+            <FacebookIcon size={70} round />
+          </FacebookShareButton>
+          <TwitterShareButton
+            url={url}
+            title={data}
+            className="Demo__some-network__share-button social-btn twitter"
+          >
+            <TwitterIcon size={70} round className="twitter-icon" />
+          </TwitterShareButton>
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col md={4}>
               <Button className="add-btn" onClick={addToCart}>ADD TO CART</Button>
-              <Button className="rate-btn">RATE PRODUCT</Button>
+            </Col>
+            <Col  md={4 }>
+            <ProductStartRating className="rate-btn" id={productDetailsList && productDetailsList.product_id}>RATE PRODUCT</ProductStartRating>
             </Col>
           </Row>
         </Col>

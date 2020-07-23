@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import "./App.css";
 import Header from "./Common/Header";
 import Footer from "./Common/Footer";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 import Home from "./Components/Dashboard/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
@@ -25,6 +25,7 @@ import OrderPlaced from "./Components/Product Folder/Order Folder/OrderPlaced";
 import LocateUs from "./Components/User Folder/LocateUs";
 
 function App() {
+  const token = localStorage.getItem("token");
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -33,8 +34,17 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/home" component={Home} />
           <Route path="/product" component={Product} />
-          <Route path="/register" component={Resgister} />
-          <Route path="/login" component={Login} />
+          {/* {localStorage.length == 0 ? ( */}
+            <Route path="/login" component={Login} />
+            {/* ) : (
+              <Redirect to="/" />
+              )}
+          {localStorage.length == 0 ? ( */}
+            <Route path="/register" component={Resgister} />
+            {/* ) : (
+              <Redirect to="/" />
+          )} */}
+
           <Route path="/forgotten" component={Forgotten} />
           <Route path="/contactform" component={ContactForm} />
           <Route path="/productDetails" component={productDetail} />

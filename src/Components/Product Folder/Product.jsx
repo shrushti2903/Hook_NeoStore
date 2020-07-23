@@ -1,4 +1,4 @@
-import React, { useContext, useState, useLayoutEffect } from "react";
+import React, { useContext, useState, useLayoutEffect, useCallback } from "react";
 import SideBar from "./SideBar";
 import "../../Assets/css/product.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +23,7 @@ import Swal from "sweetalert2";
 import { fetchGetCartData } from "../../redux/action/cartDataAction";
 import FullLoader from "../../Common/FullLoader";
 import { apiUrl } from "../../Constants/api";
+import { connect } from "react-redux";
 import {
   endOfApi,
   topRatingProduct,
@@ -52,10 +53,12 @@ const Product = (props) => {
     const allProductInHighestRatingList = useSelector(
       (state) => state.productCardData.allProductInHighestRating
       );
+      console.log('highest rating in selector', allProductInHighestRatingList)
       const allProductList = useSelector(
         (state) => state.productCardData.allProduct,
         );
-        const [ProductData, setProduct] = useState([]);
+        console.log('redux all product',allProductList)
+        const [productData, setProduct] = useState([]);
         const [count, setcount] = useState({});
   const loading = useSelector(
     (state) => state.categoriesData.loading,
@@ -63,31 +66,44 @@ const Product = (props) => {
     (state) => state.productCardData.loading
   );
   const dispatch = useDispatch();
-  useEffect(async() => {
+  React.useEffect(() => {
     dispatch(fetchCategory());
     dispatch(fetchColor());
     // dispatch(fetchAllProductInHighestRating());
     const id = localStorage.getItem("token");
-    dispatch(fetchGetCartData(id));
-     await axios({
-      method: "GET",
-      url: `${apiUrl}${allProduct}`,
-      headers: endOfApi,
-    })
-      .then((response) => {
-        const allProduct =
-          response && response.data && response.data.product_details;
-          setProduct(allProduct)
-      })
-      .catch((error) => {
-      });
-  }, []);
+  
+     dispatch(fetchAllProduct());
+    console.log('redux all product',allProductList)
+   
 
-  // const handllerAllProductTopRating = async () => {
-  //   await dispatch(fetchAllProductInHighestRating())
-  //      setProduct(prevState => allProductInHighestRatingList);
-  //   console.log("product list set", ProductData);
-  // };
+    },[]);
+   
+  
+
+    // const func = async()=>{
+    //   const result = await axios({
+    //    method: "GET",
+    //    url: `${apiUrl}${allProduct}`,
+    //    headers: endOfApi,
+    //  })
+    //    .then((response) => {
+    //      const allProduct =
+    //        response && response.data && response.data.product_details;
+    //        setProduct(allProduct)
+    //    })
+    //    .catch((error) => {
+    //    });
+    // }
+    // func()
+  // }, []);
+  const handllerAllProductTopRating =  (event) => {
+    const highestProductRatingData = dispatch(fetchAllProductInHighestRating())
+      console.log('highest rating data',highestProductRatingData)
+      if(allProductInHighestRatingList.length > 0){
+        setProduct(allProductInHighestRatingList);
+      }
+    console.log("highest rating ", allProductInHighestRatingList);
+  };
   return (
     <div className="product">
       {loading ? (
@@ -96,7 +112,7 @@ const Product = (props) => {
         <h5 className="sort">
           Sort By:
           <button className="star-btn" >
-            <IoIosStar className="star-icon"  />
+            <IoIosStar className="star-icon" onClick={handllerAllProductTopRating}/>
           </button>
           <button className="star-btn">
             ₹<IoMdArrowUp className="star-icon" />
@@ -119,7 +135,7 @@ const Product = (props) => {
           <Col>
             <Row>
               <Col lg={12} md={12} className="col-products">
-                <ProductCard ProductDataList={ProductData} />
+                <ProductCard ProductDataList={productData.length > 0 ? productData : allProductList} />
               </Col>
             </Row>
           </Col>
@@ -138,6 +154,5 @@ const Product = (props) => {
   /> */}
     </div>
   );
-};
-
+}
 export default Product;

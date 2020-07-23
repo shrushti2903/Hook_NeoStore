@@ -58,6 +58,11 @@ import {
   FETCH_PRODUCTCARTDETAILS_SUCCESS,
   FETCH_PRODUCTCARTDETAILS_FAILURE,
 } from "../../Constants/typeActionRedux/typeAction";
+import {
+  FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_REQUEST,
+  FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_SUCCESS,
+  FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_FAILURE
+} from "../../Constants/typeActionRedux/typeAction";
 import axios from "axios";
 import { apiUrl } from "../../Constants/api";
 import { ToastContainer, toast } from "react-toastify";
@@ -478,3 +483,43 @@ export const fetchCartProductDetailDelete = (index) => {
     localStorage.setItem("cart", JSON.stringify(productDetails));
   };
 };
+
+export const fetchUpdateProductRatingByCustomerIdRequest = () => ({
+  type: FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_REQUEST,
+});
+export const fetchUpdateProductRatingByCustomerIdSuccess = (
+  updateProductRatingByCustomerId
+) => ({
+  type: FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_SUCCESS,
+  payload: updateProductRatingByCustomerId,
+});
+export const fetchUpdateProductRatingByCustomerIdFailure = (error) => ({
+  type: FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_FAILURE,
+  payload: error,
+});
+
+export const fetchUpdateProductRatingByCustomerId = ( data , token) => {
+  return (dispatch) => {
+    dispatch(fetchUpdateProductRatingByCustomerIdRequest());
+    return axios({
+      method: "PUT",
+      url: `${apiUrl}updateProductRatingByCustomer`,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
+      data: data,
+    })
+      .then((response) => {
+        const updateProductRatingByCustomerId = response.data;
+        dispatch(
+          fetchUpdateProductRatingByCustomerIdSuccess(updateProductRatingByCustomerId)
+        );
+      })
+      .catch((error) => {
+        dispatch(fetchUpdateProductRatingByCustomerIdFailure(error));
+      });
+  };
+};
+

@@ -34,10 +34,10 @@ const OrderDetails = () => {
       {
         orderDetail  ==  null || []?
         <div>
-        <h1>
+        <h1 className="no-order">
           No Order Found
         </h1>
-        <Link to="/product"> <Button>  Go to Product Page </Button></Link>
+        <Link to="/product"> <Button className="go-to-prouct">  Go to Product Page </Button></Link>
         </div>
        :
       <h2>

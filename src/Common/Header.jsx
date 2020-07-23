@@ -18,7 +18,7 @@ import {
   fetchAllCartData,
   fetchGetCartData,
 } from "../redux/action/cartDataAction";
-import { BrowserRouter, Route, Link, Switch, useHistory } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { useMemo } from "react";
@@ -79,9 +79,12 @@ const Header = (props) => {
         const token = localStorage.getItem("token");
         dispatch(fetchAddProductToCartCheckout(user, token));
         localStorage.clear();
+        console.log('localStorage',localStorage)
+        console.log('logout')
         history.push("/login");
-
       }
+     
+      
     });
   };
   const order = () =>{
