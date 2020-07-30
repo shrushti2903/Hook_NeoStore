@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import "../../../Assets/css/address.css";
-import { MdCancel } from "react-icons/md";
+import { MdCancel, MdModeEdit } from "react-icons/md";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -36,12 +36,14 @@ const Address = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#ff0000 ",
+      cancelButtonColor: "#6c757d",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.value) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire({
+          confirmButtonColor: "#ff0000 ",
+          text :"Deleted! Your file has been deleted success"});
         dispatch(fetchDelAddressByAddressId(addressId, id));
 
       }
@@ -51,25 +53,23 @@ const Address = () => {
   return (
     <div>
      
-      <div className="main-address">
+      <div>
         <h3 className="address-tittle">Address</h3>
         <hr className="address-tittle" />
         {data &&
           data.map((value) => {
             return (
-              <div className="address">
+              <div className="mx-auto md-col-6">
+                <Card className='contact '>
                 <MdCancel
                   className="cancel-icon"
                   onClick={() => handlerDeletAddress(value.address_id)}
                 />
                 <span className="address-details">{value.address}</span>
-                <br />
                 <span className="address-details">
                   {value.city} - {value.pincode}
                 </span>
-                <br />
                 <span className="address-details">{value.country}</span>
-                <br />
                 <Link
                   to={{
                     pathname: "/Order/editAddress",
@@ -78,13 +78,16 @@ const Address = () => {
                     },
                   }}
                 >
-                  <Button className="edit-Button">Edit</Button>
+                  <Button className="add-address">
+              Edit</Button>
                 </Link>
+                </Card>
+
               </div>
             );
           })}
         <Link to="/Order/addAddress">
-          <Button className="edit-Button">Add Address</Button>
+          <Button className="add-address">Add Address</Button>
         </Link>
       </div>
     

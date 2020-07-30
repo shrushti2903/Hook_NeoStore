@@ -9,24 +9,34 @@ import { fetchContactUsData } from "../../redux/action/customerDataAction";
 import FullLoader from "../../Common/FullLoader";
 
 const ContactForm = () => {
-  const [form, setForm] = useState({   form: {
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  }, });
-  const [error, setError] = useState({  error: {
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  }, });
+  const [form, setForm] = useState({
+    form: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    },
+  });
+  const [error, setError] = useState({
+    error: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    },
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const loginDataList = useSelector((state) => state.customerData.contactUs);
- 
+
   const dispatch = useDispatch();
+
+  /**
+   * Function Name - handleChangeAll
+   * Parameters -  event
+   * this function helps to set the state of form when it gets change from its current state.
+   */
 
   const handleChangeAll = (event) => {
     const { name, value } = event.target;
@@ -35,6 +45,14 @@ const ContactForm = () => {
       [name]: value,
     });
   };
+
+  /**
+ * Function Name - handleSubmit
+ * Parameters -  event
+ * this function submitted all the field of form 
+    after validating all the field value and after validation on submit api  gets called,
+ */
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(validate(form));
@@ -51,14 +69,19 @@ const ContactForm = () => {
     if (Object.keys(error).length === 0) {
       dispatch(fetchContactUsData(user));
     }
-    
   };
+
+  /**
+   * Function Name - validate
+   * Parameters -
+   * in this function all the required field are validating accordingly
+   */
 
   const validate = () => {
     let error = {};
     //for name
     if (!form.name) {
-      error.name = "FirstName required";
+      error.name = "Name required";
     } else if (!regfullName.test(form.name)) {
       error.name = "Name should be valid";
     }
@@ -84,22 +107,21 @@ const ContactForm = () => {
     return error;
   };
   useEffect(() => {
-    if ( isSubmitting) {
-    setError(validate(form));
+    if (isSubmitting) {
+      setError(validate(form));
     }
   }, [form]);
 
   return (
-     <div className='contact-div'>
-   {/* {loading ? (
+    <div className="contact-div">
+      {/* {loading ? (
     //         <FullLoader />
     //       ) : ( */}
-     
+
       <Form onSubmit={handleSubmit} className="mx-auto col-md-6 " noValidate>
         <Card className="contact">
-        <h3 className="contact-form-heading">Contact Form</h3>
+          <h5 className="heading-form">Contact Form</h5>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
               placeholder=" Name"
@@ -108,10 +130,11 @@ const ContactForm = () => {
               className="form-field"
               onChange={handleChangeAll}
             />
+            <Form.Text className=" error-tittle">
+              {error.name && error.name}
+            </Form.Text>
           </Form.Group>
-          <div className="modal- error-tittle">{error.name}</div>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Email"
@@ -119,23 +142,25 @@ const ContactForm = () => {
               name="email"
               className="form-field"
               onChange={handleChangeAll}
-            />
+            />{" "}
+            <Form.Text className=" error-tittle">
+              {error.email && error.email}
+            </Form.Text>
           </Form.Group>
-          <div className="modal- error-tittle">{error.email}</div>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Mobile Number</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Mobile Number "
+              placeholder="Phone Number "
               value={form.phone}
               name="phone"
               className="form-field"
               onChange={handleChangeAll}
             />
+            <Form.Text className=" error-tittle">
+              {error.phone && error.phone}
+            </Form.Text>
           </Form.Group>
-          <div className="modal- error-tittle">{error.phone}</div>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Subject</Form.Label>
             <Form.Control
               type="text"
               placeholder="Subject"
@@ -144,10 +169,11 @@ const ContactForm = () => {
               className="form-field"
               onChange={handleChangeAll}
             />
+            <Form.Text className=" error-tittle">
+              {error.subject && error.subject}
+            </Form.Text>
           </Form.Group>
-          <div className="modal- error-tittle">{error.subject}</div>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Message</Form.Label>
             <Form.Control
               type="text"
               className="form-field"
@@ -156,14 +182,15 @@ const ContactForm = () => {
               name="message"
               onChange={handleChangeAll}
             />
+            <Form.Text className=" error-tittle">
+              {error.message && error.message}
+            </Form.Text>
           </Form.Group>
-          <div className="modal- error-tittle">{error.message}</div>
-          <Button className='submit-btn' type="submit" value="send">
+          <Button className="submit-btn" type="submit" value="send">
             Submit
           </Button>
         </Card>
       </Form>
-          // )}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import { useLocation, Redirect, useHistory } from "react-router-dom";
 import { useInput } from "../../Custom Hooks/useInput";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCustomerProfile } from "../../../redux/action/customerDataAction";
+import Card from "react-bootstrap/Card";
 
 const ProfileEdit = (props) => {
   const location = useLocation();
@@ -24,7 +25,16 @@ const ProfileEdit = (props) => {
   const customerProfileList = useSelector(
     (state) => state.customerData.customerProfile
   );
+
   const dispatch = useDispatch();
+
+  /**
+ * Function Name - handleSubmit
+ * Parameters -  event
+ * this function submitted all the field of form 
+    after validating all the field value and after validation on submit api  gets called,
+ */
+
   const handlerSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
@@ -50,10 +60,10 @@ const ProfileEdit = (props) => {
     history.push("/Order/profile");
   };
   return (
-    <div className="main-editProfile">
-      <h3 className="address-tittle">Edit Profile</h3>
+    <div className="main-editAddress">
+      <h5 className="heading-form">Edit Profile</h5>
       <hr className="address-tittle" />
-      <Form className="edit-profile-form" onSubmit={handlerSubmit}>
+      <Form className="edit-address-form " onSubmit={handlerSubmit}>
         <Form.Group controlId="formGroupFirstName">
           <Form.Control
             id="formGroupFirstName"
@@ -72,7 +82,7 @@ const ProfileEdit = (props) => {
             onChange={setLastName}
           />
         </Form.Group>
-        <span id="head">Gender : </span>
+        <label className="gender">Gender : </label>
         <div class="custom-control custom-radio custom-control-inline radio">
           <input
             type="radio"
@@ -81,7 +91,9 @@ const ProfileEdit = (props) => {
             checked={dataGender.male === gender}
             onChange={setGender}
           />
-          <label htmlFor={dataGender.male}>Male</label>
+          <label className="radio-label" htmlFor={dataGender.male}>
+            Male
+          </label>
           <div class="custom-control custom-radio custom-control-inline">
             <input
               type="radio"
@@ -90,7 +102,9 @@ const ProfileEdit = (props) => {
               checked={dataGender.female === gender}
               onChange={setGender}
             />
-            <label htmlFor={dataGender.female}>Female</label>
+            <label className="radio-label" htmlFor={dataGender.female}>
+              Female
+            </label>
           </div>
         </div>
         <Form.Group controlId="formGroupNumber">
@@ -120,15 +134,12 @@ const ProfileEdit = (props) => {
             onChange={setEmail}
           />
         </Form.Group>
-
-        <Button className="profile-btn" size="sm" type="submit" value="send">
-          <IoMdSave />
-          Save
-        </Button>
-        <button className="profile-btn" onClick={redirect}>
-          <TiCancel />
+        <Button className="edit-cancel" onClick={redirect}>
           Cancel
-        </button>
+        </Button>
+        <Button className="edit-save" type="submit" value="send">
+          Submit
+        </Button>
       </Form>
     </div>
   );

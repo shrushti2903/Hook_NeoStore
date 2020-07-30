@@ -69,7 +69,7 @@ import {
 import {
   FETCH_CUSTOMERCHANGEPASSWORD_REQUEST,
   FETCH_CUSTOMERCHANGEPASSWORD_SUCCESS,
-  FETCH_CUSTOMERCHANGEPASSWORD_FAILURE
+  FETCH_CUSTOMERCHANGEPASSWORD_FAILURE,
 } from "../../Constants/typeActionRedux/typeAction";
 export const fetchLoginRequest = () => ({
   type: FETCH_LOGIN_REQUEST,
@@ -505,4 +505,3 @@ export const fetchCustomerChangePassword = (user, token) => {
       });
   };
 };
-

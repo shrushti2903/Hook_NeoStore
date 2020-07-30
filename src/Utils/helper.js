@@ -1,4 +1,6 @@
 export function mergeCartData(apiProductList, localStorageCartData) {
+  console.log("local storage in helper", localStorageCartData);
+  console.log("cart data in helper", apiProductList);
   let uniqueCartData = [];
   const requiredProductData =
     apiProductList &&
@@ -15,16 +17,21 @@ export function mergeCartData(apiProductList, localStorageCartData) {
       };
     });
   const concatProductData = localStorageCartData.concat(requiredProductData);
+  console.log("data after merge", concatProductData);
   uniqueCartData = concatProductData.reduce((product, currentProduct) => {
+    console.log("product", product);
+    console.log("current Data", currentProduct);
     const isProduct = product.find(
-      (item) =>
-        item && item.product_id === currentProduct && currentProduct.product_id
+      (item) => item.product_id == currentProduct.product_id
     );
+    console.log("isProduct", isProduct);
     if (!isProduct) {
       return product.concat([currentProduct]);
     } else {
       return product;
     }
   }, []);
+
+  console.log("unique ", uniqueCartData);
   return uniqueCartData;
 }

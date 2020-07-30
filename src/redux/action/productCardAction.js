@@ -61,7 +61,12 @@ import {
 import {
   FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_REQUEST,
   FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_SUCCESS,
-  FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_FAILURE
+  FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
+import {
+  FETCH_PRODUCTDETAILSCLEAR_REQUEST,
+  FETCH_PRODUCTDETAILSCLEAR_SUCCESS,
+  FETCH_PRODUCTDETAILSCLEAR_FAILURE,
 } from "../../Constants/typeActionRedux/typeAction";
 import axios from "axios";
 import { apiUrl } from "../../Constants/api";
@@ -271,8 +276,7 @@ export const fetchCommonProducts = (
       headers: endOfApi,
     })
       .then((response) => {
-        const commonProduct =
-          response && response.data && response.data.product_details;
+        const commonProduct = response && response.data;
         dispatch(fetchCommonProductSuccess(commonProduct));
       })
       .catch((error) => {
@@ -324,6 +328,8 @@ export const fetchProductByColorAndCategoryFailure = (error) => ({
   payload: error,
 });
 export const fetchProductByColorAndCategory = (categoryId, colorId) => {
+  console.log("category id in action", categoryId);
+  console.log("color id in action", colorId);
   return (dispatch) => {
     dispatch(fetchProductByColorAndCategoryRequest());
 
@@ -444,9 +450,18 @@ export const fetchCartProductDetailSUCCESS = (cartData) => ({
   type: FETCH_PRODUCTCARTDETAILS_SUCCESS,
   payload: cartData,
 });
-
+export const fetchCartProductDetailClearSUCCESS = (cartData) => ({
+  type: FETCH_PRODUCTDETAILSCLEAR_SUCCESS,
+  payload: cartData,
+});
 let productDetails = [];
 
+export const fetchCartProductDetailsClear = () => {
+  return (dispatch) => {
+    productDetails.length = 0;
+    dispatch(fetchCartProductDetailSUCCESS(productDetails));
+  };
+};
 export const fetchCartProductDetail = (
   product_name,
   product_stock,
@@ -470,7 +485,6 @@ export const fetchCartProductDetail = (
       quantity,
       _id,
     });
-
     dispatch(fetchCartProductDetailSUCCESS(productDetails));
     localStorage.setItem("cart", JSON.stringify(productDetails));
   };
@@ -498,7 +512,7 @@ export const fetchUpdateProductRatingByCustomerIdFailure = (error) => ({
   payload: error,
 });
 
-export const fetchUpdateProductRatingByCustomerId = ( data , token) => {
+export const fetchUpdateProductRatingByCustomerId = (data, token) => {
   return (dispatch) => {
     dispatch(fetchUpdateProductRatingByCustomerIdRequest());
     return axios({
@@ -514,7 +528,9 @@ export const fetchUpdateProductRatingByCustomerId = ( data , token) => {
       .then((response) => {
         const updateProductRatingByCustomerId = response.data;
         dispatch(
-          fetchUpdateProductRatingByCustomerIdSuccess(updateProductRatingByCustomerId)
+          fetchUpdateProductRatingByCustomerIdSuccess(
+            updateProductRatingByCustomerId
+          )
         );
       })
       .catch((error) => {
@@ -522,4 +538,3 @@ export const fetchUpdateProductRatingByCustomerId = ( data , token) => {
       });
   };
 };
-

@@ -16,10 +16,11 @@
         margin-bottom: 20px;
 }
 .submit-btn{
-        background-color: blue;
-        color: white;
-        width: 100px;
-}
-.form-field{
-        height: 60px !important;
+        height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+    outline: 0 !important;
+    border: none !important;
+    background-color: red !important;
+    color: white;
 }

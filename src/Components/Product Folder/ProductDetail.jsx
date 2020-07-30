@@ -32,6 +32,7 @@ import {
 } from "../../redux/action/productCardAction";
 import Swal from "sweetalert2";
 import ProductStartRating from "./ProductStarRating";
+import { apiUrl } from "../../Constants/api";
 const ProductDetails = (props) => {
   const productDetails = useSelector(
     (state) => state.productCardData.productDetail
@@ -39,7 +40,7 @@ const ProductDetails = (props) => {
   const loading = useSelector(
     (state) => state.productCardData.loading
   );
-  let url = "https://1d81591afa0d.ngrok.io/productDetails/5cfe41a5b4db0f338946eac3 ";
+  let url = `${apiUrl}productDetails/5cfe41a5b4db0f338946eac3`
   const getCartDataList = useSelector((state) => state.cartData.getCartData);
   const cart = (getCartDataList && getCartDataList.product_details) || [];
   const productDetailsList = productDetails[0];
@@ -48,21 +49,32 @@ const ProductDetails = (props) => {
     productDetailsList.color_id.color_name}        Product Raring : ${productDetailsList && productDetailsList.product_rating}`
     console.log('data',data)
   const productImage = productDetailsList && productDetailsList.product_image;
-  const [image, setImage] = useState({ url: "" });
+  const [image, setImage] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
   useLayoutEffect(() => {
     const id = location.state.id;
     dispatch(fetchProductDetails(id));
-    setImage("http://180.149.241.208:3022/" + productImage);
   }, []);
-  const changeImage = (event) => {
-    let img = event.target.src;
 
-    setImage({
-      url: img,
-    });
+   /**
+   * Function Name - changeImage
+   * Parameters - event
+   * this function changes the main image on click of sub image
+   */
+
+  const changeImage = (event) => {
+    let img = event.target.id
+    console.log('image on click',img)
+    setImage(`${apiUrl}` + img);
+    console.log('image after set',image)
   };
+
+ /**
+   * Function Name - addToCart
+   * Parameters - id
+   * this function add products in cart
+   */
 
   const addToCart = ()=>{
     console.log(productDetailsList)
@@ -74,7 +86,10 @@ const ProductDetails = (props) => {
     );
     console.log('main',isAvailableProductData)
     if (isAvailableProductData && isAvailableProductData.length) {
-      Swal.fire("Already added");
+      Swal.fire({
+        confirmButtonColor: "#ff0000 ",
+        text : "Already added"
+      });
       return;
     }
 
@@ -88,7 +103,10 @@ const ProductDetails = (props) => {
     const quantity = 1;
     const _id = productDetailsList.product_id;
 
-    Swal.fire("Added to cart");
+    Swal.fire({
+      confirmButtonColor: "#ff0000 ",
+      text : "Added to cart"
+    });
     dispatch(
       fetchCartProductDetail(
         product_name,
@@ -113,7 +131,7 @@ const ProductDetails = (props) => {
         <Col lg={6} className="img-col">
           <img
             className="img-main"
-            src={image ? "http://180.149.241.208:3022/" + productImage : image}
+            src={image ? image :  apiUrl + productImage  }
           />
           <Row>
             {productDetailsList &&
@@ -123,8 +141,9 @@ const ProductDetails = (props) => {
                   <Col lg={4} className="img-sub-col">
                     <img
                       className="img-sub"
+                      id={value}
                       onClick={changeImage}
-                      src={"http://180.149.241.208:3022/" + value}
+                      src={apiUrl + value}
                     />
                   </Col>
                 );
@@ -139,18 +158,18 @@ const ProductDetails = (props) => {
             let product_rating =
               productDetailsList && productDetailsList.product_rating;
             return product_rating - star_value > 0 ? (
-              <IoIosStar className="rating-star " key={star_value}>
+              <IoIosStar className="rating-star-detail " key={star_value}>
                 {product_rating}
               </IoIosStar>
             ) : product_rating - star_value >= -0.5 &&
               product_rating - star_value < 0 ? (
               <IoIosStarHalf
-                className="rating-star "
+                className="rating-star-detail "
                 key={star_value}
               ></IoIosStarHalf>
             ) : (
               <IoIosStarOutline
-                className="rating-star"
+                className="rating-star-detail"
                 key={star_value}
               ></IoIosStarOutline>
             );

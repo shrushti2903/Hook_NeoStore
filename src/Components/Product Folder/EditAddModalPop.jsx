@@ -58,6 +58,14 @@ const EditAddModlPop = (props) => {
   const [productColorId, setColorId] = useInput(color);
 
   const dispatch = useDispatch();
+
+  /**
+ * Function Name - handleSubmit
+ * Parameters -  event
+ * this function submitted all the field of form 
+    after validating all the field value and after validation on submit api  gets called,
+ */
+
   const handlerSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
@@ -85,8 +93,6 @@ const EditAddModlPop = (props) => {
 
   return (
     <div>
-     
-
       <Modal show={show} onHide={handleClose} animation={false}>
         <Form onSubmit={handlerSubmit}>
           <Modal.Header closeButton>
@@ -208,15 +214,14 @@ const EditAddModlPop = (props) => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              Cancel
             </Button>
-            <Button variant="primary" type="submit" value="send">
+            <Button className="edit-save" type="submit" value="send">
               Update Product
             </Button>
           </Modal.Footer>
         </Form>
       </Modal>
-     
     </div>
   );
 };

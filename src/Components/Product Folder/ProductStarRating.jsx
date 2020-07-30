@@ -54,11 +54,11 @@ const ProductStarRating =(props) => {
         <ReactStars {...firstExample} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button variant="edit-cancel" onClick={handleClose}>
+            Cancel
           </Button>
-          <Button variant="primary" onClick={handlerSubmit}>
-            Save Changes
+          <Button variant="edit-save" onClick={handlerSubmit}>
+           Submit
           </Button>
         </Modal.Footer>
       </Modal>

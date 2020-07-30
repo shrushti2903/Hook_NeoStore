@@ -21,15 +21,12 @@
  .information{
      margin-top: 20px;
      margin-left: 10px;
-     margin-right: 10px;
      text-align: center;
  }
  .news-letter{
-margin-top: 20px;
-margin-left: -70px ;
-margin-right: 10px;
-padding: 0px;
-text-align: center;
+    margin-top: 20px;
+    margin-left: 10px;
+    text-align: center;
  }
  
  .row{

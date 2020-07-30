@@ -19,8 +19,14 @@ const Forgotten = () => {
   const forgotDataList = useSelector(
     (state) => state.customerData.forgotPassword
   );
- 
+
   const dispatch = useDispatch();
+
+  /**
+   * Function Name - handlerChange
+   * Parameters -  event
+   * this function helps to set the state of form when it gets change from its current state.
+   */
 
   const handllerChange = (event) => {
     const { name, value } = event.target;
@@ -28,9 +34,15 @@ const Forgotten = () => {
       ...email,
       [name]: value,
     });
-   
-
   };
+
+  /**
+ * Function Name - handleSubmit
+ * Parameters -  event
+ * this function submitted all the field of form 
+    after validating all the field value and after validation on submit api  gets called,
+ */
+
   const handlerSubmit = (event) => {
     event.preventDefault();
     setError(validate(email));
@@ -41,10 +53,19 @@ const Forgotten = () => {
     if (Object.keys(error).length === 0 && isSubmitting) {
       dispatch(fetchForgotPassworData(user));
     }
-    if(forgotDataList.success){
-      Swal.fire(forgotDataList.message)
+    if (forgotDataList.success) {
+      Swal.fire({
+        confirmButtonColor: "#ff0000 ",
+        text: forgotDataList.message,
+      });
     }
   };
+
+  /**
+   * Function Name - validate
+   * Parameters -
+   * in this function all the required field are validating accordingly
+   */
 
   const validate = () => {
     let error = {};
@@ -55,20 +76,18 @@ const Forgotten = () => {
     }
     return error;
   };
-useEffect(()=>{
-  if(isSubmitting){
+  useEffect(() => {
+    if (isSubmitting) {
+      setError(validate(email));
+    }
+  }, [email]);
 
-    setError(validate(email));
-  }
-},[email])
-  
   return (
     <div className="main-forgotten">
-      
       <Form className="mx-auto col-md-6 " onSubmit={handlerSubmit} noValidate>
-        <Card className='card-forgot'>
+        <Card className="contact">
           <div>
-            <h3 className="heading-forgot">Forgot Password</h3>
+            <h5 className="heading-form">Forgot Password</h5>
           </div>
           <Form.Group controlId="formGroupEmail">
             <Form.Control
@@ -79,21 +98,15 @@ useEffect(()=>{
               name="email"
               onChange={handllerChange}
             />
+            <Form.Text className=" error-tittle">
+              {error.error && error.error}
+            </Form.Text>
           </Form.Group>
-          <div className="error-tittle">{error.error}</div>
-
-          <Button
-            id="login-btn"
-            className=""
-            size="sm"
-            type="submit"
-            value="send"
-          >
+          <Button className="login-btn" size="sm" type="submit" value="send">
             Submit
           </Button>
         </Card>
       </Form>
-         
     </div>
   );
 };

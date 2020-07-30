@@ -9,58 +9,60 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProductCard } from "../../redux/action/productCardAction";
 import ProductRating from "../Product Folder/ProductRating";
 import FullLoader from "../../Common/FullLoader";
+import { apiUrl } from "../../Constants/api";
+import { fetchGetCartData } from "../../redux/action/cartDataAction";
 
 const Home = () => {
   const topratingProduct = useSelector(
     (state) => state.productCardData.productCard
   );
-  console.log('topratingProduct' ,topratingProduct)
-  const loading = useSelector(
-    (state) => state.productCardData.loading
-  );
+
+  console.log("topratingProduct", topratingProduct);
+  const loading = useSelector((state) => state.productCardData.loading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProductCard());
   }, []);
- 
+  useEffect(() => {
+    const id = localStorage.getItem("token");
+    dispatch(fetchGetCartData(id));
+  }, []);
 
   return (
     <div className="main-slider">
-     
-          
       <Carousel>
         <Carousel.Item>
           <img
             className="d-block w-100 slider"
-            src="http://180.149.241.208:3022/2019-06-14T07-16-40.263Zsofa.jpg"
+            src="./images/sideBar1.jpg"
             alt="First slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 slider"
-            src="http://180.149.241.208:3022/2019-06-14T07-12-38.862Zbed.jpg"
+            src="./images/sideBar2.jpg"
             alt="Second slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 slider"
-            src="http://180.149.241.208:3022/2019-06-14T07-00-13.113Zwp2163483.jpg"
+            src="./images/sideBar3.jpg"
             alt="Third slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 slider"
-            src="http://180.149.241.208:3022/2019-06-14T07-16-18.267Ztable.jpg"
+            src="./images/sideBar4.jpg"
             alt="forth slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 slider"
-            src="http://180.149.241.208:3022/2019-06-28T05-38-01.778Zwardrobe-design-with-color-combination.jpeg"
+            src="./images/sideBar5.jpeg"
             alt="fifth slide"
           />
         </Carousel.Item>
@@ -72,15 +74,12 @@ const Home = () => {
         </Link>
       </button>
       {loading ? (
-            <FullLoader />
-          ) : (
-      <Col lg={12}>
-        <ProductRating 
-        ProductDataList={topratingProduct} 
-       />
-      </Col>
-          )
-      }
+        <FullLoader />
+      ) : (
+        <Col lg={10} className="home-col mx-auto">
+          <ProductRating ProductDataList={topratingProduct} />
+        </Col>
+      )}
     </div>
   );
 };

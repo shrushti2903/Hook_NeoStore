@@ -4,6 +4,7 @@ import "../../../Assets/css/orderPlaced.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchGetCartData } from "../../../redux/action/cartDataAction";
 import FullLoader from "../../../Common/FullLoader";
+import Button from "react-bootstrap/Button";
 
 const OrderPlaced = () => {
   const CustomerCartData = useSelector((state) => state.cartData.getCartData);
@@ -12,7 +13,7 @@ const OrderPlaced = () => {
   useEffect(() => {
     const id = localStorage.getItem("token");
     dispatch(fetchGetCartData(id));
-  }, []);
+  }, [CustomerCartData]);
   return (
     <div className="orderPlace">
 
@@ -20,7 +21,7 @@ const OrderPlaced = () => {
       <h5>Your order has been placed and is being processed</h5>
      
       <Link to="/home">
-        <button>Back to HomePage</button>
+        <Button className='edit-save'>Back to HomePage</Button>
       </Link>
         
     </div>

@@ -20,42 +20,23 @@
     border: none;
 }
 .card-register{
-   margin-left: 300px;
-   margin-right: 100px;
    margin-top: 50px;
    margin-bottom: 50px;
     padding: 1px;
+    width: 80%;
+    height: 90%;
 }
-.card-register-body{
-    padding: 4.00rem !important;
-
+.radio-label{
+    margin-left: 10px;
+    margin-top: -7px;
 }
 .register-heading{
-    font-size: 40px !important;
     padding-bottom: 30px;
 }
-#formGroupFirstName{
-    height: 60px;
-}
-#formGroupLastName{
-    height: 60px;
-}
-#formGroup-Email{
-    height: 60px;
-}
-#formGroup-Password{
-    height: 60px;
-}
-#formGroupConPassword{
-    height: 60px;
-}
-#formGroupNumber{
-    height: 60px;
-}
+
 .error-tittle{
     color: red;
-    margin-left: 50px;
-    margin-top: 10px;
+    margin-left: 20px;
     font-size: 12px;
   }
  .radio{
@@ -73,9 +54,12 @@
  }
  #register-btn{
      color: white;
-     background-color: blue;
-     width: 100px;
-     height: 50px;
+     background-color: red !important;
+     width: 100%;
+     border: none !important;
+     height: 40px;
+     margin-bottom: 20px;
+
  }
  .radio{
      color: black;

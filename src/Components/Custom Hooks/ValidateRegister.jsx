@@ -5,6 +5,12 @@ import {
   regNumber,
 } from "../../Constants/inputRegxs";
 
+/**
+ * Function Name - validate
+ * Parameters -
+ * in this function all the required field are validating accordingly
+ */
+
 export default function validateRegister(
   firstName,
   lastName,
@@ -16,15 +22,15 @@ export default function validateRegister(
 ) {
   let error = {};
   if (!firstName) {
-    error.firstNameError = "FirstName required";
+    error.firstNameError = "First name required";
   } else if (!regFullName.test(firstName)) {
-    error.firstNameError = "Name should be valid";
+    error.firstNameError = "First name should be valid";
   }
   //validation for last name
   if (!lastName) {
-    error.lastNameError = "LastName required";
+    error.lastNameError = "Last name required";
   } else if (!regFullName.test(lastName)) {
-    error.lastNameError = "Name should be valid";
+    error.lastNameError = " Last name should be valid";
   }
   //Validation for email
   if (!email) {
@@ -36,7 +42,7 @@ export default function validateRegister(
   if (!password) {
     error.passwordError = "Password required";
   } else if (!regPassword.test(password)) {
-    error.passwordError = "Password should be valid";
+    error.passwordError = "Password length should be in between 8-12 character";
   }
   //Validation for confirm password
   if (!confirmPassword) {

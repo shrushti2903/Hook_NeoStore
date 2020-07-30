@@ -48,35 +48,35 @@ const OrderSidebar = () => {
           <div className="profileOptions">
             <Link to={`${match.url}/orderdetails`}>
               <button className="order-btn">
+               <span className="tittle">Order</span>  &nbsp;
                 <RiOrderPlayLine className="mat-icon" />
-                &nbsp; Order
               </button>
             </Link>
           </div>
           <div className="profileOptions">
             <Link to={`${match.url}/profile`}>
               <button className="order-btn">
+              <span className="tittle">Profile</span>   &nbsp; 
                 <MdPermContactCalendar className="mat-icon" />
-                &nbsp; Profile
               </button>
             </Link>
           </div>
           <div className="profileOptions">
             <Link to={`${match.url}/address`}>
               <button className="order-btn" onClick={handlerChangeOrder}>
+             <span className="tittle">Address</span>   &nbsp; 
                 <FaAddressCard className="mat-icon" />
-                &nbsp; Address
               </button>
             </Link>
           </div>
           <div className="profileOptions">
             <Link to={`${match.url}/changePassword`}>
               <button className="order-btn">
+               <span className="tittle">Change Password</span>  &nbsp;
                 <FaExchangeAlt className="mat-icon" />
-                &nbsp; Change Password
               </button>
             </Link>
-          </div>
+          </div> 
         </Col>
         <Col lg={8}>
           <Switch>

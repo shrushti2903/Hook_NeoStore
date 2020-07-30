@@ -9,7 +9,7 @@
     margin-bottom: 20px;
 }
 .delet-icon{
-    color: brown;
+    color:black;
     font-size:  25px;
 }
 .table-img{
@@ -32,6 +32,7 @@
     background-color: red;
     border: none;
     outline: 0px !important;
+    margin: 10px;
 }
 .left{
     float: left;
@@ -46,7 +47,9 @@
 .procced-btn{
     width: 100%;
     margin-top: 20px;
+    background-color: red !important;
     margin-right: 20px;
+    border: none !important;
     outline: 0px !important;
 }
 .instock{

@@ -27,7 +27,10 @@ const Order = (props) => {
   let match = useRouteMatch();
   const id = localStorage.getItem("token");
   if(!id){
-    Swal.fire('Please login first')
+    Swal.fire({
+      confirmButtonColor: "#ff0000 ",
+      text : "Please login first"
+    });
     return <Redirect to="/login" />
   }
 

@@ -32,7 +32,7 @@
 .detail{
     height: 200px;
 }
-.rating-star {
+.rating-star-detail {
     color: goldenrod;
     margin-left: 15px !important;
     font-size: 30px;

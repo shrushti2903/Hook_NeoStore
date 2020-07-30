@@ -35,15 +35,13 @@
     font-family: "Helvetica Neue",sans-serif;
     font-size: 12px;
 }
-.h3 {
-    font-size: 40px !important;
-    padding-bottom: 30px;
+.heading-form {
+    margin-bottom: 20px;
+    text-align: center !important;
 }
 
 .form-grp{
     width:  100px;
-    height: 70px !important;
-    margin-top: 10px;
 }
 .reg-link{
 box-sizing: border-box;
@@ -85,18 +83,18 @@ box-sizing: border-box;
     width: 60%;
 }
 .login-btn{
-    height: 50px;
-    width: 100px;
-    margin-top: 30px;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
     outline: 0 !important;
-    border: none;
-    background-color: blue;
+    border: none !important;
+    background-color: red !important;
     color: white;
 
 }
 .error-tittle{
   color: red;
-  margin-left: 50px;
+  margin-left: 20px !important;
   vertical-align: middle;
   font-size: 12px;
 }
@@ -104,12 +102,9 @@ box-sizing: border-box;
     text-align: center;
 }
 .login-card{
-    margin-left: 300px;
-    margin-right: 80px;
     margin-top: 50px;
-    margin-bottom: 50px;
     padding: 1px;
+    width: 75%;
+    height: 90%;
 }
-.login-cardbody{
-    padding: 3.00rem !important;
-}
+

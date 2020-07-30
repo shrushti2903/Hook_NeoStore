@@ -1,8 +1,11 @@
 .submit-btn{
-    background-color: blue;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+    outline: 0 !important;
+    border: none !important;
+    background-color: red !important;
     color: white;
-    height: 50px;
-    width: 100px;
     
 }
 .main-forgotten{
@@ -15,8 +18,4 @@
 }
 .card-forgot{
     padding: 2.00rem !important;
-}
-.heading-forgot{
-    text-align: center !important;
-    margin-bottom: 50px;
 }

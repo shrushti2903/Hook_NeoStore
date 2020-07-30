@@ -31,29 +31,86 @@ function App() {
       <BrowserRouter>
         <div>
           <Header />
-          <Route path="/" exact component={Home} />
-          <Route path="/home" component={Home} />
-          <Route path="/product" component={Product} />
+          <Route
+            path="/"
+            onUpdate={() => window.scrollTo(0, 0)}
+            exact
+            component={Home}
+          />
+          <Route
+            path="/home"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={Home}
+          />
+          <Route
+            path="/product"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={Product}
+          />
           {/* {localStorage.length == 0 ? ( */}
-            <Route path="/login" component={Login} />
-            {/* ) : (
+          <Route
+            path="/login"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={Login}
+          />
+          {/* ) : (
               <Redirect to="/" />
               )}
           {localStorage.length == 0 ? ( */}
-            <Route path="/register" component={Resgister} />
-            {/* ) : (
+          <Route
+            path="/register"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={Resgister}
+          />
+          {/* ) : (
               <Redirect to="/" />
           )} */}
 
-          <Route path="/forgotten" component={Forgotten} />
-          <Route path="/contactform" component={ContactForm} />
-          <Route path="/productDetails" component={productDetail} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/orderPlaced" component={OrderPlaced} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/deliveryAddress" component={DeliveryAddress} />
-          <Route path={["/order"]} component={OrderSidebar} />
-          <Route path={"/locateUs"} component={LocateUs} />
+          <Route
+            path="/forgotten"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={Forgotten}
+          />
+          <Route
+            path="/contactform"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={ContactForm}
+          />
+          <Route
+            path="/productDetails"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={productDetail}
+          />
+          <Route
+            path="/cart"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={Cart}
+          />
+          <Route
+            path="/orderPlaced"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={OrderPlaced}
+          />
+          <Route
+            path="/logout"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={Logout}
+          />
+          <Route
+            path="/deliveryAddress"
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={DeliveryAddress}
+          />
+          <Route
+            path={["/order"]}
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={OrderSidebar}
+          />
+          <Route
+            path={"/locateUs"}
+            onUpdate={() => window.scrollTo(0, 0)}
+            component={LocateUs}
+          />
           <Footer />
         </div>
       </BrowserRouter>

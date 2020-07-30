@@ -10,14 +10,13 @@ import { useInput } from "../../Custom Hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCustomerUpdateAddress } from "../../../redux/action/customerDataAction";
 import FullLoader from "../../../Common/FullLoader";
+import Card from "react-bootstrap/Card";
 
 const AddressEdit = () => {
   const location = useLocation();
   const data = location.state.data;
   const history = useHistory();
-  const loading = useSelector(
-    (state) => state.customerData.loading
-  );
+  const loading = useSelector((state) => state.customerData.loading);
   const [address, setAddress] = useInput(data.address);
   const [pincode, setPincode] = useInput(data.pincode);
   const [state, setState] = useInput(data.state);
@@ -27,6 +26,13 @@ const AddressEdit = () => {
     (state) => state.customerData.updateAddress
   );
   const dispatch = useDispatch();
+
+  /**
+ * Function Name - handleSubmit
+ * Parameters -  event
+ * this function submitted all the field of form 
+    after validating all the field value and after validation on submit api  gets called,
+ */
 
   const handlerSubmit = (event) => {
     event.preventDefault();
@@ -52,9 +58,9 @@ const AddressEdit = () => {
 
   return (
     <div className="main-editAddress">
-      <h3 className="address-tittle">Edit Address</h3>
+      <h5 className="heading-form">Edit Address</h5>
       <hr className="address-tittle" />
-      
+
       <Form className="edit-address-form" onSubmit={handlerSubmit}>
         <Form.Group controlId="formGridAddress1">
           <Form.Label>Address</Form.Label>
@@ -70,6 +76,7 @@ const AddressEdit = () => {
           <Form.Label>Pincode</Form.Label>
           <Form.Control
             className="form-field"
+            placeholder="pincode"
             value={pincode}
             onChange={setPincode}
           />
@@ -80,6 +87,7 @@ const AddressEdit = () => {
             <Form.Label>City</Form.Label>
             <Form.Control
               className="form-field"
+              placeholder="city"
               value={city}
               onChange={setCity}
             />
@@ -89,6 +97,7 @@ const AddressEdit = () => {
             <Form.Label>State</Form.Label>
             <Form.Control
               className="form-field"
+              placeholder="state"
               value={state}
               onChange={setState}
             ></Form.Control>
@@ -103,16 +112,13 @@ const AddressEdit = () => {
             onChange={setCountry}
           />
         </Form.Group>
-        <Button className="edit-save" type="submit">
-          <IoMdSave />
-          save
-        </Button>
-        <Button className="edit-save" onClick={redirect}>
-          <TiCancel />
+        <Button className="edit-cancel" onClick={redirect}>
           Cancel
         </Button>
+        <Button className="edit-save" type="submit">
+          Submit
+        </Button>
       </Form>
-   
     </div>
   );
 };

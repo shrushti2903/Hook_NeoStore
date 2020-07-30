@@ -7,11 +7,11 @@
     height: 45px;
     width: 60px;
     background-color: white;
-    color: #36b ;
+    color : black ;
     outline: 0px !important;
 }
 .star-icon{
-    color: #36b;
+    color:black;
     font-size: 20px;
 }
 .col-sidebar{
@@ -58,7 +58,7 @@
     cursor: pointer;
   }
   .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-    background-color: #2199e8 ;
+    background-color: red ;
     outline: none ;
     color: white;
   }
@@ -70,7 +70,13 @@
   }
   .pagination{
       text-align: center;
-    margin-left: 550px;
   }
   .product{
     height: 100%;  }
+  .row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .row-prod{
+    margin-right: 15px !important;
+  }

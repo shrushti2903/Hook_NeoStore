@@ -1,6 +1,12 @@
 import { regEmail, regPassword } from "../../Constants/inputRegxs";
 
-export default function validateLogin(form ) {
+/**
+ * Function Name - validate
+ * Parameters -
+ * in this function all the required field are validating accordingly
+ */
+
+export default function validateLogin(form) {
   let error = {};
   if (!form.email) {
     error.email = "Email is required";
@@ -10,7 +16,7 @@ export default function validateLogin(form ) {
   if (!form.password) {
     error.password = "Password is required";
   } else if (!regPassword.test(form.password)) {
-    error.password = "Password is invalid";
+    error.password = "Password length should be in between 8-12 character";
   }
   return error;
 }

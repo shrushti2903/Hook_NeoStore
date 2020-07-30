@@ -9,6 +9,7 @@ import { Button } from "react-bootstrap";
 import "../../../Assets/css/address.css";
 import FullLoader from "../../../Common/FullLoader";
 import { Link } from "react-router-dom";
+import { apiUrl } from "../../../Constants/api";
 
 const OrderDetails = () => {
   const orderDetails = useSelector(
@@ -32,52 +33,53 @@ const OrderDetails = () => {
   return (
     <div>
       {
-        orderDetail  ==  null || []?
+        orderDetail?
+         <h2>
+         <h5 className="address-tittle">Order Details</h5>
+         <hr  />
+ 
+         {orderDetail &&
+           orderDetail.map((value) => {
+             return (
+               <div className="address">
+                 <h6 className="address-details">{value._id}</h6>
+                 <hr className="address-tittle" />
+                 <br />
+                 {value &&
+                   value.product_details &&
+                   value.product_details.map((data) => {
+                     console.log(data);
+                     return (
+                       data &&
+                       data.product_details.map((val) => {
+                         return (
+                           <img
+                             className="order-image"
+                             src={
+                               apiUrl + val.product_image
+                             }
+                           />
+                         );
+                       })
+                     );
+                   })}
+                 <br />
+                 <Button onClick={inVoice} className="invoice-button">
+                   Download Invoice
+                 </Button>
+               </div>
+             );
+           })}
+       </h2>
+     
+       :
         <div>
         <h1 className="no-order">
           No Order Found
         </h1>
         <Link to="/product"> <Button className="go-to-prouct">  Go to Product Page </Button></Link>
         </div>
-       :
-      <h2>
-        <h3 className="address-tittle">Order Details</h3>
-        <hr className="address-tittle" />
-
-        {orderDetail &&
-          orderDetail.map((value) => {
-            return (
-              <div className="address">
-                <span className="address-details">{value._id}</span>
-                <hr className="address-tittle" />
-                <br />
-                {value &&
-                  value.product_details &&
-                  value.product_details.map((data) => {
-                    console.log(data);
-                    return (
-                      data &&
-                      data.product_details.map((val) => {
-                        return (
-                          <img
-                            className="order-image"
-                            src={
-                              "http://180.149.241.208:3022/" + val.product_image
-                            }
-                          />
-                        );
-                      })
-                    );
-                  })}
-                <br />
-                <Button onClick={inVoice} className="edit-Button">
-                  Download InVoice
-                </Button>
-              </div>
-            );
-          })}
-      </h2>
-    
+     
         }  
     </div>
   );

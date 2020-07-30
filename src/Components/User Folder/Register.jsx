@@ -49,6 +49,14 @@ const Resgister = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const history = useHistory();
+
+  /**
+ * Function Name - handleSubmit
+ * Parameters -  event
+ * this function submitted all the field of form 
+    after validating all the field value and after validation on submit api  gets called,
+ */
+
   const handlerSubmit = (event) => {
     event.preventDefault();
     setError(
@@ -62,7 +70,7 @@ const Resgister = () => {
         data
       )
     );
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     const user = {
       first_name: firstName,
       last_name: lastName,
@@ -73,30 +81,32 @@ const Resgister = () => {
       gender: gender,
     };
     const isValid = validate;
-    if (Object.keys(error).length === 0 && isSubmitting){
+    if (Object.keys(error).length === 0 && isSubmitting) {
       dispatch(fetchRegisterData(user));
     }
   };
-          if(registerData.status_code == 200){
-            Swal.fire(registerData.message)
-            history.push("/login");
-          }
-useEffect(()=>{
-  if ( isSubmitting){
-   
-    setError(
-  validate(
-    firstName,
-    lastName,
-    email,
-    phone,
-    password,
-    confirmPassword,
-    data
-  )
-);
+  if (registerData.status_code == 200) {
+    Swal.fire({
+      confirmButtonColor: "#ff0000 ",
+      text: registerData.message,
+    });
+    history.push("/login");
   }
-},[firstName, lastName ,email ,phone,password,confirmPassword , data])
+  useEffect(() => {
+    if (isSubmitting) {
+      setError(
+        validate(
+          firstName,
+          lastName,
+          email,
+          phone,
+          password,
+          confirmPassword,
+          data
+        )
+      );
+    }
+  }, [firstName, lastName, email, phone, password, confirmPassword, data]);
   return (
     <div>
       {/* <Container>
@@ -116,117 +126,131 @@ useEffect(()=>{
       <hr /> */}
 
       <Row>
-        <Col lg={10}>
-          <Card className="card-register">
-            <Card.Body className="card-register-body">
-           
-
-              <Form
-                className="mx-auto col-md-12"
-                onSubmit={handlerSubmit}
-                noValidate
-              >
-                <h3 className="register-heading">Register To NeoSTORE</h3>
-                <Form.Group controlId="formGroupFirstName">
-                  <Form.Control
-                    id="formGroupFirstName"
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={setFirtName}
+        <Col xs={12} md={12} lg={12}>
+          <Form
+            className="mx-auto col-md-6"
+            onSubmit={handlerSubmit}
+            noValidate
+          >
+            <Card className="contact">
+              <h5 className="heading-form">Register To NeoSTORE</h5>
+              <Form.Group controlId="formGroupFirstName">
+                <Form.Control
+                  id="formGroupFirstName"
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={setFirtName}
+                />
+                <Form.Text className=" error-tittle">
+                  {error.firstNameError && error.firstNameError}
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formGroupLastName">
+                <Form.Control
+                  id="formGroupLastName"
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={setLastName}
+                />
+                <Form.Text className=" error-tittle">
+                  {error.lastNameError && error.lastNameError}
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formGroupEmail">
+                <Form.Control
+                  id="formGroup-Email"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={setEmail}
+                />
+                <Form.Text className=" error-tittle">
+                  {error.emailError && error.emailError}
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formGroupPassword">
+                <Form.Control
+                  id="formGroup-Password"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={setPassword}
+                />
+                <Form.Text className=" error-tittle">
+                  {error.passwordError && error.passwordError}
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formGroupConPassword">
+                <Form.Control
+                  id="formGroupConPassword"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={setConfitmPassword}
+                />
+                <Form.Text className=" error-tittle">
+                  {error.confirmPasswordError && error.confirmPasswordError}
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formGroupNumber">
+                <Form.Control
+                  id="formGroupNumber"
+                  type="text"
+                  placeholder="Phone Number"
+                  value={phone}
+                  name="phone"
+                  onChange={setPhone}
+                />
+                <Form.Text className=" error-tittle">
+                  {error.phoneError && error.phoneError}
+                </Form.Text>
+              </Form.Group>
+              <div>
+                <span id="head">Gender : </span>
+                <div class="custom-control custom-radio custom-control-inline radio">
+                  <input
+                    type="radio"
+                    id={data.male}
+                    name="male"
+                    value={data.male}
+                    checked={data.male === gender}
+                    onChange={setGender}
                   />
-                </Form.Group>
-                <div className="error-tittle">{error.firstNameError}</div>
-                <Form.Group controlId="formGroupLastName">
-                  <Form.Control
-                    id="formGroupLastName"
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={setLastName}
-                  />
-                </Form.Group>
-                <div className="error-tittle">{error.lastNameError}</div>
-                <Form.Group controlId="formGroupEmail">
-                  <Form.Control
-                    id="formGroup-Email"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={setEmail}
-                  />
-                </Form.Group>
-                <div className="error-tittle">{error.emailError}</div>
-                <Form.Group controlId="formGroupPassword">
-                  <Form.Control
-                    id="formGroup-Password"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={password}
-                    onChange={setPassword}
-                  />
-                </Form.Group>
-                <div className="error-tittle">{error.passwordError}</div>
-                <Form.Group controlId="formGroupConPassword">
-                  <Form.Control
-                    id="formGroupConPassword"
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={setConfitmPassword}
-                  />
-                </Form.Group>
-                <div className="error-tittle">{error.confirmPasswordError}</div>
-                <Form.Group controlId="formGroupNumber">
-                  <Form.Control
-                    id="formGroupNumber"
-                    type="text"
-                    placeholder="Phone Number"
-                    value={phone}
-                    name="phone"
-                    onChange={setPhone}
-                  />
-                </Form.Group>
-                <div className="error-tittle">{error.phoneError}</div>
-                <div>
-                  <span id="head">Gender : </span>
-                  <div class="custom-control custom-radio custom-control-inline radio">
+                  <label className="radio-label" htmlFor={data.male}>
+                    Male
+                  </label>
+                  <div class="custom-control custom-radio custom-control-inline">
                     <input
                       type="radio"
-                      id={data.male}
-                      name="male"
-                      value={data.male}
-                      checked={data.male === gender}
+                      id={data.female}
+                      value={data.female}
+                      name="female"
+                      checked={data.female === gender}
                       onChange={setGender}
                     />
-                    <label htmlFor={data.male}>Male</label>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input
-                        type="radio"
-                        id={data.female}
-                        value={data.female}
-                        name="female"
-                        checked={data.female === gender}
-                        onChange={setGender}
-                      />
-                      <label htmlFor={data.female}>Female</label>
-                    </div>
+                    <label className="radio-label" htmlFor={data.female}>
+                      Female
+                    </label>
                   </div>
                 </div>
-                <div className="error-tittle">{error.radioError}</div>
-                <Button id="register-btn" size="sm" type="submit" value="send">
-                  <b id="span-reg">Register</b>
-                </Button>
-
-              </Form>
-     
-            </Card.Body>
-          </Card>
+              </div>
+              <Form.Group>
+                <Form.Text className=" error-tittle">
+                  {error.radioError && error.radioError}
+                </Form.Text>
+              </Form.Group>
+              <Button id="register-btn" size="sm" type="submit" value="send">
+                <b id="span-reg">Register</b>
+              </Button>
+            </Card>
+          </Form>
         </Col>
       </Row>
     </div>

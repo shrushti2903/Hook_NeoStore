@@ -18,11 +18,22 @@ import {
   fetchAllCartData,
   fetchGetCartData,
 } from "../redux/action/cartDataAction";
-import { BrowserRouter, Route, Link, Switch, useHistory, Redirect } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Link,
+  Switch,
+  useHistory,
+  Redirect,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { useMemo } from "react";
-import { fetchCartProductDetail } from "../redux/action/productCardAction";
+import {
+  fetchCartProductDetail,
+  fetchProductBySearchedText,
+  fetchCartProductDetailsClear,
+} from "../redux/action/productCardAction";
 import { useCallback } from "react";
 import { fetchAddProductToCartCheckout } from "../redux/action/customerDataAction";
 import { mergeCartData } from "../Utils/helper";
@@ -35,10 +46,12 @@ const Header = (props) => {
     (state) => state.customerData.addProductToCheckout
   );
   const loading = useSelector(
-    (state) => state.productCardData.loading , 
+    (state) => state.productCardData.loading,
     (state) => state.customerData.loading
   );
-  
+  const searchedTextList = useSelector(
+    (state) => state.productCardData.searchedText
+  );
   let productDetails = productCartDetails.cartData;
   const CustomerCartData = useSelector((state) => state.cartData.getCartData);
   const cart = (CustomerCartData && CustomerCartData.product_details) || [];
@@ -50,7 +63,13 @@ const Header = (props) => {
   useEffect(() => {
     const id = localStorage.getItem("token");
     dispatch(fetchGetCartData(id));
-  }, []);
+  }, [addProductToCheckoutList]);
+
+  /**
+   * Function Name - logout
+   * Parameters -
+   * this function logout the customer and also clears the local storage and add products to cart
+   */
 
   const logout = () => {
     const cartDataList = JSON.parse(localStorage.getItem("cart")) || [];
@@ -70,36 +89,61 @@ const Header = (props) => {
       text: "You want to logout!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#ff0000 ",
+      cancelButtonColor: "#6c757d",
       confirmButtonText: "yes Logout !",
     }).then((result) => {
       if (result.value) {
-        Swal.fire("Logout!", "You are logged successfully");
+        console.log("logout");
         const token = localStorage.getItem("token");
         dispatch(fetchAddProductToCartCheckout(user, token));
         localStorage.clear();
-        console.log('localStorage',localStorage)
-        console.log('logout')
+        dispatch(fetchCartProductDetailsClear([]));
+        localStorage.removeItem("token");
+        localStorage.removeItem("cart");
         history.push("/login");
+        Swal.fire({
+          confirmButtonColor: "#ff0000 ",
+          text: "Logout! You are logged successfully",
+        });
       }
-     
-      
     });
   };
-  const order = () =>{
+  useEffect(() => {}, [addProductToCheckoutList]);
+
+  /**
+   * Function Name - order
+   * Parameters -  id
+   * this function checks wheater the token(id) is avalialbe or not if customer is
+   * not login its redirect to login page
+   */
+
+  const order = () => {
     if (!id) {
-      Swal.fire("Please login first");
+      Swal.fire({
+        confirmButtonColor: "#ff0000 ",
+        text: "Please login first",
+      });
       history.push("/login");
-  
     }
-  }
+  };
   const localStorageCartData = JSON.parse(localStorage.getItem("cart")) || [];
   const mergeCartDataList = mergeCartData(cart, localStorageCartData);
+
+  /**
+ * Function Name - handleSearchedText
+ * Parameters -  event
+ * this function accepts onclicked value and store it into 
+    one varibale search and then passes it to fetch api for searchd text
+  */
+
+  const handleSearchedText = async (event) => {
+    const search = event.target.value;
+    await dispatch(fetchProductBySearchedText(search));
+  };
+
   return (
     <div>
-     
-
       <Navbar className="navbar" expand="lg" variant="dark">
         <Navbar.Brand className="brand">
           <Link to="/home" className="link">
@@ -119,7 +163,7 @@ const Header = (props) => {
                 Product
               </Link>
             </Nav.Link>
-            
+
             <Nav.Link onClick={order}>
               <Link to="/Order/orderdetails" className="link-option">
                 Order
@@ -135,11 +179,12 @@ const Header = (props) => {
               </InputGroup.Prepend>
               <FormControl
                 type="search"
-                placeholder="Products"
+                placeholder="Product Name"
                 aria-label="Products"
                 aria-describedby="basic-addon1"
                 id="gsearch"
                 name="gsearch"
+                onChange={handleSearchedText}
                 className="mr-sm-2 search-bar "
               />
             </InputGroup>
@@ -160,15 +205,17 @@ const Header = (props) => {
                   className="dropdown-btn"
                 >
                   {loginDataList.first_name}
-                  <MdAccountCircle color="black" size="2rem" />
+                  <MdAccountCircle color="black" size="1.5rem" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item className='drop-btn'>
+                  <Dropdown.Item className="drop-btn">
                     <Link to="/Order/profile" className="link-drop">
                       Profile
                     </Link>
                   </Dropdown.Item>
-                  <Dropdown.Item className='drop-btn' onClick={logout}>Logout</Dropdown.Item>
+                  <Dropdown.Item className="drop-btn" onClick={logout}>
+                    Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
@@ -178,16 +225,16 @@ const Header = (props) => {
                   id="dropdown-basic"
                   className="drop-down-btn-login"
                 >
-                  <MdPermContactCalendar color="black" size="2rem" />
+                  <MdAccountCircle color="black" size="1.5rem" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                <Dropdown.Item className='drop-btn'>
+                  <Dropdown.Item className="drop-btn">
                     <Link to="/login" className="link-drop">
                       Login
                     </Link>
                   </Dropdown.Item>
-                  <Dropdown.Item className='drop-btn'>
-                  <Link to="/register" className="link-drop">
+                  <Dropdown.Item className="drop-btn">
+                    <Link to="/register" className="link-drop">
                       Register
                     </Link>
                   </Dropdown.Item>
@@ -197,7 +244,6 @@ const Header = (props) => {
           </Form>
         </Navbar.Collapse>
       </Navbar>
-        
     </div>
   );
 };

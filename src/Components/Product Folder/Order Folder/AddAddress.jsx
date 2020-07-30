@@ -47,7 +47,7 @@ const AddAddress = () => {
 
   return (
     <div className="main-editAddress">
-      <h3 className="address-tittle">Edit Address</h3>
+      <h5 className="heading-form">Edit Address</h5>
       <hr className="address-tittle" />
        
       <Form className="edit-address-form" onSubmit={handlerSubmit}>
@@ -98,13 +98,11 @@ const AddAddress = () => {
             onChange={setCountry}
           />
         </Form.Group>
-        <Button className="edit-save" type="submit">
-          <IoMdSave />
-          save
-        </Button>
-        <Button className="edit-save" onClick={redirect}>
-          <TiCancel />
+        <Button className="edit-cancel" onClick={redirect}>
           Cancel
+        </Button>
+        <Button className="edit-save" type="submit">
+          Submit
         </Button>
       </Form>
     

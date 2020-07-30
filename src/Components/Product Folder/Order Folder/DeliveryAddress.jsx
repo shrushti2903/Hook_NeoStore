@@ -61,17 +61,14 @@ const DeliveryAddress = () => {
     history.push("/orderPlaced");
   };
   return (
-    <div>
-      
-
-      <div className="main-address">
+   <div >
         <h3 className="address-tittle">Addresses</h3>
         <hr className="address-tittle" />
 
         {data &&
           data.map((value) => {
             return (
-              <div className="address">
+              <div className="address mx-auto col-md-8">
                 <span className="address-details">{value.address}</span>
                 <br />
                 <span className="address-details">
@@ -91,7 +88,7 @@ const DeliveryAddress = () => {
                     />
                     &nbsp;&nbsp;
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={10}>
                     <Link
                       to={{
                         pathname: "/Order/editAddress",
@@ -114,8 +111,6 @@ const DeliveryAddress = () => {
           Place Order
         </Button>
       </div>
-          )}
-    </div>
   );
 };
 

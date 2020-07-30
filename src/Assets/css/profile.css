@@ -10,21 +10,29 @@
 }
 .details-fields{
     display: block;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 700;
-    margin-bottom: .5rem;
-    margin-top: .5rem;
-    margin-left: 2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+   
 }
 .edit-profile{
-    background-color: white !important;
+    background-color: red !important;
     border: none !important;
-    color: black !important;
-    margin-left: 50px;
+    color:white !important;
     margin-bottom: 20px;
-    width: 20%;
+    float: right;
+    width: 150px;
     font-size: 20px !important;
 }
 .edit-icon{
-    margin-right: 8px;
+    color: black;
+    font-size: 18px;
+    margin-top: 5px;
+}
+.heading-col{
+    width: 50% !important;
+}
+.detail-col{
+    width: 50% !important;
 }

@@ -18,8 +18,11 @@
     margin-left: 20px;
     background-color: white !important;
     border: none !important;
-    color: black !important;
+    color: white !important;
     width: 20%;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 
+}
+.gender{
+    margin-bottom: 20px !important;
 }

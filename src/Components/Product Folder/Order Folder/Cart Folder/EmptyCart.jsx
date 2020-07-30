@@ -6,8 +6,8 @@ import Button from "react-bootstrap/Button";
 const EmptyCart = () => {
   return (
     <div className="empty-cart">
-      <img className="empty-image" src="./images/emptycart.png" />
-      <h5>YOUR CART IS CURRENTLY EMPTY</h5>
+  <img className="empty-image" src='./images/emptycart.png' />
+        <h5>YOUR CART IS CURRENTLY EMPTY</h5>
       <p>
         EMPTY <br />
         Before proceed to checkout you must add some products to you shopping

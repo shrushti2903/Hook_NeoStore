@@ -61,7 +61,12 @@ import {
 import {
   FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_REQUEST,
   FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_SUCCESS,
-  FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_FAILURE
+  FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_FAILURE,
+} from "../../Constants/typeActionRedux/typeAction";
+import {
+  FETCH_PRODUCTDETAILSCLEAR_REQUEST,
+  FETCH_PRODUCTDETAILSCLEAR_SUCCESS,
+  FETCH_PRODUCTDETAILSCLEAR_FAILURE,
 } from "../../Constants/typeActionRedux/typeAction";
 const productCardData = {
   loading: true,
@@ -78,8 +83,9 @@ const productCardData = {
   productSubImage: [],
   updateProductByProductId: [],
   cartData: [],
-  updateProductRatingByCustomerId : [],
+  updateProductRatingByCustomerId: [],
   cartDataCount: 0,
+  commonProductTotalCount: 0,
 };
 
 const productCardReducer = (state = productCardData, action) => {
@@ -204,7 +210,8 @@ const productCardReducer = (state = productCardData, action) => {
       return {
         ...state,
         loading: false,
-        commonProduct: action.payload,
+        commonProduct: action.payload.product_details,
+        commonProductTotalCount: action.payload.total_count,
         error: "",
       };
       break;
@@ -213,6 +220,7 @@ const productCardReducer = (state = productCardData, action) => {
         ...state,
         loading: false,
         commonProduct: [],
+        commonProductTotalCount: 0,
         error: action.payload,
       };
       break;
@@ -334,7 +342,15 @@ const productCardReducer = (state = productCardData, action) => {
         cartDataCount: action.payload.length,
       };
       break;
-      case FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_REQUEST:
+    case FETCH_PRODUCTDETAILSCLEAR_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cartData: action.payload,
+        cartDataCount: 0,
+      };
+      break;
+    case FETCH_UPDATEPRODUCTRATINGBYCUSTOMERID_REQUEST:
       return {
         ...state,
         loading: true,

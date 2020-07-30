@@ -7,6 +7,7 @@ import { MdModeEdit } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useEffect } from "react";
+import Card from "react-bootstrap/Card";
 
 const Profile = () => {
   const loginDataList = JSON.parse(localStorage.getItem("customer"));
@@ -14,46 +15,34 @@ const Profile = () => {
     <div>
       <h3 className="profile-tittle">Profile</h3>
       <hr className="profile-tittle" />
+      <Card className='contact '>
       <Row>
-        <Col lg={3}>
-          <div>
-            <span className="details-fields">FirstName :</span>
-            <br />
-            <span className="details-fields">LastName :</span>
-            <br />
-            <span className="details-fields">Gender :</span>
-            <br />
-            <span className="details-fields">Date of Birth :</span>
-            <br />
-            <span className="details-fields">Mobile Number :</span>
-            <br />
-            <span className="details-fields">Email :</span>
-          </div>
+        <Col sm={4} className="heading-col" >
+            <label className="details-fields">FirstName :</label>
+            <label className="details-fields">LastName :</label>
+            <label className="details-fields">Gender :</label>
+            <label className="details-fields">Date of Birth :</label>
+            <label className="details-fields">Mobile Number :</label>
+            <label className="details-fields">Email :</label>
         </Col>
-        <Col lg={6}>
-          <span className="details-fields">{loginDataList.first_name} </span>
-          <br />
-          <span className="details-fields">{loginDataList.last_name} </span>
-          <br />
-          <span className="details-fields">{loginDataList.gender} </span>
-          <br />
+        <Col lg={8} className="detail-col">
+          <label className="details-fields">{loginDataList.first_name} </label>
+          <label className="details-fields">{loginDataList.last_name} </label>
+          <label className="details-fields">{loginDataList.gender} </label>
           {
             loginDataList.dob?
-            <span className="details-fields">{loginDataList.dob}</span>
+            <label className="details-fields">{loginDataList.dob}</label>
             
             :
-            <span className="details-fields">-</span>
+            <label className="details-fields">-</label>
           
           }
-          <br />
-          <span className="details-fields">{loginDataList.phone_no}</span>
-          <br />
-          <span className="details-fields">{loginDataList.email}</span>
+          <label className="details-fields">{loginDataList.phone_no}</label>
+          <label className="details-fields">{loginDataList.email}</label>
         </Col>
       </Row>
       <Row>
-        <Col lg={9}>
-          <hr className="profile-tittle" />
+        <Col lg={12}>
           <Link
             to={{
               pathname: "/Order/editProfile",
@@ -62,13 +51,14 @@ const Profile = () => {
               },
             }}
           >
-            <Button className="edit-profile">
-              <MdModeEdit className="edit-icon" />
-              Edit
+            <Button className="edit-profile" type="submit">
+            Edit
             </Button>
           </Link>
         </Col>
       </Row>
+      </Card>
+
     </div>
   );
 };

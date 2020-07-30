@@ -23,6 +23,7 @@ import { fetchCartProductDetailDelete } from "../../../../redux/action/productCa
 import { mergeCartData } from "../../../../Utils/helper";
 import EmptyCart from "./EmptyCart";
 import FullLoader from "../../../../Common/FullLoader";
+import { apiUrl } from "../../../../Constants/api";
 
 const Cart = () => {
   // const  cartDataList = useSelector( (state) => state.cartData.allCartData);
@@ -47,15 +48,22 @@ const Cart = () => {
   const history = useHistory();
   const id = localStorage.getItem("token");
   if (!id) {
-    Swal.fire("Please login first");
+    Swal.fire({
+      confirmButtonColor: "#ff0000 ",
+      text: "Please login first",
+    });
     history.push("/login");
-
   }
 
   useEffect(() => {
     const id = localStorage.getItem("token");
     dispatch(fetchGetCartData(id));
-  }, []);
+  }, [productCartDetails]);
+  /**
+   * Function Name - handlerDecrement
+   * Parameters - index
+   * this function is for decrementing the current quantity coming from api response also on decrementing quantity accordingly cost is also changing
+   */
 
   const handlerDecrement = (index) => {
     const mergeCartDataList = mergeCartData(cart, localStorageCartData);
@@ -64,12 +72,28 @@ const Cart = () => {
     setTotalcost((elem.total = elem.quantity * elem.product_cost));
   };
 
+  /**
+   * Function Name - handlerIncrement
+   * Parameters - index
+   * this function is for incrementing the current quantity coming from api response also on incrementing quantinty according cost is also chanaging
+   */
+
   const hanlerIncrement = (index) => {
     const mergeCartDataList = mergeCartData(cart, localStorageCartData);
     const elem = cartResponse[index];
     setQuantity((elem.quantity = elem.quantity + 1));
     setTotalcost((elem.total = elem.quantity * elem.product_cost));
   };
+
+  /**
+  * Function Name - handlerDelete
+  * Parameters - index
+  * in this function it takes index on click and then accordin
+     the index deleted the product added in the card 
+     also on clicking delete icon one dialong alert is pop up for confirmation on 
+     deleting this product
+  * */
+
   const handlerDelete = async (productId, index) => {
     dispatch(fetchCartProductDetailDelete(index));
     const id = localStorage.getItem("token");
@@ -78,12 +102,15 @@ const Cart = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#ff0000 ",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.value) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire({
+          confirmButtonColor: "#ff0000 ",
+          text: "Deleted! Your file has been deleted success",
+        });
         dispatch(fetchDeletProductByProductId(productId, id));
         console.log("delete success");
         const filterergeData = cartResponse.filter(
@@ -103,25 +130,24 @@ const Cart = () => {
   const gst = (subTotal * 5) / 100;
   const total = subTotal + gst;
   return (
-    <Container fluid>
-      {
-                    cartResponse.length == 0?
-                    <div className="empty-cart">
-                    <img 
-                     src='../../Assets/images/emptycart.png'></img>
-                    <h5>YOUR CART IS CURRENTLY EMPTY</h5>
-                    <p>EMPTY <br/>
-Before proceed to checkout you must add some products to you shopping cart. <br/>
-You will find lots of intresting products on our products page</p>
-<Link to='/Product'>
-<Button>Return to Product Page</Button>
-</Link>
-                    </div>
-                    :
+    <div>
+      {cartResponse.length == 0 ? (
+        <div className="empty-cart">
+          <img src="./images/emptycart.png"></img>
+          <h5>YOUR CART IS CURRENTLY EMPTY</h5>
+          <p>
+            EMPTY <br />
+            Before proceed to checkout you must add some products to you
+            shopping cart. <br />
+            You will find lots of intresting products on our products page
+          </p>
+          <Link to="/Product">
+            <Button>Return to Product Page</Button>
+          </Link>
+        </div>
+      ) : (
         <Row>
           <Col lg={8}>
-         
-            
             <Card className="table-col">
               <Table responsive>
                 <thead>
@@ -142,10 +168,7 @@ You will find lots of intresting products on our products page</p>
                           <td className="img-td">
                             <img
                               className="table-img"
-                              src={
-                                "http://180.149.241.208:3022/" +
-                                value.product_image
-                              }
+                              src={apiUrl + value.product_image}
                             />
                           </td>
                           <td>
@@ -203,7 +226,6 @@ You will find lots of intresting products on our products page</p>
                   })}
               </Table>
             </Card>
-       
           </Col>
           <Col lg={4}>
             <Card className="total-col">
@@ -250,8 +272,8 @@ You will find lots of intresting products on our products page</p>
             </Card>
           </Col>
         </Row>
-}
-    </Container>
+      )}
+    </div>
   );
 };
 

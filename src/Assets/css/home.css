@@ -21,8 +21,13 @@ height: 500px;
     text-decoration: inherit;
     color: black;
     font-size: 20px;
+    margin-bottom: 50px;
    }
 .view-all:hover{
     color: black;
     text-decoration: inherit;
+}
+.home-col{
+    margin-left: 20px !important;
+    margin-top: 50px;
 }

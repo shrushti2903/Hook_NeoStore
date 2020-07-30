@@ -25,5 +25,4 @@ const ProductRating = (props) => {
   );
 };
 
-
 export default ProductRating;

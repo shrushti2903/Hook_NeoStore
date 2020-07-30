@@ -7,16 +7,11 @@
 }
 .address-tittle{
     margin-left: 20px;
-    padding-top: 10px;
+    padding-top: 20px;
+    text-align: center;
 }
 .address-details{
     margin-left: 2rem;
-}
-.edit-Button{
-    background-color: rgb(18, 18, 95) !important;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
 }
 .address{
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
@@ -29,13 +24,13 @@
     background-repeat: no-repeat;
     height: 24px;
     width: 24px;
-    float: right;
-    background-color: rgb(216, 51, 51);
-    margin-right: 30px;
+    margin-top: 5px;
+    float: right !important;
+    background-color:black;
     color: white;
 }
 .select-radio{
-    margin-left: 15px;
+    margin-left: 25px !;
     margin-top: 3px;
     width: 20px;
     height: 20px;
@@ -49,7 +44,46 @@
     margin-left: 10px;
 }
 .order-image{
-    width: 100px;
+    width: 150px;
     height: 100px;
     margin-left: 20px;
+    margin-bottom: 20px;
+}
+.add-address{
+    background-color: red !important;
+    border: none !important;
+    color: white !important;
+    margin-bottom: 20px;
+    float: right;
+    width: 150px;
+    font-size: 20px !important;
+}
+.edit-Button{
+    background-color: red !important;
+    border: none !important;
+    color: white !important;
+    margin-top: 30px;
+    margin-right: 20px !important;
+    float: right !important;
+    width: 150px;
+    font-size: 20px !important;
+}
+.invoice-button{
+    background-color: red !important;
+    border: none !important;
+    color: white !important;
+    margin-top: 30px;
+    margin-right: 20px !important;
+    float: right !important;
+    width: 200px;
+    font-size: 20px !important;
+}
+.go-to-prouct{
+    background-color: red !important;
+    border: none !important;
+    color: white !important;
+    margin-top: 30px;
+    margin-right: 20px !important;
+    width: 200px;
+    font-size: 20px !important;
 }

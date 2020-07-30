@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -12,22 +12,56 @@ import { fetchCategory } from "../../redux/action/categoriesAction";
 import { render } from "@testing-library/react";
 
 const SlideBar = (props) => {
-  const { categoryList, colorList } = props;
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedColor, setSelectedcolor] = useState();
 
+  /**
+   * Function Name - addToCart
+   * Parameters - id
+   * this function add products in cart
+   */
+
+  const handlerCategory = (event) => {
+    console.log("id", event.target.id);
+    props.getCategoryId(event.target.id);
+    const id = event.target.id;
+    setSelectedCategory(id);
+  };
+
+  /**
+   * Function Name - handlerColor
+   * Parameters - event
+   * this function pass the id as a props to the call back function used in product page
+   */
+
+  const handleColor = (event) => {
+    props.getColorId(event.target.id);
+    const id = event.target.id;
+    setSelectedcolor(id);
+  };
+
+  /**
+   * Function Name - getAllProduct
+   * Parameters -
+   * in this function on click all category product api get call
+   */
+
+  const getAllProduct = () => {
+    props.getAllCategoryProduct();
+  };
+  const { categoryList, colorList } = props;
   return (
     <div className="side-nav">
       <div>
-        <button size="lg" className="all-product-btn">
+        <button size="lg" className="all-product-btn" onClick={getAllProduct}>
           <span className="all-Product-tittle">All Products</span>
         </button>
       </div>
       <div>
         <Accordion>
           <Accordion.Toggle className="categeries-btn" eventKey="0">
-            <span className="category-tittle">
-              <IoIosArrowDown className="category-down-arrow" />
-              Categories
-            </span>
+            <span className="category-tittle">Categories</span>
+            <IoIosArrowDown className="category-down-arrow" />
           </Accordion.Toggle>
           {categoryList &&
             categoryList.map((categories) => {
@@ -37,6 +71,17 @@ const SlideBar = (props) => {
                     <span
                       className="cat-btn-dropdown"
                       id={categories.category_id}
+                      style={{
+                        backgroundColor:
+                          categories.category_id == selectedCategory
+                            ? "red"
+                            : "white",
+                        color:
+                          categories.category_id == selectedCategory
+                            ? "white"
+                            : "black",
+                      }}
+                      onClick={handlerCategory}
                     >
                       {categories.category_name}
                     </span>
@@ -47,9 +92,8 @@ const SlideBar = (props) => {
             })}
           <br />
           <Accordion.Toggle className="categeries-btn" eventKey="1">
-            <span className="color-tittle">
-              <IoIosArrowDown className="color-down-arrow" /> Color
-            </span>
+            <span className="color-tittle">Color</span>
+            <IoIosArrowDown className="color-down-arrow" />
           </Accordion.Toggle>
           <div>
             <Row className="color-row">
@@ -63,7 +107,14 @@ const SlideBar = (props) => {
                             class="blue"
                             id={color.color_id}
                             data-type="color"
-                            style={{ backgroundColor: color.color_code }}
+                            style={{
+                              backgroundColor: color.color_code,
+                              borderColor:
+                                selectedColor == color.color_id
+                                  ? "black"
+                                  : "grey",
+                            }}
+                            onClick={handleColor}
                           ></button>
                         </Col>
                       </Card.Body>
