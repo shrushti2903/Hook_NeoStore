@@ -21,9 +21,15 @@ const AddAddress = () => {
   const [country, setCountry] = useInput();
   const AddAddressData = useSelector((state) => state.customerData.addAddress);
   const dispatch = useDispatch();
-  const loading = useSelector(
-    (state) => state.customerData.loading
-  );
+  const loading = useSelector((state) => state.customerData.loading);
+
+  /**
+ * Function Name - handlerSubmit
+ * Parameters -  event
+ * this function submitted all the field of form 
+    after validating all the field value and after  on submit api  gets called,
+ */
+
   const handlerSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
@@ -49,7 +55,7 @@ const AddAddress = () => {
     <div className="main-editAddress">
       <h5 className="heading-form">Edit Address</h5>
       <hr className="address-tittle" />
-       
+
       <Form className="edit-address-form" onSubmit={handlerSubmit}>
         <Form.Group controlId="formGridAddress1">
           <Form.Label>Address</Form.Label>
@@ -105,7 +111,6 @@ const AddAddress = () => {
           Submit
         </Button>
       </Form>
-    
     </div>
   );
 };

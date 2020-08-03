@@ -15,9 +15,7 @@ const Address = () => {
   const customerAddressList = useSelector(
     (state) => state.customerData.customerAddress
   );
-  const loading = useSelector(
-    (state) => state.customerData.loading
-  );
+  const loading = useSelector((state) => state.customerData.loading);
   const data = customerAddressList.customer_address;
   const delAddressData = useSelector(
     (state) => state.customerData.delAddressByAddressId
@@ -28,9 +26,16 @@ const Address = () => {
     const id = localStorage.getItem("token");
     dispatch(fetchCustomerAddress(id));
   }, []);
+
+  /**
+   * Function Name - handlerDeletAddress
+   * Parameters -  addressId
+   * this function delete the addres
+   */
+
   const handlerDeletAddress = (addressId) => {
     const id = localStorage.getItem("token");
-   
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -43,16 +48,15 @@ const Address = () => {
       if (result.value) {
         Swal.fire({
           confirmButtonColor: "#ff0000 ",
-          text :"Deleted! Your file has been deleted success"});
+          text: "Deleted! Your file has been deleted success",
+        });
         dispatch(fetchDelAddressByAddressId(addressId, id));
-
       }
     });
   };
- 
+
   return (
     <div>
-     
       <div>
         <h3 className="address-tittle">Address</h3>
         <hr className="address-tittle" />
@@ -60,29 +64,27 @@ const Address = () => {
           data.map((value) => {
             return (
               <div className="mx-auto md-col-6">
-                <Card className='contact '>
-                <MdCancel
-                  className="cancel-icon"
-                  onClick={() => handlerDeletAddress(value.address_id)}
-                />
-                <span className="address-details">{value.address}</span>
-                <span className="address-details">
-                  {value.city} - {value.pincode}
-                </span>
-                <span className="address-details">{value.country}</span>
-                <Link
-                  to={{
-                    pathname: "/Order/editAddress",
-                    state: {
-                      data: value,
-                    },
-                  }}
-                >
-                  <Button className="add-address">
-              Edit</Button>
-                </Link>
+                <Card className="contact ">
+                  <MdCancel
+                    className="cancel-icon"
+                    onClick={() => handlerDeletAddress(value.address_id)}
+                  />
+                  <span className="address-details">{value.address}</span>
+                  <span className="address-details">
+                    {value.city} - {value.pincode}
+                  </span>
+                  <span className="address-details">{value.country}</span>
+                  <Link
+                    to={{
+                      pathname: "/Order/editAddress",
+                      state: {
+                        data: value,
+                      },
+                    }}
+                  >
+                    <Button className="add-address">Edit</Button>
+                  </Link>
                 </Card>
-
               </div>
             );
           })}
@@ -90,7 +92,6 @@ const Address = () => {
           <Button className="add-address">Add Address</Button>
         </Link>
       </div>
-    
     </div>
   );
 };

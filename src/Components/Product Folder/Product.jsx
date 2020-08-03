@@ -104,7 +104,6 @@ const Product = (props, id) => {
   useEffect(() => {
     dispatch(fetchCategory());
     dispatch(fetchColor());
-
     dispatch(fetchAllProduct());
   }, []);
 
@@ -137,14 +136,14 @@ const Product = (props, id) => {
 
   useEffect(() => {
     console.log("category after set inside useEdffect", categoryId);
-    getColorAndCategory();
     getCommonProduct();
+    getColorAndCategory();
   }, [categoryId]);
 
   useEffect(() => {
     console.log("color after set inside useEdffect", colorId);
-    getColorAndCategory();
     getCommonProduct();
+    getColorAndCategory();
   }, [colorId]);
 
   useEffect(
@@ -189,8 +188,8 @@ const Product = (props, id) => {
    * this function filters the product according to the descending prize
    */
 
-  const handllerDescendingPrize = (event) => {
-    dispatch(fetchDescendingProduct());
+  const handllerDescendingPrize = async (event) => {
+    await dispatch(fetchDescendingProduct());
     setCategoryName("High to low in prize");
     setRating("product_cost");
     setPrize("true");
@@ -202,8 +201,8 @@ const Product = (props, id) => {
    * this function filters the product according to the Ascending prize
    */
 
-  const handllerAscendingPrize = (event) => {
-    dispatch(fetchAscendingProduct());
+  const handllerAscendingPrize = async (event) => {
+    await dispatch(fetchAscendingProduct());
     setCategoryName("Low to high in prize");
     setcolorCode("white");
     setRating("product_cost");
@@ -219,8 +218,6 @@ const Product = (props, id) => {
   const getCategoryId = async (id) => {
     console.log("categoryId", id);
     setCategoryId(id);
-    getCommonProduct();
-    getColorAndCategory();
     console.log("after set inside function", categoryId);
     await dispatch(fetchCategoryId(id));
     const categoryNameFilter = categoryList.filter(
@@ -240,8 +237,6 @@ const Product = (props, id) => {
     let id = Id;
     console.log("colorId", id);
     setColorId(id);
-    getCommonProduct();
-    getColorAndCategory();
     console.log("after set inside function", colorId);
     await dispatch(fetchColorId(id));
     const colorName = colorList.filter((color) => color._id == id);
@@ -256,10 +251,10 @@ const Product = (props, id) => {
    */
 
   const getColorAndCategory = async () => {
-    getCommonProduct();
     if (categoryId && colorId) {
       await dispatch(fetchProductByColorAndCategory(categoryId, colorId));
     }
+    getCommonProduct();
   };
 
   /**
@@ -272,6 +267,9 @@ const Product = (props, id) => {
     getCommonProduct();
     dispatch(fetchAllProduct());
     setProduct(allProductList);
+    setColorId("");
+    setCategoryId("");
+    setRating("");
     setCategoryName("All Categories");
   };
 
@@ -371,7 +369,7 @@ const Product = (props, id) => {
         </Col>
       </Row>
       <div className="pagination">
-        {totalCount > 1 ? (
+        {totalCount > 5 ? (
           <Pagination
             hideFirstLastPages
             prevPageText="Prev"

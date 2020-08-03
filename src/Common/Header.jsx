@@ -109,7 +109,6 @@ const Header = (props) => {
       }
     });
   };
-  useEffect(() => {}, [addProductToCheckoutList]);
 
   /**
    * Function Name - order
@@ -129,6 +128,7 @@ const Header = (props) => {
   };
   const localStorageCartData = JSON.parse(localStorage.getItem("cart")) || [];
   const mergeCartDataList = mergeCartData(cart, localStorageCartData);
+  const total = mergeCartDataList.length;
 
   /**
  * Function Name - handleSearchedText
@@ -192,7 +192,7 @@ const Header = (props) => {
               <Button variant="light" className="cart-button">
                 <MdShoppingCart color="black" size="1.5rem"></MdShoppingCart>
                 <Badge className="count" variant="danger">
-                  {mergeCartDataList.length}
+                  {total}
                 </Badge>
                 Cart
               </Button>

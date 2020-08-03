@@ -30,7 +30,6 @@ const OrderSidebar = () => {
   const loginDataList = JSON.parse(localStorage.getItem("customer"));
   return (
     <div>
-      
       <Row>
         <Col lg={12}>
           <h2 className="myAccount">My Account</h2>
@@ -48,7 +47,7 @@ const OrderSidebar = () => {
           <div className="profileOptions">
             <Link to={`${match.url}/orderdetails`}>
               <button className="order-btn">
-               <span className="tittle">Order</span>  &nbsp;
+                <span className="tittle">Order</span> &nbsp;
                 <RiOrderPlayLine className="mat-icon" />
               </button>
             </Link>
@@ -56,7 +55,7 @@ const OrderSidebar = () => {
           <div className="profileOptions">
             <Link to={`${match.url}/profile`}>
               <button className="order-btn">
-              <span className="tittle">Profile</span>   &nbsp; 
+                <span className="tittle">Profile</span> &nbsp;
                 <MdPermContactCalendar className="mat-icon" />
               </button>
             </Link>
@@ -64,7 +63,7 @@ const OrderSidebar = () => {
           <div className="profileOptions">
             <Link to={`${match.url}/address`}>
               <button className="order-btn" onClick={handlerChangeOrder}>
-             <span className="tittle">Address</span>   &nbsp; 
+                <span className="tittle">Address</span> &nbsp;
                 <FaAddressCard className="mat-icon" />
               </button>
             </Link>
@@ -72,40 +71,52 @@ const OrderSidebar = () => {
           <div className="profileOptions">
             <Link to={`${match.url}/changePassword`}>
               <button className="order-btn">
-               <span className="tittle">Change Password</span>  &nbsp;
+                <span className="tittle">Change Password</span> &nbsp;
                 <FaExchangeAlt className="mat-icon" />
               </button>
             </Link>
-          </div> 
+          </div>
         </Col>
         <Col lg={8}>
           <Switch>
             <Route
               path={`${match.path}/orderdetails`}
+              onUpdate={() => window.scrollTo(Headers)}
               component={OrderDetails}
             ></Route>
-            <Route path={`${match.path}/profile`} component={Profile}></Route>
-            <Route path={`${match.path}/address`} component={Address}></Route>
+            <Route
+              path={`${match.path}/profile`}
+              onUpdate={() => window.scrollTo(0, 0)}
+              component={Profile}
+            ></Route>
+            <Route
+              path={`${match.path}/address`}
+              onUpdate={() => window.scrollTo(0, 0)}
+              component={Address}
+            ></Route>
             <Route
               path={`${match.path}/changePassword`}
+              onUpdate={() => window.scrollTo(0, 0)}
               component={ChangePassword}
             ></Route>
             <Route
               path={`${match.path}/editProfile`}
+              onUpdate={() => window.scrollTo(0, 0)}
               component={ProfileEdit}
             ></Route>
             <Route
               path={`${match.path}/editAddress`}
+              onUpdate={() => window.scrollTo(0, 0)}
               component={AddressEdit}
             ></Route>
             <Route
               path={`${match.path}/addaddress`}
+              onUpdate={() => window.scrollTo(0, 0)}
               component={AddAddress}
             ></Route>
           </Switch>
         </Col>
       </Row>
-
     </div>
   );
 };

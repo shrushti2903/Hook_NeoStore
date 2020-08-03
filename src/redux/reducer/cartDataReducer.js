@@ -24,6 +24,7 @@ const cartData = {
   deletProductData: [],
   addToCart: [],
   getCartData: [],
+  cartCount: 0,
   loading: true,
   error: "",
 };
@@ -107,6 +108,7 @@ const CartDataReducer = (state = cartData, action) => {
         ...state,
         loading: false,
         getCartData: action.payload,
+        cartCount: action.payload.length,
         error: "",
       };
       break;
@@ -115,6 +117,7 @@ const CartDataReducer = (state = cartData, action) => {
         ...state,
         loading: false,
         getCartData: [],
+        cartCount: 0,
         error: action.payload,
       };
       break;

@@ -16,71 +16,72 @@ const OrderDetails = () => {
     (state) => state.customerData.customerOrderDetails
   );
   const orderDetail = orderDetails.product_details;
-  console.log('orderdetails', orderDetail)
+  console.log("orderdetails", orderDetail);
   const invoiceData = useSelector((state) => state.customerData.orderInvoice);
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("token");
     dispatch(fetchCustomerOrderDetails(token));
   }, []);
+
+  /**
+   * Function Name - inVoice
+   * Parameters -
+   * this function shows the invoice for all the order has placed
+   */
+
   const inVoice = () => {
     const token = localStorage.getItem("token");
     dispatch(fetchCutomerOrderInvoice(orderDetails, token));
   };
-  const loading = useSelector(
-    (state) => state.customerData.loading
-  );
+  const loading = useSelector((state) => state.customerData.loading);
   return (
     <div>
-      {
-        orderDetail?
-         <h2>
-         <h5 className="address-tittle">Order Details</h5>
-         <hr  />
- 
-         {orderDetail &&
-           orderDetail.map((value) => {
-             return (
-               <div className="address">
-                 <h6 className="address-details">{value._id}</h6>
-                 <hr className="address-tittle" />
-                 <br />
-                 {value &&
-                   value.product_details &&
-                   value.product_details.map((data) => {
-                     console.log(data);
-                     return (
-                       data &&
-                       data.product_details.map((val) => {
-                         return (
-                           <img
-                             className="order-image"
-                             src={
-                               apiUrl + val.product_image
-                             }
-                           />
-                         );
-                       })
-                     );
-                   })}
-                 <br />
-                 <Button onClick={inVoice} className="invoice-button">
-                   Download Invoice
-                 </Button>
-               </div>
-             );
-           })}
-       </h2>
-     
-       :
+      {orderDetail ? (
+        <h2>
+          <h5 className="address-tittle">Order Details</h5>
+          <hr />
+
+          {orderDetail &&
+            orderDetail.map((value) => {
+              return (
+                <div className="address">
+                  <h6 className="address-details">{value._id}</h6>
+                  <hr className="address-tittle" />
+                  <br />
+                  {value &&
+                    value.product_details &&
+                    value.product_details.map((data) => {
+                      console.log(data);
+                      return (
+                        data &&
+                        data.product_details.map((val) => {
+                          return (
+                            <img
+                              className="order-image"
+                              src={apiUrl + val.product_image}
+                            />
+                          );
+                        })
+                      );
+                    })}
+                  <br />
+                  <Button onClick={inVoice} className="invoice-button">
+                    Download Invoice
+                  </Button>
+                </div>
+              );
+            })}
+        </h2>
+      ) : (
         <div>
-        <h1 className="no-order">
-          No Order Found
-        </h1>
-        <Link to="/product"> <Button className="go-to-prouct">  Go to Product Page </Button></Link>
+          <h1 className="no-order">No Order Found</h1>
+          <Link to="/product">
+            {" "}
+            <Button className="go-to-prouct"> Go to Product Page </Button>
+          </Link>
         </div>
-     
-        }  
+      )}
     </div>
   );
 };

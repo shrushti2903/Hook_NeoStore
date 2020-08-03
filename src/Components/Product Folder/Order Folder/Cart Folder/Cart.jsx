@@ -58,7 +58,11 @@ const Cart = () => {
   useEffect(() => {
     const id = localStorage.getItem("token");
     dispatch(fetchGetCartData(id));
-  }, [productCartDetails]);
+  }, [productCartDetails, deletCartDataById]);
+  useEffect(() => {
+    const id = localStorage.getItem("token");
+    dispatch(fetchGetCartData(id));
+  }, [deletCartDataById]);
   /**
    * Function Name - handlerDecrement
    * Parameters - index
@@ -95,8 +99,6 @@ const Cart = () => {
   * */
 
   const handlerDelete = async (productId, index) => {
-    dispatch(fetchCartProductDetailDelete(index));
-    const id = localStorage.getItem("token");
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -111,6 +113,8 @@ const Cart = () => {
           confirmButtonColor: "#ff0000 ",
           text: "Deleted! Your file has been deleted success",
         });
+        dispatch(fetchCartProductDetailDelete(index));
+        const id = localStorage.getItem("token");
         dispatch(fetchDeletProductByProductId(productId, id));
         console.log("delete success");
         const filterergeData = cartResponse.filter(
@@ -124,6 +128,9 @@ const Cart = () => {
   const mergeCartDataList = mergeCartData(cart, localStorageCartData);
   const [cartResponse, setCartResponse] = useState(mergeCartDataList);
   console.log(cartResponse);
+  useEffect(() => {
+    setCartResponse(mergeCartDataList);
+  }, [CustomerCartData]);
   const subTotal = cartResponse.reduce((prev, cur) => {
     return prev + parseInt((cur && cur.total) || 0);
   }, 0);

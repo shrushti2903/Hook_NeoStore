@@ -28,7 +28,7 @@ const AddressEdit = () => {
   const dispatch = useDispatch();
 
   /**
- * Function Name - handleSubmit
+ * Function Name - handlerSubmit
  * Parameters -  event
  * this function submitted all the field of form 
     after validating all the field value and after validation on submit api  gets called,
