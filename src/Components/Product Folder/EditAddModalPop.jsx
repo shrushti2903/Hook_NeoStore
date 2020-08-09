@@ -30,19 +30,19 @@ const EditAddModlPop = (props) => {
     (state) => state.categoriesData.loading,
     (state) => state.colorData.loading
   );
-  const productById =
-    allProductList &&
-    allProductList.filter((product) => product._id == productId);
-  const name = productById[0].product_name;
-  const category = productById[0].category_id.category_name;
-  const color = productById[0].color_id.color_name;
-  const describtion = productById[0].product_desc;
-  const rating = productById[0].product_rating;
-  const producer = productById[0].product_producer;
-  const cost = productById[0].product_cost;
-  const stock = productById[0].product_stock;
-  const dimensions = productById[0].product_dimension;
-  const material = productById[0].product_material;
+  // const productById =
+  //   allProductList &&
+  //   allProductList.filter((product) => product._id == productId);
+  const name = productId.product_name;
+  const category = productId.category_id.category_id;
+  const color = productId.color_id.color_id;
+  const describtion = productId.product_desc;
+  const rating = productId.product_rating;
+  const producer = productId.product_producer;
+  const cost = productId.product_cost;
+  const stock = productId.product_stock;
+  const dimensions = productId.product_dimension;
+  const material = productId.product_material;
 
   const { handleClose } = props;
   const { show } = props;
@@ -85,12 +85,16 @@ const EditAddModlPop = (props) => {
     const { Id } = props;
 
     dispatch(fetchUpdateProductByProductId(Id, user));
-    if (updateProduct.status_code == 200) {
-      handleClose();
-      alert("product updated successfully");
-    }
   };
-
+useEffect(()=>{
+  if (updateProduct.status_code == 200) {
+    handleClose();
+    Swal.fire({
+      confirmButtonColor: "#ff0000 ",
+      text : "product updated successfully"
+    });
+  }
+},[updateProduct])
   return (
     <div>
       <Modal show={show} onHide={handleClose} animation={false}>
@@ -118,7 +122,7 @@ const EditAddModlPop = (props) => {
                     return (
                       <option
                         value={productCategoryId}
-                        selected={productCategoryId === value.category_name}
+                        selected={productId.color_name === value.category_name}
                         onChange={setCategoryId}
                       >
                         {value.category_name}
@@ -132,10 +136,11 @@ const EditAddModlPop = (props) => {
               <Form.Control as="select" name="productColorId">
                 {colorList &&
                   colorList.map((value) => {
+                    console.log(value)
                     return (
                       <option
                         value={productColorId}
-                        selected={productColorId === value.color_name}
+                        selected={productId.color_id.color_name === value.color_name}
                         onChange={setColorId}
                       >
                         {value.color_name}

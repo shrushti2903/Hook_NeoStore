@@ -37,7 +37,7 @@ const OrderDetails = () => {
   const loading = useSelector((state) => state.customerData.loading);
   return (
     <div>
-      {orderDetail ? (
+      {orderDetail && orderDetail.length > 0 ? (
         <h2>
           <h5 className="address-tittle">Order Details</h5>
           <hr />
@@ -65,8 +65,14 @@ const OrderDetails = () => {
                         })
                       );
                     })}
-                  <br />
                   <Button onClick={inVoice} className="invoice-button">
+                    {invoiceData && invoiceData.receipt && (
+                      <a
+                        className="a"
+                        href={apiUrl + invoiceData && invoiceData.receipt}
+                        download
+                      ></a>
+                    )}
                     Download Invoice
                   </Button>
                 </div>
@@ -75,11 +81,17 @@ const OrderDetails = () => {
         </h2>
       ) : (
         <div>
-          <h1 className="no-order">No Order Found</h1>
-          <Link to="/product">
-            {" "}
-            <Button className="go-to-prouct"> Go to Product Page </Button>
-          </Link>
+          {loading ? (
+            <FullLoader />
+          ) : (
+            <div>
+              <h1 className="no-order">No Order Found</h1>
+              <Link to="/product">
+                {" "}
+                <Button className="go-to-prouct"> Go to Product Page </Button>
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </div>

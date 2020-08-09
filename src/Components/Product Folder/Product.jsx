@@ -105,6 +105,7 @@ const Product = (props, id) => {
     dispatch(fetchCategory());
     dispatch(fetchColor());
     dispatch(fetchAllProduct());
+    getCommonProduct();
   }, []);
 
   useEffect(() => {
@@ -146,12 +147,9 @@ const Product = (props, id) => {
     getColorAndCategory();
   }, [colorId]);
 
-  useEffect(
-    (state) => {
-      setProduct(commonProductList);
-    },
-    [commonProductList]
-  );
+  useEffect(() => {
+    setProduct(commonProductList);
+  }, [commonProductList]);
 
   useEffect(() => {
     getCommonProduct();
@@ -180,6 +178,8 @@ const Product = (props, id) => {
     setRating("product_rating");
     setCategoryName("Top Rating");
     setcolorCode("white");
+    setCategoryId("");
+    setColorId("");
   };
 
   /**
@@ -193,6 +193,8 @@ const Product = (props, id) => {
     setCategoryName("High to low in prize");
     setRating("product_cost");
     setPrize("true");
+    setCategoryId("");
+    setColorId("");
   };
 
   /**
@@ -207,6 +209,8 @@ const Product = (props, id) => {
     setcolorCode("white");
     setRating("product_cost");
     setPrize("false");
+    setCategoryId("");
+    setColorId("");
   };
 
   /**

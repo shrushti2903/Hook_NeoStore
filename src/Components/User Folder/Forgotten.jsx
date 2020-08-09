@@ -50,14 +50,8 @@ const Forgotten = () => {
     const user = {
       email: email.email,
     };
-    if (Object.keys(error).length === 0 && isSubmitting) {
+    if (Object.keys(error).length === 0) {
       dispatch(fetchForgotPassworData(user));
-    }
-    if (forgotDataList.success) {
-      Swal.fire({
-        confirmButtonColor: "#ff0000 ",
-        text: forgotDataList.message,
-      });
     }
   };
 
@@ -81,7 +75,14 @@ const Forgotten = () => {
       setError(validate(email));
     }
   }, [email]);
-
+useEffect(()=>{
+  if (forgotDataList.status_code == 200) {
+    Swal.fire({
+      confirmButtonColor: "#ff0000 ",
+      text: forgotDataList.message,
+    });
+  }
+},[forgotDataList])
   return (
     <div className="main-forgotten">
       <Form className="mx-auto col-md-6 " onSubmit={handlerSubmit} noValidate>

@@ -140,6 +140,7 @@ const Header = (props) => {
   const handleSearchedText = async (event) => {
     const search = event.target.value;
     await dispatch(fetchProductBySearchedText(search));
+    history.push("/product");
   };
 
   return (

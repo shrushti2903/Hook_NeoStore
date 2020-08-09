@@ -122,7 +122,7 @@ const ProductCard = (props) => {
                     <Button
                       className="edit"
                       variant="white"
-                      onClick={() => handleShow(data.product_id)}
+                      onClick={() => handleShow(data)}
                     >
                       <MdModeEdit className="edit-icon" />
                     </Button>

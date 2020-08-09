@@ -60,8 +60,9 @@ const Footer = () => {
                   <a
                     className="a"
                     href={
-                      apiUrl + getTermsAndConditionList &&
-                      getTermsAndConditionList.fileName
+                      getTermsAndConditionList &&
+                      apiUrl &&
+                      apiUrl + getTermsAndConditionList.fileName
                     }
                     download
                   >

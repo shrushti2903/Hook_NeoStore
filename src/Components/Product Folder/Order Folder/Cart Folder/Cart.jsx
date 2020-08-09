@@ -72,7 +72,7 @@ const Cart = () => {
   const handlerDecrement = (index) => {
     const mergeCartDataList = mergeCartData(cart, localStorageCartData);
     const elem = cartResponse[index];
-    setQuantity((elem.quantity = elem.quantity > 0 ? elem.quantity - 1 : 0));
+    setQuantity((elem.quantity = elem.quantity > 1 ? elem.quantity - 1 : 1));
     setTotalcost((elem.total = elem.quantity * elem.product_cost));
   };
 
@@ -149,7 +149,7 @@ const Cart = () => {
             You will find lots of intresting products on our products page
           </p>
           <Link to="/Product">
-            <Button>Return to Product Page</Button>
+            <Button className="order-placed">Return to Product Page</Button>
           </Link>
         </div>
       ) : (

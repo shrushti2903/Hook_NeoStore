@@ -47,6 +47,8 @@ const SlideBar = (props) => {
    */
 
   const getAllProduct = () => {
+    setSelectedcolor('');
+    setSelectedCategory('');
     props.getAllCategoryProduct();
   };
   const { categoryList, colorList } = props;

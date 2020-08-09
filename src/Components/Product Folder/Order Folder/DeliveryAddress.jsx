@@ -13,10 +13,14 @@ import {
 import Form from "react-bootstrap/Form";
 import { mergeCartData } from "../../../Utils/helper";
 import FullLoader from "../../../Common/FullLoader";
+import Swal from "sweetalert2";
 
 const DeliveryAddress = () => {
   const customerAddressList = useSelector(
     (state) => state.customerData.customerAddress
+  );
+  const addProductToCheckoutList = useSelector(
+    (state) => state.customerData.addProductToCheckout
   );
   const CustomerCartData = useSelector((state) => state.cartData.getCartData);
   const cart = (CustomerCartData && CustomerCartData.product_details) || [];
@@ -36,7 +40,6 @@ const DeliveryAddress = () => {
   }, []);
   const updateAddress = (user) => {
     user.isDeliveryAddress = true;
-
     const id = localStorage.getItem("token");
     dispatch(fetchCustomerUpdateAddress(user, id));
   };
@@ -48,23 +51,43 @@ const DeliveryAddress = () => {
    */
 
   const placeOrder = () => {
-    const map =
-      mergeCartDataList &&
-      mergeCartDataList.map((value) => {
-        return {
-          _id: value.product_id,
-          product_id: value.product_id,
-          quantity: value.quantity,
-        };
-      });
-
-    map.push({ flag: "checkout" });
-    const user = map;
-    const token = localStorage.getItem("token");
-    dispatch(fetchAddProductToCartCheckout(user, token));
-    localStorage.removeItem("cart");
-    history.push("/orderPlaced");
+    if(data){
+      const map =
+        mergeCartDataList &&
+        mergeCartDataList.map((value) => {
+          return {
+            _id: value.product_id,
+            product_id: value.product_id,
+            quantity: value.quantity,
+          };
+        });
+  
+      map.push({ flag: "checkout" });
+      const user = map;
+      const token = localStorage.getItem("token");
+      if(customerUpdatedAddress.status_code == 200){
+        dispatch(fetchAddProductToCartCheckout(user, token));
+      }
+      else{
+        Swal.fire({
+          confirmButtonColor: "#ff0000 ",
+          text: 'please select address',
+        })
+      }
+    }
+    else{
+      Swal.fire({
+        confirmButtonColor: "#ff0000 ",
+        text: 'please add address first',
+      })
+    }
   };
+  useEffect(()=>{
+    if(addProductToCheckoutList.status_code == 200){
+      history.push("/orderPlaced");
+      localStorage.removeItem("cart");
+    }
+  },[addProductToCheckoutList])
   return (
     <div>
       <h3 className="address-tittle">Addresses</h3>

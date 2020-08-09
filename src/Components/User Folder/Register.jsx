@@ -80,7 +80,6 @@ const Resgister = () => {
       phone_no: phone,
       gender: gender,
     };
-    const isValid = validate;
     if (Object.keys(error).length === 0 && isSubmitting) {
       dispatch(fetchRegisterData(user));
     }

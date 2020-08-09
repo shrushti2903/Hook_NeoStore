@@ -23,12 +23,14 @@ import OrderSidebar from "./Components/Product Folder/Order Folder/OrderSideBar"
 import ProfileEdit from "./Components/Product Folder/Order Folder/ProfileEdit";
 import OrderPlaced from "./Components/Product Folder/Order Folder/OrderPlaced";
 import LocateUs from "./Components/User Folder/LocateUs";
+import ScrollToTop from "./Common/ScrollToTop";
 
 function App() {
   const token = localStorage.getItem("token");
   return (
     <Provider store={store}>
       <BrowserRouter>
+      <ScrollToTop>
         <div>
           <Header />
           <Route
@@ -113,6 +115,7 @@ function App() {
           />
           <Footer />
         </div>
+        </ScrollToTop>
       </BrowserRouter>
     </Provider>
   );

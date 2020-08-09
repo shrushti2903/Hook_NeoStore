@@ -99,14 +99,14 @@
     text-align: center;
 }
 .add-btn{
-    background-color:#00acee !important;
+    background-color:red !important;
     border: none !important;
     width: 150px;
     margin: 30px 20px;
     
 }
 .rate-btn{
-    background-color: #754b10 !important;
+    background-color: red !important;
     border: none !important;
     width: 200px;
     margin: 30px 20px;

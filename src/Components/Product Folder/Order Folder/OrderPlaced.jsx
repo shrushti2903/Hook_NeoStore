@@ -13,7 +13,7 @@ const OrderPlaced = () => {
   useEffect(() => {
     const id = localStorage.getItem("token");
     dispatch(fetchGetCartData(id));
-  }, [CustomerCartData]);
+  }, []);
   return (
     <div className="orderPlace">
 
@@ -21,7 +21,7 @@ const OrderPlaced = () => {
       <h5>Your order has been placed and is being processed</h5>
      
       <Link to="/home">
-        <Button className='edit-save'>Back to HomePage</Button>
+        <Button className='order-placed'>Back to HomePage</Button>
       </Link>
         
     </div>
